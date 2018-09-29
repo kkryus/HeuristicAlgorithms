@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace HeuristicAlgorithms
 {
-	class Program
+	interface IAlgorithmStrategy
 	{
-		static void Main(string[] args)
-		{
-			Console.ReadKey();
-		}
+		double Solve();
 	}
 }
