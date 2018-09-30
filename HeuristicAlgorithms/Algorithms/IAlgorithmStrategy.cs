@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace HeuristicAlgorithms
 {
-	class FireflyAlgorithm : IAlgorithmStrategy
+	interface IAlgorithmStrategy
 	{
-		public double Solve()
-		{
-			throw new NotImplementedException();
-		}
+		TestingFunction Function { get; set; }
+		int AmountOfArguments { get; set; }
+		double[] Arguments { get; }
+		double Solve();
 	}
 }
