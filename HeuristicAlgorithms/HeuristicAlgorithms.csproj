@@ -49,7 +49,7 @@
     <Compile Include="Functions\RastriginFunction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Algorithms\SimmulatedAnnealingAlgorithm.cs" />
+    <Compile Include="Algorithms\SimulatedAnnealingAlgorithm.cs" />
     <Compile Include="Utilities\Exceptions\AmountOfArgumentsNotSetException.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\RandomGenerator.cs" />

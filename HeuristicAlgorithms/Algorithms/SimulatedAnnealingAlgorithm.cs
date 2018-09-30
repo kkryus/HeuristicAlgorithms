@@ -8,9 +8,9 @@ using HeuristicAlgorithms.Utilities;
 
 namespace HeuristicAlgorithms
 {
-	public class SimmulatedAnnealingAlgorithm : IAlgorithmStrategy
+	public class SimulatedAnnealingAlgorithm : IAlgorithmStrategy
 	{
-		public SimmulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments)
+		public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments)
 		{
 			Function = function;
 			AmountOfArguments = amountOfArguments;

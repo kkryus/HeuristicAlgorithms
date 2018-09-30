@@ -11,7 +11,7 @@ namespace HeuristicAlgorithms
 	{
 		static void Main(string[] args)
 		{
-			IAlgorithmStrategy simmulatedAnnealing = new SimmulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
+			IAlgorithmStrategy simmulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
 			simmulatedAnnealing.Function = new RastriginFunction();
 			simmulatedAnnealing.AmountOfArguments = RastriginFunction.AmountOfArguments;
 
