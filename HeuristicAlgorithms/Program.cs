@@ -11,13 +11,13 @@ namespace HeuristicAlgorithms
 	{
 		static void Main(string[] args)
 		{
-			IAlgorithmStrategy simmulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
-			simmulatedAnnealing.Function = new RastriginFunction();
-			simmulatedAnnealing.AmountOfArguments = RastriginFunction.AmountOfArguments;
+			IAlgorithmStrategy simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
+			simulatedAnnealing.Function = new RastriginFunction();
+			simulatedAnnealing.AmountOfArguments = RastriginFunction.AmountOfArguments;
 
 			for (var i = 0; i < 100; i++)
 			{
-				Console.WriteLine(simmulatedAnnealing.Solve());
+				Console.WriteLine(simulatedAnnealing.Solve());
 			}
 			Console.ReadKey();
 		}
