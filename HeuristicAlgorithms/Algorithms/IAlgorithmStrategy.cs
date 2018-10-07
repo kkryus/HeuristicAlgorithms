@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace HeuristicAlgorithms
 {
-	interface IAlgorithmStrategy
+	interface IAlgorithmStrategy<T>
 	{
 		TestingFunction Function { get; set; }
 		int AmountOfArguments { get; set; }
-		double[] Arguments { get; }
+		T Arguments { get; }
 		double Solve();
 	}
 }

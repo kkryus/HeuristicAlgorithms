@@ -8,7 +8,7 @@ using HeuristicAlgorithms.Utilities;
 
 namespace HeuristicAlgorithms
 {
-	public class SimulatedAnnealingAlgorithm : IAlgorithmStrategy
+	public class SimulatedAnnealingAlgorithm : IAlgorithmStrategy<double[]>
 	{
 		public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments)
 		{

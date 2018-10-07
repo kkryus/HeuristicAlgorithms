@@ -12,7 +12,7 @@ namespace HeuristicAlgorithms
 	{
 		public abstract double LeftBound { get; }
 		public abstract double RightBound { get; }
-		public static int AmountOfArguments => throw new AmountOfArgumentsNotSetException(Constants.AmountOfArgumentsNotSetMessage);
+		public static int AmountOfArguments => throw new AmountOfArgumentsNotSetException(Resources.AmountOfArgumentsNotSetMessage);
 		public abstract double Solve(params double[] values);
 	}
 }

@@ -38,6 +38,13 @@ namespace HeuristicAlgorithms.Utilities
 			return random.Next(leftBound, rightBound);
 		}
 
+		public double GetSmallDouble()
+		{
+			//random double could be 0
+			double result = random.NextDouble();
+			return result > 0 ? result / 1000 : 0.00001;
+		}
+
 		public double NextDouble()
 		{
 			return random.NextDouble();

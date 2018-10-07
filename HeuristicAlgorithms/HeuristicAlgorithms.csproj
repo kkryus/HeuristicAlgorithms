@@ -44,20 +44,30 @@
   <ItemGroup>
     <Compile Include="Algorithms\IAlgorithmStrategy.cs" />
     <Compile Include="Algorithms\FireflyAlgorithm.cs" />
+    <Compile Include="Models\FireflyModel.cs" />
     <Compile Include="Functions\CircleFunction.cs" />
     <Compile Include="Functions\TestingFunction.cs" />
     <Compile Include="Functions\RastriginFunction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithms\SimulatedAnnealingAlgorithm.cs" />
+    <Compile Include="Utilities\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Exceptions\AmountOfArgumentsNotSetException.cs" />
-    <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\RandomGenerator.cs" />
     <Compile Include="Utilities\Exceptions\ValueOutOfDomainException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Utilities\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
