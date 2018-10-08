@@ -14,6 +14,10 @@ namespace HeuristicAlgorithms
 	{
 		private int amountOfArguments;
 		private int someLimit = 100000;
+		private double alpha = 0.3;
+		private double rand = 0.4;
+		private double beta0 = 1;
+		//beta(r) -> what for?
 
 		public TestingFunction Function { get; set; }
 		public int AmountOfArguments
@@ -25,6 +29,8 @@ namespace HeuristicAlgorithms
 			set
 			{
 				amountOfArguments = value;
+				//The initial population of fireflies is generated in the following
+				//form:	xi = LB + rand · (UB − LB)
 				Arguments = new FireflyModel[Int32.Parse(Resources.Fireflies)];
 				//Arguments = new double[Int32.Parse(Resources.Fireflies)][];
 				PrepareArguments(value);
@@ -33,49 +39,57 @@ namespace HeuristicAlgorithms
 
 		public FireflyModel[] Arguments { get; private set; }
 
+		//https://pdfs.semanticscholar.org/704a/4ca7d6039e65b6e764e82476431f75705f53.pdf
+		//http://fluid.ippt.gov.pl/bulletin/(60-2)363.pdf
 		public double Solve()
 		{
 			DrawVariables();
-			WriteValues();
+			SetLightIntensity();
+			//Console.WriteLine(GetDistance(Arguments[0], Arguments[1]));
+
 			Console.WriteLine("-----------------------------------------");
 			for (int repeats = 0; repeats < someLimit; repeats++)
 			{
 				for (int i = 0; i < Arguments.GetLength(0); i++)
 				{
-					Arguments[i].Value = Function.Solve(Arguments[i].Variables);
 					for (int j = 0; j < Arguments[i].Variables.GetLength(0); j++)
 					{
-						Arguments[j].Value = Function.Solve(Arguments[j].Variables);
-						if (i != j && Arguments[j].Value < Arguments[i].Value)
+						if (i != j && Arguments[j].Value > Arguments[i].Value)
 						{
-							MoveWorseFirefly(Arguments[i].Variables, Arguments[j].Variables);
+							//xi = xi + β0e−γr2ij(xj − xi) + α(rand − 1/2), 
+							//beta0 ? -> most cases its 1
+							//gamma? -> in most cases varies from 0,01 to 100
+							//rij^2?
+							//xj - xi?
+							//alfa? -> most cases its [0,1]
+							//rand - 1/2 -> rand is uniformly distributed rand [0,1]
 							//Rij
 							//double distance = outerResult - innerResult;
 						}
+						//obtain attractiveness
+						//find new solutions and update light intensity
+						SetLightIntensity();
 					}
 				}
-				Arguments.OrderBy(x => x.Value);
-			}
-			WriteValues();
+			}/**/
+			 //WriteValues();
 			Console.Write("end");/**/
 			return 5;// Function.Solve(1, 1);
 		}
 
-		private void MoveWorseFirefly(double[] better, double[] worse)
+		private double GetDistance(FireflyModel xi, FireflyModel xj)
 		{
-			//same amount of variables
-			for(int i = 0; i < better.GetLength(0); i++)
+			return Math.Sqrt(Enumerable.Zip(xi.Variables, xj.Variables, (xiVariable, xjVariable) => (xiVariable - xjVariable) * (xiVariable - xjVariable)).Sum());
+		}
+
+		private void SetLightIntensity()
+		{
+			for (int i = 0; i < Arguments.Length; i++)
 			{
-				if(better[i] > worse[i])
-				{
-					worse[i] += RandomGenerator.Instance.GetSmallDouble();
-				}
-				else
-				{
-					worse[i] -= RandomGenerator.Instance.GetSmallDouble();
-				}
+				Arguments[i].Value = Function.Solve(Arguments[i].Variables);
 			}
 		}
+
 
 		private void PrepareArguments(int value)
 		{
