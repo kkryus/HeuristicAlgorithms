@@ -12,18 +12,42 @@ namespace HeuristicAlgorithms
 	{
 		static void Main(string[] args)
 		{
-			/*IAlgorithmStrategy<double[]> simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
-			simulatedAnnealing.Function = new RastriginFunction();
-			simulatedAnnealing.AmountOfArguments = RastriginFunction.AmountOfArguments;
-
-			for (var i = 0; i < 100; i++)
+			bool algorithm = true;
+			bool circle = !true;
+			if (algorithm)
 			{
-				Console.WriteLine(simulatedAnnealing.Solve());
-			}*/
-			IAlgorithmStrategy<FireflyModel[]> firefly = new FireflyAlgorithm();
-			firefly.AmountOfArguments = 2;
-			firefly.Function = new CircleFunction();
-			firefly.Solve();
+				IAlgorithm<double[]> simulatedAnnealing;
+				if (circle)
+				{
+					simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
+					//simulatedAnnealing = new SimulatedAnnealingAlgorithm(new EasomFunction(), EasomFunction.AmountOfArguments);
+				}
+				else
+				{
+					simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments);
+				}				
+
+				for (var i = 0; i < 100; i++)
+				{
+					Console.WriteLine(simulatedAnnealing.Solve());
+				}
+			}
+			else
+			{
+				IAlgorithm<FireflyModel[]> firefly = new FireflyAlgorithm();
+				if (circle)
+				{
+					firefly.AmountOfArguments = 2;
+					firefly.Function = new CircleFunction();
+					firefly.Solve();
+				}
+				else
+				{
+
+				}
+				
+			}
+
 			Console.ReadKey();
 		}
 	}

@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\IAlgorithmStrategy.cs" />
+    <Compile Include="Algorithms\IAlgorithm.cs" />
     <Compile Include="Algorithms\FireflyAlgorithm.cs" />
+    <Compile Include="Functions\EasomFunction.cs" />
     <Compile Include="Models\FireflyModel.cs" />
     <Compile Include="Functions\CircleFunction.cs" />
     <Compile Include="Functions\TestingFunction.cs" />

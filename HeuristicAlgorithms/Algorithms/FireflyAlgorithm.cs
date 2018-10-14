@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace HeuristicAlgorithms
 {
-	public class FireflyAlgorithm : IAlgorithmStrategy<FireflyModel[]>
+	public class FireflyAlgorithm : IAlgorithm<FireflyModel[]>
 	{
 		private int amountOfArguments;
 		private int someLimit = 100000;
