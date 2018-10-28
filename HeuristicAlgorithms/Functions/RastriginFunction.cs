@@ -13,7 +13,7 @@ namespace HeuristicAlgorithms.Functions
 
 		public override double LeftBound => -5.12;
 		public override double RightBound => 5.12;
-		public static new int AmountOfArguments => 10;// RandomGenerator.Instance.GetRandomIntInDomain(0, 10);
+		public static new int AmountOfArguments => 5;// RandomGenerator.Instance.GetRandomIntInDomain(0, 10);
 
 		public override double Solve(params double[] values)
 		{
