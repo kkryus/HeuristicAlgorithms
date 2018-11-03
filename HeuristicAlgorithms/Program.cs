@@ -46,7 +46,7 @@ namespace HeuristicAlgorithms
 				//	}
 				//}
 				//}
-				lista.Add(simulatedAnnealing.Solve2(2250, 1500, 0.96));
+				lista.Add(simulatedAnnealing.Solve2(2250, 0.001, 1500, 0.96));
 				//tutaj stawiajac breakpoint's mozna przy debugowaniu zobaczyc wynik
 				lista = lista.OrderBy(x => x.bestSolution).ToList();
 				#region Zapisywanie do pliku testow, zakomentowane

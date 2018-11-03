@@ -20,6 +20,8 @@ namespace HeuristicAlgorithms
 			Arguments2 = new double[amountOfArguments];
 		}
 
+		private int maxCounter = 0;
+
 		/// <summary>
 		/// Constant temperature which will be cooled.
 		/// </summary>
@@ -105,8 +107,18 @@ namespace HeuristicAlgorithms
 		#endregion
 
 
-		public AnnealingTestingModel Solve2(double beginingTemperature, int iterations, double cooling)
+		public AnnealingTestingModel Solve2(double beginingTemperature, double endingTemperature, int iterations, double cooling)
 		{
+			//Obliczanie maxCountera
+			{
+				double tmpTemperature = beginingTemperature;
+				while (tmpTemperature > endingTemperature)
+				{
+					tmpTemperature *= cooling;
+					maxCounter++;
+				}
+			}
+
 			#region Sumaryczne wartosci wynikowe
 			double best = 0;
 			double temp = 0;
@@ -131,7 +143,7 @@ namespace HeuristicAlgorithms
 
 				//Dla kazdego nowego powtorzenia zaczynam od poczatkowej, wysokiej temperatury
 				double temperature = beginingTemperature;
-				while (temperature > 0.001)
+				while (temperature > endingTemperature)
 				{
 					for (int i = 0; i < iterations; i++)
 					{
@@ -166,7 +178,7 @@ namespace HeuristicAlgorithms
 			return new AnnealingTestingModel()
 			{
 				beginingTemperature = beginingTemperature,
-				endingTemperature = 0.001,
+				endingTemperature = endingTemperature,
 				iterations = iterations,
 				cooling = cooling,
 				bestSolution = best / repetitions,
@@ -197,19 +209,19 @@ namespace HeuristicAlgorithms
 			for (int i = 0; i < AmountOfArguments; i++)
 			{
 				//tyle razy jeszcze temperatura zostanie schlodzona
-				//359 - maksymalna wartosc counter'a dla tych parametrow
-				double leftTemperatureCoolingTimes = 359 - counter;
+				double leftTemperatureCoolingTimes = maxCounter - counter;
 				//to co wyzej, tylko w procentach
-				double leftPercent = leftTemperatureCoolingTimes / 359;
+				double leftPercent = leftTemperatureCoolingTimes / maxCounter;
 
 				//144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
 				//nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
 				double value = (100) * (leftPercent);
-				//to wydaje sie dzialac nieco gorzej
-				//double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
 
 				//losowa liczba w zakresie jak podano
 				double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
+
+				//to wydaje sie dzialac nieco gorzej
+				//double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
 				double newValue = Arguments[i] + v * temperature;
 
 				//warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
