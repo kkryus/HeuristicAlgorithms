@@ -61,13 +61,17 @@ namespace HeuristicAlgorithms
 		/// </summary>
 		public TestingFunction Function { get; set; }
 
+		#region Nie uzywane na razie
 		/// <summary>
 		/// Method searches global minimum using Simulated Annealing algorithm.
 		/// </summary>
 		/// <returns>Global minimum</returns>
 		public double Solve()
 		{
-			DrawArguments();
+			//Obecnie działam na metodzie Solve2, gdyz ta metoda jest dziedziczona z interfejsu i nie moge tak latwo zmienic typu zwracanego
+			return 5;
+
+			/*DrawArguments();
 			double bestSolution = Function.Solve(Arguments);
 			double tmpBestSolution = Function.Solve(Arguments);
 			double tmpSolution;
@@ -76,7 +80,7 @@ namespace HeuristicAlgorithms
 			{
 				for (int i = 0; i < 150; i++)
 				{
-					Move(temperature);
+					Move(5, 5);
 					tmpSolution = Function.Solve(Arguments2);
 					if (tmpSolution < bestSolution)
 					{
@@ -87,7 +91,7 @@ namespace HeuristicAlgorithms
 						tmpBestSolution = tmpSolution;
 						CopyValues();
 					}
-					else if (ShouldChangeAnyway(tmpSolution - tmpBestSolution, temperature))
+					else if (ShouldChangeAnyway(tmpSolution - tmpBestSolution, temperature, 5))
 					{
 						tmpBestSolution = tmpSolution;
 						CopyValues();
@@ -96,33 +100,44 @@ namespace HeuristicAlgorithms
 				}
 				temperature *= COOLING;
 			}
-			return bestSolution;
+			return bestSolution;*/
 		}
+		#endregion
 
 
 		public AnnealingTestingModel Solve2(double beginingTemperature, int iterations, double cooling)
 		{
+			#region Sumaryczne wartosci wynikowe
 			double best = 0;
 			double temp = 0;
-			double tempbest =0;
+			double tempbest = 0;
+			#endregion
+			#region Poczatkowe wartosci musze zainicjowac, aby na samym dole ich uzywac, a wysoka liczba i tak bedzie zmniejszona poprzez wywolanie funkcji
 			double bestSolution = 10000000000;
 			double tmpBestSolution = 1000000000000;
 			double tmpSolution = 100000;
-			int repetitions = 10;
+			#endregion
+			int repetitions = 20;
+			//Licznik ile razy dana temperatura sie zmniejszy az osiagnie wartosc minimalna
+			int counter = 0;
+			//zeby wynik byl w miare pewny, powtarzam dzialanie pewna ilosc razy sumujac wyniki, a nastepnie dzielac przez ilosc powtorzen
 			for (int k = 0; k < repetitions; k++)
 			{
-				//simulatedAnnealing.Solve();
-
+				//Losuje poczatkowe argumenty dla tablicy Arguments				
 				DrawArguments();
 				bestSolution = Function.Solve(Arguments);
 				tmpBestSolution = Function.Solve(Arguments);
-				tmpSolution = 1000000;
+				tmpSolution = Function.Solve(Arguments);
+
+				//Dla kazdego nowego powtorzenia zaczynam od poczatkowej, wysokiej temperatury
 				double temperature = beginingTemperature;
-				while (temperature > 0.01)
+				while (temperature > 0.001)
 				{
 					for (int i = 0; i < iterations; i++)
 					{
-						Move(temperature);
+						//Wykonuje pewien losowy ruch argumentow
+						//Wybiera sasiadow z tablicy Arguments do tablicy Arguments2
+						Move(counter, temperature);
 						tmpSolution = Function.Solve(Arguments2);
 						if (tmpSolution < bestSolution)
 						{
@@ -133,33 +148,33 @@ namespace HeuristicAlgorithms
 							tmpBestSolution = tmpSolution;
 							CopyValues();
 						}
-						else if (ShouldChangeAnyway(tmpSolution - tmpBestSolution, temperature))
+						//Funkcja prawdopodobienstwa, nawet jezeli wynik jest gorszy, to z pewnym prawdopodobienstwem je zamieni
+						else if (ShouldChangeAnyway(tmpBestSolution - tmpSolution, temperature, counter))
 						{
 							tmpBestSolution = tmpSolution;
 							CopyValues();
 						}
-						//File.AppendAllText(@"e:\file.txt", tmpBestSolution + Environment.NewLine);
 					}
 					temperature *= cooling;
+					counter++;
 				}
 				best += bestSolution;
 				temp += tmpSolution;
 				tempbest += tmpBestSolution;
+				counter = 0;
 			}
 			return new AnnealingTestingModel()
 			{
 				beginingTemperature = beginingTemperature,
-				endingTemperature = 0.01,
+				endingTemperature = 0.001,
 				iterations = iterations,
 				cooling = cooling,
-				bestSolution = best/ repetitions,
-				tmpBestSolution = tempbest/ repetitions,
-				tmpSolution = temp/ repetitions
+				bestSolution = best / repetitions,
+				tmpBestSolution = tempbest / repetitions,
+				tmpSolution = temp / repetitions
 			};
 			//return bestSolution;
 		}
-
-
 
 		/// <summary>
 		/// Draws arguments.
@@ -177,15 +192,71 @@ namespace HeuristicAlgorithms
 		/// <summary>
 		/// Moves arguments randomly a bit.
 		/// </summary>
-		private void Move(double temperature)
+		private void Move(int counter, double temperature)
 		{
 			for (int i = 0; i < AmountOfArguments; i++)
 			{
-				double value = 0.3;
-				double lower = Arguments[i] - value < Function.LeftBound ? Function.LeftBound : Arguments[i] - value;
-				double upper = Arguments[i] + value > Function.RightBound ? Function.RightBound : Arguments[i] + value;
-				Arguments2[i] = RandomGenerator.Instance.GetRandomDoubleInDomain(lower, upper);
+				//tyle razy jeszcze temperatura zostanie schlodzona
+				//359 - maksymalna wartosc counter'a dla tych parametrow
+				double leftTemperatureCoolingTimes = 359 - counter;
+				//to co wyzej, tylko w procentach
+				double leftPercent = leftTemperatureCoolingTimes / 359;
+
+				//144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
+				//nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
+				double value = (100) * (leftPercent);
+				//to wydaje sie dzialac nieco gorzej
+				//double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
+
+				//losowa liczba w zakresie jak podano
+				double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
+				double newValue = Arguments[i] + v * temperature;
+
+				//warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
+				if (newValue < -5.12)
+				{
+					newValue = -5.12;
+				}
+				if (newValue > 5.12)
+				{
+					newValue = 5.12;
+				}
+				Arguments2[i] = newValue;
+
+
+
+				//poprzedni sposob wybierania sasiada
+				//double value = 1;
+				//double lower = Arguments[i] - value < Function.LeftBound ? Function.LeftBound : Arguments[i] - value;
+				//double upper = Arguments[i] + value > Function.RightBound ? Function.RightBound : Arguments[i] + value;
+				//Arguments2[i] = RandomGenerator.Instance.GetRandomDoubleInDomain(lower, upper);
 			}
+		}
+
+
+		private void CopyValues()
+		{
+			for (int i = 0; i < AmountOfArguments; i++)
+			{
+				Arguments[i] = Arguments2[i];
+			}
+		}
+
+		/// <summary>
+		/// Checks if solution should change altough it's not best.
+		/// </summary>
+		/// <param name="tmpBestSolution">Best solution so far</param>
+		/// <param name="tmpSolution">Solution of temporary arguments</param>
+		/// <param name="temperature">Current temperature</param>
+		/// <returns>If solution should change</returns>
+		private bool ShouldChangeAnyway(double distance, double temperature, double counter)
+		{
+			var first = Math.Exp((distance / temperature));
+			if (first > 1)
+			{
+				;
+			}
+			return first >= RandomGenerator.Instance.NextDouble();
 		}
 
 		#region Comment
@@ -291,27 +362,5 @@ namespace HeuristicAlgorithms
 
 
 
-		private void CopyValues()
-		{
-			for (int i = 0; i < AmountOfArguments; i++)
-			{
-				Arguments[i] = Arguments2[i];
-			}
-		}
-
-		/// <summary>
-		/// Checks if solution should change altough it's not best.
-		/// </summary>
-		/// <param name="tmpBestSolution">Best solution so far</param>
-		/// <param name="tmpSolution">Solution of temporary arguments</param>
-		/// <param name="temperature">Current temperature</param>
-		/// <returns>If solution should change</returns>
-		private bool ShouldChangeAnyway(double distance, double temperature)
-		{
-			var first = Math.Exp(-(distance / temperature));
-
-			//File.AppendAllText(@"e:\file.txt", first + Environment.NewLine);
-			return first >= RandomGenerator.Instance.NextDouble();
-		}
 	}
 }

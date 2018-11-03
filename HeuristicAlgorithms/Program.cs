@@ -33,21 +33,24 @@ namespace HeuristicAlgorithms
 				var ending = simulatedAnnealing.GetEndingTemperatureArray();
 				var iterations = simulatedAnnealing.GetIterationsArray();
 				List<AnnealingTestingModel> lista = new List<AnnealingTestingModel>();
-				for(int i = 0; i < temp.Length; i++)
+				/*for(int i = 0; i < temp.Length; i++)
 				{
 					//for(int j = 0; j < ending.Length; j++)
 					//{
 						for(int k = 0; k < cooling.Length; k++)
 						{
 							for (int n = 0; n < iterations.Length; n++)
-							{							
-								lista.Add(simulatedAnnealing.Solve2(temp[i], iterations[n], cooling[k]));
-							}
-						}
-					//}
-				}
+							{	*/
+				//lista.Add(simulatedAnnealing.Solve2(temp[i], iterations[n], cooling[k]));
+				//	}
+				//	}
+				//}
+				//}
+				lista.Add(simulatedAnnealing.Solve2(2250, 1500, 0.96));
+				//tutaj stawiajac breakpoint's mozna przy debugowaniu zobaczyc wynik
 				lista = lista.OrderBy(x => x.bestSolution).ToList();
-				for(int i = 0; i < lista.Count; i++)
+				#region Zapisywanie do pliku testow, zakomentowane
+				/*for(int i = 0; i < lista.Count; i++)
 				{
 					File.AppendAllText(@"e:\bestSolution5.txt", 
 						"best solution: " + lista[i].bestSolution +
@@ -71,7 +74,8 @@ namespace HeuristicAlgorithms
 						"|iterations: " + lista[i].iterations +
 						Environment.NewLine);
 				}
-
+				*/
+				#endregion
 				//for(int i = 0; i < 5; i++)
 				//{
 				//simulatedAnnealing.Solve();
@@ -101,7 +105,7 @@ namespace HeuristicAlgorithms
 				{
 
 				}
-				
+
 			}
 
 			Console.ReadKey();
