@@ -111,6 +111,7 @@ namespace HeuristicAlgorithms
 		{
 			//Obliczanie maxCountera
 			{
+                maxCounter = 0;
 				double tmpTemperature = beginingTemperature;
 				while (tmpTemperature > endingTemperature)
 				{
@@ -129,7 +130,7 @@ namespace HeuristicAlgorithms
 			double tmpBestSolution = 1000000000000;
 			double tmpSolution = 100000;
 			#endregion
-			int repetitions = 20;
+			int repetitions = 10;
 			//Licznik ile razy dana temperatura sie zmniejszy az osiagnie wartosc minimalna
 			int counter = 0;
 			//zeby wynik byl w miare pewny, powtarzam dzialanie pewna ilosc razy sumujac wyniki, a nastepnie dzielac przez ilosc powtorzen
@@ -213,26 +214,28 @@ namespace HeuristicAlgorithms
 				//to co wyzej, tylko w procentach
 				double leftPercent = leftTemperatureCoolingTimes / maxCounter;
 
-				//144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
-				//nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
-				double value = (100) * (leftPercent);
+                //144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
+                //nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
+                double value = (0.8 * 10.24) * (leftPercent);
 
-				//losowa liczba w zakresie jak podano
-				double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
+                //warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
+                if (value < -5.12)
+                {
+                    value = -5.12;
+                }
+                if (value > 5.12)
+                {
+                    value = 5.12;
+                }
 
-				//to wydaje sie dzialac nieco gorzej
-				//double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
-				double newValue = Arguments[i] + v * temperature;
+                //losowa liczba w zakresie jak podano
+                double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
 
-				//warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
-				if (newValue < -5.12)
-				{
-					newValue = -5.12;
-				}
-				if (newValue > 5.12)
-				{
-					newValue = 5.12;
-				}
+                //to wydaje sie dzialac nieco gorzej
+                //double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
+                double newValue = Arguments[i] + v;// * temperature;
+
+				
 				Arguments2[i] = newValue;
 
 
@@ -264,10 +267,6 @@ namespace HeuristicAlgorithms
 		private bool ShouldChangeAnyway(double distance, double temperature, double counter)
 		{
 			var first = Math.Exp((distance / temperature));
-			if (first > 1)
-			{
-				;
-			}
 			return first >= RandomGenerator.Instance.NextDouble();
 		}
 
@@ -308,13 +307,13 @@ namespace HeuristicAlgorithms
 		#endregion
 
 		//500-5000?
-		//drop = 250?
+		//drop = 500?
 		// ->20?
 		public double[] GetBeginingTemperatureArray()
 		{
-			int arraySize = 18;
-			double beginingValue = 5001;
-			double dropValue = 250;
+			int arraySize = 8;
+			double beginingValue = 4001;
+			double dropValue = 500;
 			double[] beginingTemperatureArray = new double[arraySize];
 			for (int i = 0; i < arraySize; i++)
 			{
@@ -339,7 +338,7 @@ namespace HeuristicAlgorithms
 			}
 			return endingTemperatureArray;
 		}
-		//0.8 - 0.99
+		//0.91 - 0.99
 		//every 2nd
 		// -> 10
 		public double[] GetCoolingArray()
@@ -355,14 +354,14 @@ namespace HeuristicAlgorithms
 			}
 			return coolingArray;
 		}
-		//20 - 300
-		//every 40?
+		//100 - 3000
+		//every 250?
 		// -> 15?
 		public int[] GetIterationsArray()
 		{
-			int arraySize = 9;
-			int beginingValue = 300;
-			int riseValue = 40;
+			int arraySize = 13;
+			int beginingValue = 100;
+			int riseValue = 250;
 			int[] iterationsArray = new int[arraySize];
 			for (int i = 0; i < arraySize; i++)
 			{
