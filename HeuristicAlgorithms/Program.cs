@@ -50,9 +50,29 @@ namespace HeuristicAlgorithms
                 //}
                 //RosenbrockFunction oko = new RosenbrockFunction();
                 //var foo = oko.Solve(100, 55);
-                for (int h = 0; h < 5; h++)
+                double elapsedMs = 0;
+                for (int h = 0; h < 11; h++)
                 {
-                    lista.Add(simulatedAnnealing.Solve2(4000, 0.001, 2650, 0.99));
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
+                    //40k = 80%
+                    //50k = 86%
+                    //86%                    
+                    //60k = 78%
+                    //-------
+                    //dla temperatury = 100 i iteracji 50k
+                    //9/30
+                    //dla temperatury = 1000 i iteracji 50k
+                    //10/50 = 80%
+                    //dla 3k temperatury, 50k iteracji, 0.9 cooling
+                    //wyniki zle
+                    //dla 4k temp, 50k iteracji, 0.01 i 0.99
+                    //80%
+                   // dla 3k temp, 50k iteracji, 0.001, 0.99
+                   //wyniki zle
+
+                    lista.Add(simulatedAnnealing.Solve2(4000, 0.001, 50650, 0.99));
+                    watch.Stop();
+                    elapsedMs += watch.ElapsedMilliseconds;
                 }
                 //tutaj stawiajac breakpoint's mozna przy debugowaniu zobaczyc wynik
                 lista = lista.OrderBy(x => x.bestSolution).ToList();

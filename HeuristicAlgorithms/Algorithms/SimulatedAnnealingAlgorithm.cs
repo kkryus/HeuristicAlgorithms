@@ -130,7 +130,7 @@ namespace HeuristicAlgorithms
 			double tmpBestSolution = 1000000000000;
 			double tmpSolution = 100000;
 			#endregion
-			int repetitions = 10;
+			int repetitions = 1;
 			//Licznik ile razy dana temperatura sie zmniejszy az osiagnie wartosc minimalna
 			int counter = 0;
 			//zeby wynik byl w miare pewny, powtarzam dzialanie pewna ilosc razy sumujac wyniki, a nastepnie dzielac przez ilosc powtorzen
@@ -207,36 +207,32 @@ namespace HeuristicAlgorithms
 		/// </summary>
 		private void Move(int counter, double temperature)
 		{
-			for (int i = 0; i < AmountOfArguments; i++)
+            //tyle razy jeszcze temperatura zostanie schlodzona
+            double leftTemperatureCoolingTimes = maxCounter - counter;
+            //to co wyzej, tylko w procentach
+            double leftPercent = leftTemperatureCoolingTimes / maxCounter;
+            //144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
+            //nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
+            double value = (0.8 * 10.24) * (leftPercent);
+            for (int i = 0; i < AmountOfArguments; i++)
 			{
-				//tyle razy jeszcze temperatura zostanie schlodzona
-				double leftTemperatureCoolingTimes = maxCounter - counter;
-				//to co wyzej, tylko w procentach
-				double leftPercent = leftTemperatureCoolingTimes / maxCounter;
-
-                //144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
-                //nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
-                double value = (0.8 * 10.24) * (leftPercent);
-
-                //warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
-                if (value < -5.12)
-                {
-                    value = -5.12;
-                }
-                if (value > 5.12)
-                {
-                    value = 5.12;
-                }
-
                 //losowa liczba w zakresie jak podano
                 double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
 
                 //to wydaje sie dzialac nieco gorzej
                 //double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
                 double newValue = Arguments[i] + v;// * temperature;
+                //warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
+                if (newValue < -5.12)
+                {
+                    newValue = -5.12;
+                }
+                if (newValue > 5.12)
+                {
+                    newValue = 5.12;
+                }
 
-				
-				Arguments2[i] = newValue;
+                Arguments2[i] = newValue;
 
 
 

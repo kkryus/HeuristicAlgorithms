@@ -1,0 +1,66 @@
+\documentclass{report}
+
+%Packages
+%-------------------------------------------------------------------------------
+	\usepackage[T1]{fontenc}
+	\usepackage[a4paper, total={6in, 8in}]{geometry}%Margins
+	\usepackage{polski}
+	\usepackage[utf8]{inputenc}
+	\usepackage[polish]{babel}
+	\usepackage{graphicx}
+	\usepackage{fix-cm}
+	\usepackage{tocloft}%Dots in table of contents
+%-------------------------------------------------------------------------------
+%end Packages
+
+%Metadata
+%-------------------------------------------------------------------------------
+\title{Porównanie wybranych algorytmów heurystycznych w rozwiązywaniu zagadnień odwrotnych}
+\author{Kamil Kryus}
+%-------------------------------------------------------------------------------
+%end Metadata
+
+%Renew
+%-------------------------------------------------------------------------------
+%Dots in table of contents
+\renewcommand \cftchapdotsep{4.5}
+%-------------------------------------------------------------------------------
+%end Renew
+
+%Custom commands
+%-------------------------------------------------------------------------------
+\newcommand{\hugeFontSize}{}
+\newcommand{\newLine}{~\\}
+\newcommand{\si}{ś}
+%-------------------------------------------------------------------------------
+%end Custom commands
+
+
+\makeatletter
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			\Huge{\uppercase {POLITECHNIKA ŚLĄSKA}}\\ \newLine
+			\bigbreak
+			\includegraphics[width=0.4\textwidth]{logo}\\ \newLine
+			\huge{Wydział Matematyki Stosowanej} \\ \newLine
+
+			PRACA INŻYNIERSKA \\ \newLine
+		\end{center}
+			\LARGE{Temat: \@title} \\ \newLine
+			Dyplomant: \@author \\
+			Kierunek studiów: Informatyka \\
+			Specjalizacja: Programowanie Aplikacji Mobilnych \\ \newLine
+			Opiekun pracy: dr inż. Adam Zielonka \\
+	\end{titlepage}
+	\newpage
+%Table of Contents
+	\tableofcontents
+%end Table of Contents
+	\newpage
+	\chapter{Introduction}
+		\section{Foobar}
+			\subsection{Foobar2}
+	Foobar
+
+\end{document}
