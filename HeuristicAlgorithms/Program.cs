@@ -35,25 +35,13 @@ namespace HeuristicAlgorithms
                 var iterations = simulatedAnnealing.GetIterationsArray();
                 List<AnnealingTestingModel> lista = new List<AnnealingTestingModel>();
 
-                /*for (int i = 0; i < temp.Length; i++)
-                {
-                    //for(int j = 0; j < ending.Length; j++)
-                    //{
-                    for (int k = 0; k < cooling.Length; k++)
-                    {
-                        for (int n = 0; n < iterations.Length; n++)
-                        {
-                            lista.Add(simulatedAnnealing.Solve2(temp[i], 0.001, iterations[n], cooling[k]));
-                        }
-                    }
-                }/**/
-                //}
                 //RosenbrockFunction oko = new RosenbrockFunction();
                 //var foo = oko.Solve(100, 55);
                 double elapsedMs = 0;
-                for (int h = 0; h < 11; h++)
+                for (int h = 0; h < 10; h++)
                 {
                     var watch = System.Diagnostics.Stopwatch.StartNew();
+                    #region Wyniki
                     //40k = 80%
                     //50k = 86%
                     //86%                    
@@ -67,15 +55,16 @@ namespace HeuristicAlgorithms
                     //wyniki zle
                     //dla 4k temp, 50k iteracji, 0.01 i 0.99
                     //80%
-                   // dla 3k temp, 50k iteracji, 0.001, 0.99
-                   //wyniki zle
-
-                    lista.Add(simulatedAnnealing.Solve2(4000, 0.001, 50650, 0.99));
+                    // dla 3k temp, 50k iteracji, 0.001, 0.99
+                    //wyniki zle
+                    #endregion
+                    simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99);
+                    //lista.Add(simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99));
                     watch.Stop();
                     elapsedMs += watch.ElapsedMilliseconds;
                 }
                 //tutaj stawiajac breakpoint's mozna przy debugowaniu zobaczyc wynik
-                lista = lista.OrderBy(x => x.bestSolution).ToList();
+               // lista = lista.OrderBy(x => x.bestSolution).ToList();
                 #region Zapisywanie do pliku testow, zakomentowane
                 /*for(int i = 0; i < lista.Count; i++)
                 {
@@ -104,10 +93,7 @@ namespace HeuristicAlgorithms
                 ;
                 /**/
                 #endregion
-                //for(int i = 0; i < 5; i++)
-                //{
-                //simulatedAnnealing.Solve();
-                //}
+
                 //double elapsedMs = 0;
                 /*for (var i = 0; i < 100; i++)
                 {

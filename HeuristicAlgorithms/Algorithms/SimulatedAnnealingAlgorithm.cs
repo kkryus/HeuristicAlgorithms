@@ -121,24 +121,24 @@ namespace HeuristicAlgorithms
 			}
 
 			#region Sumaryczne wartosci wynikowe
-			double best = 0;
-			double temp = 0;
-			double tempbest = 0;
+			//double best = 0;
+			//double temp = 0;
+			//double tempbest = 0;
 			#endregion
 			#region Poczatkowe wartosci musze zainicjowac, aby na samym dole ich uzywac, a wysoka liczba i tak bedzie zmniejszona poprzez wywolanie funkcji
-			double bestSolution = 10000000000;
+			//double bestSolution = 10000000000;
 			double tmpBestSolution = 1000000000000;
 			double tmpSolution = 100000;
 			#endregion
-			int repetitions = 1;
+			//int repetitions = 1;
 			//Licznik ile razy dana temperatura sie zmniejszy az osiagnie wartosc minimalna
 			int counter = 0;
 			//zeby wynik byl w miare pewny, powtarzam dzialanie pewna ilosc razy sumujac wyniki, a nastepnie dzielac przez ilosc powtorzen
-			for (int k = 0; k < repetitions; k++)
-			{
+			//for (int k = 0; k < repetitions; k++)
+			//{
 				//Losuje poczatkowe argumenty dla tablicy Arguments				
 				DrawArguments();
-				bestSolution = Function.Solve(Arguments);
+				//bestSolution = Function.Solve(Arguments);
 				tmpBestSolution = Function.Solve(Arguments);
 				tmpSolution = Function.Solve(Arguments);
 
@@ -150,19 +150,19 @@ namespace HeuristicAlgorithms
 					{
 						//Wykonuje pewien losowy ruch argumentow
 						//Wybiera sasiadow z tablicy Arguments do tablicy Arguments2
-						Move(counter, temperature);
+						Move(counter);
 						tmpSolution = Function.Solve(Arguments2);
-						if (tmpSolution < bestSolution)
-						{
-							bestSolution = tmpSolution;
-						}
+						//if (tmpSolution < bestSolution)
+						//{
+						//	bestSolution = tmpSolution;
+						//}
 						if (tmpSolution < tmpBestSolution)
 						{
 							tmpBestSolution = tmpSolution;
 							CopyValues();
 						}
 						//Funkcja prawdopodobienstwa, nawet jezeli wynik jest gorszy, to z pewnym prawdopodobienstwem je zamieni
-						else if (ShouldChangeAnyway(tmpBestSolution - tmpSolution, temperature, counter))
+						else if (ShouldChangeAnyway(tmpBestSolution - tmpSolution, temperature))
 						{
 							tmpBestSolution = tmpSolution;
 							CopyValues();
@@ -170,11 +170,11 @@ namespace HeuristicAlgorithms
 					}
 					temperature *= cooling;
 					counter++;
-				}
-				best += bestSolution;
-				temp += tmpSolution;
-				tempbest += tmpBestSolution;
-				counter = 0;
+				//}
+				//best += bestSolution;
+				//temp += tmpSolution;
+				//tempbest += tmpBestSolution;
+				//counter = 0;
 			}
 			return new AnnealingTestingModel()
 			{
@@ -182,17 +182,68 @@ namespace HeuristicAlgorithms
 				endingTemperature = endingTemperature,
 				iterations = iterations,
 				cooling = cooling,
-				bestSolution = best / repetitions,
-				tmpBestSolution = tempbest / repetitions,
-				tmpSolution = temp / repetitions
+				//bestSolution = bestSolution,// / repetitions,
+				tmpBestSolution = tmpBestSolution,// / repetitions,
+				tmpSolution = tmpSolution,// / repetitions
 			};
 			//return bestSolution;
 		}
 
-		/// <summary>
-		/// Draws arguments.
-		/// </summary>
-		private void DrawArguments()
+        public void Solve3(double beginingTemperature, double endingTemperature, int iterations, double cooling)
+        {
+            //Obliczanie maxCountera
+            {
+                maxCounter = 0;
+                double tmpTemperature = beginingTemperature;
+                while (tmpTemperature > endingTemperature)
+                {
+                    tmpTemperature *= cooling;
+                    maxCounter++;
+                }
+            }
+
+            #region Poczatkowe wartosci musze zainicjowac, aby na samym dole ich uzywac, a wysoka liczba i tak bedzie zmniejszona poprzez wywolanie funkcji
+            double tmpBestSolution = 1000000000000;
+            double tmpSolution = 100000;
+            #endregion
+            //Licznik ile razy dana temperatura sie zmniejszy az osiagnie wartosc minimalna
+            int counter = 0;
+
+            {
+                //Losuje poczatkowe argumenty dla tablicy Arguments				
+                DrawArguments();
+                tmpBestSolution = Function.Solve(Arguments);
+                //tmpSolution = Function.Solve(Arguments);
+
+                //Dla kazdego nowego powtorzenia zaczynam od poczatkowej, wysokiej temperatury
+                double temperature = beginingTemperature;
+                while (temperature > endingTemperature)
+                {
+                    for (int i = 0; i < iterations; i++)
+                    {
+                        //Wykonuje pewien losowy ruch argumentow
+                        //Wybiera sasiadow z tablicy Arguments do tablicy Arguments2
+                        Move(counter);
+                        tmpSolution = Function.Solve(Arguments2);
+
+                        //Funkcja prawdopodobienstwa, nawet jezeli wynik jest gorszy, to z pewnym prawdopodobienstwem je zamieni
+                        if (tmpSolution < tmpBestSolution || ShouldChangeAnyway(tmpBestSolution - tmpSolution, temperature))
+                        {
+                            tmpBestSolution = tmpSolution;
+                            CopyValues();
+                        }                       
+                    }
+                    temperature *= cooling;
+                    counter++;
+                }
+            }
+            Console.WriteLine(tmpBestSolution + Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Draws arguments.
+        /// </summary>
+        private void DrawArguments()
 		{
 			double leftBound = Function.LeftBound;
 			double rightBound = Function.RightBound;
@@ -205,7 +256,7 @@ namespace HeuristicAlgorithms
 		/// <summary>
 		/// Moves arguments randomly a bit.
 		/// </summary>
-		private void Move(int counter, double temperature)
+		private void Move(int counter)
 		{
             //tyle razy jeszcze temperatura zostanie schlodzona
             double leftTemperatureCoolingTimes = maxCounter - counter;
@@ -213,7 +264,8 @@ namespace HeuristicAlgorithms
             double leftPercent = leftTemperatureCoolingTimes / maxCounter;
             //144,6 jest maksymalna wartoscia dla rastrigina o 5 wymiarach
             //nie wiem dlaczego przy 100 dawalo to mniej wiecej najlepsze wyniki
-            double value = (0.8 * 10.24) * (leftPercent);
+            double domainValue = (Function.RightBound - Function.LeftBound);
+            double value = (0.8 * domainValue) * (leftPercent);
             for (int i = 0; i < AmountOfArguments; i++)
 			{
                 //losowa liczba w zakresie jak podano
@@ -223,24 +275,16 @@ namespace HeuristicAlgorithms
                 //double v = RandomGenerator.Instance.GetRandomDoubleInDomain(-1, 1);
                 double newValue = Arguments[i] + v;// * temperature;
                 //warunki by nie wybierac wartosci poza zakresem, na razie na sztywno
-                if (newValue < -5.12)
+                if (newValue < Function.LeftBound)
                 {
-                    newValue = -5.12;
+                    newValue = Function.LeftBound;
                 }
-                if (newValue > 5.12)
+                if (newValue > Function.RightBound)
                 {
-                    newValue = 5.12;
+                    newValue = Function.RightBound;
                 }
 
                 Arguments2[i] = newValue;
-
-
-
-				//poprzedni sposob wybierania sasiada
-				//double value = 1;
-				//double lower = Arguments[i] - value < Function.LeftBound ? Function.LeftBound : Arguments[i] - value;
-				//double upper = Arguments[i] + value > Function.RightBound ? Function.RightBound : Arguments[i] + value;
-				//Arguments2[i] = RandomGenerator.Instance.GetRandomDoubleInDomain(lower, upper);
 			}
 		}
 
@@ -260,10 +304,10 @@ namespace HeuristicAlgorithms
 		/// <param name="tmpSolution">Solution of temporary arguments</param>
 		/// <param name="temperature">Current temperature</param>
 		/// <returns>If solution should change</returns>
-		private bool ShouldChangeAnyway(double distance, double temperature, double counter)
+		private bool ShouldChangeAnyway(double distance, double temperature)
 		{
-			var first = Math.Exp((distance / temperature));
-			return first >= RandomGenerator.Instance.NextDouble();
+			var prob = Math.Exp((distance / temperature));
+			return prob >= RandomGenerator.Instance.NextDouble();
 		}
 
 		#region Comment
