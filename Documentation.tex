@@ -10,8 +10,20 @@
 	\usepackage{graphicx}
 	\usepackage{fix-cm}
 	\usepackage{tocloft}%Dots in table of contents
+	\usepackage{indentfirst}%Indent at the begining, after section/subsection
+	\usepackage{fancyhdr}
 %-------------------------------------------------------------------------------
 %end Packages
+
+
+
+%Headers and footers
+\pagestyle{fancy}
+\chead{\Huge{\uppercase{POLITECHNIKA ŚLĄSKA}}}
+\lfoot{Gliwice, rok akadem. 2018/2019}
+%end Headers and footers
+
+
 
 %Metadata
 %-------------------------------------------------------------------------------
@@ -39,9 +51,9 @@
 \makeatletter
 \begin{document}
 	\begin{titlepage}
+	\thispagestyle{fancy}
 		\begin{center}
-			\Huge{\uppercase {POLITECHNIKA ŚLĄSKA}}\\ \newLine
-			\bigbreak
+			\newLine
 			\includegraphics[width=0.4\textwidth]{logo}\\ \newLine
 			\huge{Wydział Matematyki Stosowanej} \\ \newLine
 
@@ -58,9 +70,58 @@
 	\tableofcontents
 %end Table of Contents
 	\newpage
-	\chapter{Introduction}
-		\section{Foobar}
-			\subsection{Foobar2}
+%Wprowadzenie
+	\chapter{Wprowadzenie}
+	
+%end Wprowadzenie
+%Opis problemu
+	\chapter{Opis problemu}
+
+%end Opis problemu
+%Opis algorytmów
+	\chapter{Opis algorytmów}
+		\section{Algorytm symulowanego wyżarzania}
+			\subsection{Opis}
+	Algorytm ten został stworzony wzorując się na zjawisku wyżarzania w metalurgii, które polega na nagrzaniu elementu stalowego do odpowiedniej temperatury, przetrzymaniu go w tej temperaturze przez pewien czas, a następnie powolnym jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
+Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych losowych przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, jak np. problemu komiwojażera.
+			\subsection{Parametry}
+
+			\subsection{Kroki algorytmu}
+
+
+%end Opis algorytmów
+%Cel
+	\chapter{Cel}
+	Przetestowanie algorytmu wyżarzania, bla bla
+%end Cel
+%Funkcje testowe
+	\chapter{Funkcje testowe}
+		\section{x\^2+y\^2}
+		\section{Funkcja Rastrigina}
+		\section{Funkcja Rosenbrocka}
+%end Funkcje testowe
+%Dobór parametrów
+	\chapter{Dobór parametrów}
+
+%end Dobór parametrów
+%Implementacja
+	\chapter{Implementacja}
+
+%end Implementacja
+%Dostosowanie algorytmów do funkcji testowej zadań odwrotnych
+	\chapter{Dostosowanie algorytmów do funkcji testowej zadań odwrotnych}
+
+%end Dostoswanie algorytmów do funkcji testowej zadań odwrotnych
+%Narzędzia i technologie
+	\chapter{Narzędzia i technologie}
+		\section{Użyte narzędzia}
+
+		\section{Użyte technologie}
+%end Narzędzia i technologie
+%Podsumowanie
+	\chapter{Podsumowanie}
+%end %Podsumowanie
+		\section{Dalsze kierunki rozwoju}
 	Foobar
 
 \end{document}
