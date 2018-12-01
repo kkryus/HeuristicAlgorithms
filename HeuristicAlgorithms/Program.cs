@@ -27,7 +27,7 @@ namespace HeuristicAlgorithms
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4000, 0.001, 50000, 0.99);
                 }
                 var cooling = simulatedAnnealing.GetCoolingArray();
                 var temp = simulatedAnnealing.GetBeginingTemperatureArray();
@@ -58,7 +58,8 @@ namespace HeuristicAlgorithms
                     // dla 3k temp, 50k iteracji, 0.001, 0.99
                     //wyniki zle
                     #endregion
-                    simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99);
+                    //simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99);
+                    var okooo = simulatedAnnealing.Solve();
                     //lista.Add(simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99));
                     watch.Stop();
                     elapsedMs += watch.ElapsedMilliseconds;
