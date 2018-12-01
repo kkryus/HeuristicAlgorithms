@@ -13,7 +13,7 @@ namespace HeuristicAlgorithms.Functions
 
 		public override double LeftBound => -5.12;
 		public override double RightBound => 5.12;
-		public static new int AmountOfArguments => RandomGenerator.Instance.GetRandomIntInDomain(0, 10);
+		public static new int AmountOfArguments => 3;// RandomGenerator.Instance.GetRandomIntInDomain(0, 10);
 
 		public override double Solve(params double[] values)
 		{
@@ -28,7 +28,7 @@ namespace HeuristicAlgorithms.Functions
 		//https://arxiv.org/pdf/1207.4318.pdf
 		private double GetValueInStep(double value)
 		{
-			return ValidateDomain(value) ? ((value * value) - (A * Math.Cos(2 * Math.PI * value))) : A * value * value;
+			return ((value * value) - (A * Math.Cos(2 * Math.PI * value)));// ValidateDomain(value) ? ((value * value) - (A * Math.Cos(2 * Math.PI * value))) : A * value * value;
 		}
 
 		private bool ValidateDomain(double value)
