@@ -14,6 +14,10 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
+            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(null, 0);
+            InverseTask faisnd = new InverseTask();
+            faisnd.Solve(simulatedAnnealinga.f, simulatedAnnealinga.g, simulatedAnnealinga.h, 1, 1, 15, 480, 1, 1, 1);
+
             bool algorithm = true;
             bool circle = !true;
             if (algorithm)
@@ -124,6 +128,6 @@ namespace HeuristicAlgorithms
             }
 
             Console.ReadKey();
-        }
+        }       
     }
 }
