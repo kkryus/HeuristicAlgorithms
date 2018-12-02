@@ -14,9 +14,9 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
-            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(null, 0);
-            InverseTask faisnd = new InverseTask();
-            faisnd.Solve(simulatedAnnealinga.f, simulatedAnnealinga.g, simulatedAnnealinga.h, 1, 1, 15, 480, 1, 1, 1);
+            //SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(null, 0);
+           // InverseTask faisnd = new InverseTask();
+            //faisnd.Solve(simulatedAnnealinga.f, simulatedAnnealinga.g, simulatedAnnealinga.h, 1, 1, 15, 480, 1, 1, 1);
 
             bool algorithm = true;
             bool circle = !true;
@@ -31,7 +31,8 @@ namespace HeuristicAlgorithms
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4000, 0.001, 50000, 0.99);
+                    //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4000, 0.001, 50000, 0.99);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 4000, 0.001, 5000, 0.99);
                 }
                 var cooling = simulatedAnnealing.GetCoolingArray();
                 var temp = simulatedAnnealing.GetBeginingTemperatureArray();

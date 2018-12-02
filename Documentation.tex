@@ -2,6 +2,7 @@
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{graphicx}%obrazki
 %\drukJednostronny
 
 %% tytuł promotor iautor (\title to komenda standardowa)
@@ -50,15 +51,15 @@
 
 
 
-Na problem znalezienia optymalnego rozwiązania możemy trafić w wielu dziedzinach życia i nauki, np. w matematyce szukając globalnego minimum/maximum lub szukając najkrótszego połączenia pomiędzy kilkoma miastami (problem komiwojażera). Szukając rozwiązań, zawsze chcemy by rozwiązanie było jak najlepsze (lub dokładnie najlepsze) i zostało znalezione w rozsądnym czasie. W tym celu wła\si nie jest używana heurystyka.\\ 
+Na problem znalezienia optymalnego rozwiązania możemy trafić w wielu dziedzinach życia i nauki, np. w matematyce szukając globalnego minimum/maximum lub szukając najkrótszego połączenia pomiędzy kilkoma miastami (problem komiwojażera). Szukając rozwiązań, zawsze chcemy by było ono jak najlepsze (lub dokładnie najlepsze) i zostało znalezione w rozsądnym czasie. W tym celu wła\si nie jest używana heurystyka.\\ 
 
 
-Metody heurystyczne znacznie skracają nam czas wyszukiwania rozwiązania problemu, aczkolwiek często ich wynikiem jest jedynie wynik bardzo zbliżony do najlepszego. Pozwala jednak nam to na jedną z dwóch rzeczy:
+Metody heurystyczne znacznie skracają czas wyszukiwania rozwiązania problemu, aczkolwiek często ich wynikiem jest jedynie wynik bardzo zbliżony do najlepszego. Pozwala jednak nam to na jedną z dwóch rzeczy:
 \begin{enumerate}
 	\item zaakceptowanie takiego wyniku, gdy dokładne rozwiązanie nie jest konieczne (np. kompresja obrazu),
 	\item zawężenia zakresu i dalszych poszukiwań najlepszego rozwiązania. \\
 \end{enumerate}
-Jednak aby metodę heurystyczną uznać za dobrą, musi ona spełnić 3 wymagania:
+Jednak aby metodę heurystyczną uznać za dobrą, musi ona spełniać 3 wymagania:
 \begin{itemize}
 	\item[--] rozwiązanie jest możliwe do znalezienia z rozsądnym wysiłkiem obliczeniowym,
 	\item[--] rozwiązanie powinno być bliskie optymalnemu,
@@ -179,7 +180,9 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 
 \[f(x, y) = x^2 + y^2 \]
 
-Co\si o wykresie:
+Co\si o wykresie:\\
+\includegraphics[height=8cm]{quadraticFunction1.png}\\
+\includegraphics[height=8cm]{quadraticFunction2.png}\\
 <tutaj jakis wykres >
 
 Funkcja ta przyjmuje jedynie warto\si ci dodatnie, zakres dla potrzeb projektu został zawężony do [-10, 10], natomiast minimum globalne posiada w punkcie [0, 0] i wynosi 0. 
@@ -191,12 +194,21 @@ Funkcja ta przyjmuje jedynie warto\si ci dodatnie, zakres dla potrzeb projektu z
 gdzie: \\
 A = 10, \\
 n = ilo\si ć wymiarów \\ \newLine
+
+\includegraphics[height=8cm]{rastriginFunction1.png}\\
+\includegraphics[height=8cm]{rastriginFunction2.png}\\
+
+
 Parametry funkcji możemy znaleźć w zakresie [-5.12; 5.12], minimum globalne natomiast w punkcie [0,...,0] i wynosi 0.
 	\subsection{Funkcja Rosenbrocka}
 	Rosenbrock's valley function is known as the second function of De Jong. This test function is continuous, scalable, naturally nonseparable, nonconvex, and unimodal.
 
 
 \[f(x) = \sum_{i=1}^{n-1} [100(x_{i+1} - x_i^2)^2 + (1- x_i)^2 ]\]
+
+\includegraphics[height=8cm]{rosenbrockFunction1.png}\\
+\includegraphics[height=8cm]{rosenbrockFunction2.png}\\
+
 \section{Dobór parametrów}
 \section{Implementacja}
 \section{Dostosowanie algorytmów do funkcji testowej zadań odwrotnych}
@@ -208,7 +220,10 @@ Parametry funkcji możemy znaleźć w zakresie [-5.12; 5.12], minimum globalne n
 	\subsubsection{Podział pracy na mniejsze zadania}
 	Git
 	\subsection{Użyte technologie}
-	.NET Framework
+	.NET Framework \\
+Ponadto wykresy zawarte w dokumentacji są stworzone z pomocą programu Mathematica używanego na licencji Wydziału Matematyki Stosowanej.
+
+b labla
 \section{Podsumowanie}
 	\subsection{Dalsze kierunki rozwoju}
 	\subsection{Źródła}

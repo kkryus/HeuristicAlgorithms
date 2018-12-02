@@ -8,9 +8,11 @@ namespace HeuristicAlgorithms.Functions
 {
     class RosenbrockFunction : TestingFunction
     {
-        public override double LeftBound => -Double.MaxValue;
+        public override double LeftBound => -10;
 
-        public override double RightBound => Double.MaxValue;
+        public override double RightBound => 10;
+
+        public static new int AmountOfArguments => 3;// RandomGenerator.Instance.GetRandomIntInDomain(0, 10);
 
         public override double Solve(params double[] values)
         {
