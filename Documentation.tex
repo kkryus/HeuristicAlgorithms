@@ -3,6 +3,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}%obrazki
+\usepackage{array,etoolbox}%indeksowanie wierszy w tabelach
+\preto\tabular{\setcounter{magicrownumbers}{0}}
+\newcounter{magicrownumbers}
+\newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
+\usepackage{multirow,tabularx}
+\usepackage{etoolbox}
+\newcounter{rowcnt}
+\newcommand\rownum{\ifnumequal{\value{rowcnt}}{0}{\textbf{Nr.}}{\therowcnt.}\refstepcounter{rowcnt}}
+\AtEndEnvironment{tabularx}{\setcounter{rowcnt}{0}}
+
+
+
 %\drukJednostronny
 
 %% tytuł promotor iautor (\title to komenda standardowa)
@@ -210,6 +222,137 @@ Parametry funkcji możemy znaleźć w zakresie [-5.12; 5.12], minimum globalne n
 \includegraphics[height=8cm]{rosenbrockFunction2.png}\\
 
 \section{Dobór parametrów}
+Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
+
+Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjąłem kilka założeń, a następnie sukcesywnie poszukiwałem odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzałem jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki, a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
+
+	\subsection{Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina}
+
+Przed rozpoczęciem testów przyjęto dwa założenia:
+\begin{enumerate}
+	\item Końcowa temperatura została ustawiona na stałą warto\si ć równą 0.001,
+	\item Stopień chłodzenia temperatury został ustawiony na 0.99.
+\end{enumerate}
+
+\renewcommand\arraystretch{1.333}
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
+  \hline
+    & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
+    & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
+    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
+    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
+  \hline
+    & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
+    & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
+    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
+    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+
+\end{tabularx}
+
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
+  \hline
+    & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
+    & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
+    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
+    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+
+\end{tabularx}
+
+Ostatecznie wybrane parametry dla tego problemu:\\
+pocz temp\\
+konc temp\\
+cooling\\
+iteracje\\
+
+Badanie skutecznosci \\
+
+
+
+
+
+
+skutecznosc:\\
+
+
+
+
+
+
+	\subsection{Dobieranie parametrów dla funkcji 3 wymiarowej funkcji Rastrigina}
+Ostatecznie wybrane parametry dla tego problemu:\\
+pocz temp\\
+konc temp\\
+cooling\\
+iteracje\\
+
+
+
+
+
+
+skutecznosc:\\
+
+
+	\subsection{Parametry dobrane dla funkcji kwadratowej dwóch parametrów}
+Ostatecznie wybrane parametry dla tego problemu:\\
+pocz temp\\
+konc temp\\
+cooling\\
+iteracje\\
+
+
+
+
+
+
+skutecznosc:\\
+
+	\subsection{Parametry dobrane dla funkcji Rosenbrocka}
+Ostatecznie wybrane parametry dla tego problemu:\\
+pocz temp\\
+konc temp\\
+cooling\\
+iteracje\\
+
+
+
+
+
+
+skutecznosc:\\
+
 \section{Implementacja}
 \section{Dostosowanie algorytmów do funkcji testowej zadań odwrotnych}
 \section{Narzędzia i technologie}
