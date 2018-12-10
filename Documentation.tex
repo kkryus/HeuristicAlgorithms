@@ -235,6 +235,80 @@ Przed rozpoczęciem testów przyjęto dwa założenia:
 \end{enumerate}
 
 \renewcommand\arraystretch{1.333}
+
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+\hline
+& \textbf{ T0} & \textbf{ Iteracje} &\textbf{ Rozwiązanie}\\ \hline
+& 500 & 300 & 1,09718505292704 \\ \hline 
+& 500 & 400 & 1,29513703551228 \\ \hline 
+& 100 & 500 & 1,29579688714116 \\ \hline 
+& 300 & 400 & 1,39516546905179 \\ \hline 
+& 100 & 400 & 1,59400704106305 \\ \hline 
+& 400 & 200 & 1,59460563439097 \\ \hline 
+& 400 & 400 & 1,59473245683331 \\ \hline 
+& 300 & 500 & 1,69368418646326 \\ \hline 
+& 100 & 200 & 1,69430049805511 \\ \hline 
+& 400 & 500 & 1,69488738622795 \\ \hline 
+& 200 & 500 & 1,79356181491557 \\ \hline 
+& 500 & 200 & 1,89311831496136 \\ \hline 
+& 300 & 100 & 1,89379034166828 \\ \hline 
+& 200 & 200 & 1,89405233085409 \\ \hline 
+& 400 & 300 & 1,99208845088035 \\ \hline 
+& 500 & 500 & 1,99250333315708 \\ \hline 
+& 300 & 300 & 1,99272286399703 \\ \hline 
+& 200 & 400 & 2,09157445324622 \\ \hline 
+& 100 & 300 & 2,19168206783873 \\ \hline 
+& 300 & 200 & 2,19179918169512 \\ \hline 
+& 500 & 100 & 2,19209302230291 \\ \hline 
+& 200 & 100 & 2,19237079270076 \\ \hline 
+& 400 & 100 & 2,19237108578013 \\ \hline 
+& 200 & 300 & 2,29096718181202 \\ \hline 
+& 100 & 100 & 2,98943206230488 \\ \hline 
+\end{tabularx}
+
+Badanie zawarte w tabeli 1 pokazuje, iz parametry na takim poziomie nie maja az tak duzego znaczenia, jednak mozna zauwazyc, iz wieksza wartosc parametrow prowadzi do nieco lepszych srednich wynikow.
+Badanie skutecznosci dla najwyzszych parametrow (czyli 500 i 500) wynioslo 12\%, co jest bardzo slabym wynikiem.
+
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+                 \hline
+                 & \textbf{ T0}
+                 & \textbf{ Iteracje}
+                 &\textbf{ Rozwiązanie}\\ \hline
+& 8000 & 6000 & 0,400456362305732 \\ \hline 
+& 10000 & 4000 & 0,400942457997776 \\ \hline 
+& 4000 & 8000 & 0,499468816488703 \\ \hline 
+& 4000 & 10000 & 0,499496708877431 \\ \hline 
+& 6000 & 6000 & 0,499881155483216 \\ \hline 
+& 8000 & 8000 & 0,500190776858622 \\ \hline 
+& 8000 & 10000 & 0,500669723808464 \\ \hline 
+& 2000 & 6000 & 0,500802825547873 \\ \hline 
+& 2000 & 4000 & 0,59876018888673 \\ \hline 
+& 2000 & 8000 & 0,598944859155338 \\ \hline 
+& 10000 & 8000 & 0,69839967735632 \\ \hline 
+& 6000 & 8000 & 0,698671405088412 \\ \hline 
+& 10000 & 10000 & 0,698922421188404 \\ \hline 
+& 4000 & 6000 & 0,797834332682657 \\ \hline 
+& 6000 & 10000 & 0,798499451192562 \\ \hline 
+& 4000 & 4000 & 0,798596850008959 \\ \hline 
+& 2000 & 10000 & 0,798896772938739 \\ \hline 
+& 8000 & 4000 & 0,79899550599823 \\ \hline 
+& 10000 & 6000 & 0,898177793387154 \\ \hline 
+& 6000 & 4000 & 0,898733662378301 \\ \hline 
+& 4000 & 2000 & 0,996463628047726 \\ \hline 
+& 8000 & 2000 & 0,997870530143807 \\ \hline 
+& 6000 & 2000 & 1,09703634442711 \\ \hline 
+& 2000 & 2000 & 1,09731890136792 \\ \hline 
+& 10000 & 2000 & 1,39564290923108 \\ \hline 
+\end{tabularx}
+10k i 10k
+46\%\
+5k - 10k -> 46\%
+5k i 20k -> 58\%\
+5k i 30k ->  72\%
+
+\scalebox{0.5}{
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
   \hline
     & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
@@ -250,8 +324,36 @@ Przed rozpoczęciem testów przyjęto dwa założenia:
  & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
  & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
  & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+   & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
+    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
+    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
+ & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
 
 \end{tabularx}
+}
+
+
+
+
+
+
 
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
   \hline
