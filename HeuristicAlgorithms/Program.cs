@@ -14,9 +14,14 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
-            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(null, 0);
-            InverseProblem faisnd = new InverseProblem();
-            faisnd.Solve(simulatedAnnealinga.f, simulatedAnnealinga.g, simulatedAnnealinga.h, 1, 1, 15, 480, 1, 1, 1);
+
+            UtilitiesMethods tmp = new UtilitiesMethods();
+            InverseProblem faisnd = new InverseProblem(tmp.f, tmp.g, tmp.h, 1, 1, 15, 480, 1, 1, 1);
+            InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction = new InverseHeatConductionProblemFunction(faisnd);
+            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction, 3, 0.05, 0.01, 10, 0.99);
+            var oko = simulatedAnnealinga.Solve();
+            //inverseHeatConductionProblemFunction.Solve(1, 2, 3);
+            //faisnd.Solve();
 
             bool algorithm = true;
             bool circle = !true;
@@ -161,5 +166,7 @@ namespace HeuristicAlgorithms
 
             Console.ReadKey();
         }
+
+
     }
 }

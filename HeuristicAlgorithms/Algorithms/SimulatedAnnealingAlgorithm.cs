@@ -111,7 +111,7 @@ namespace HeuristicAlgorithms
             double bestSolution = Function.Solve(Arguments);
 
             double temperature = BeginingTemperature;
-            while (temperature > EndingTemperature || bestSolution > 0.01)
+            while (temperature > EndingTemperature)
             {
                 for (int i = 0; i < Iterations; i++)
                 {
@@ -354,19 +354,5 @@ namespace HeuristicAlgorithms
         #endregion
 
         #endregion
-
-
-        public double f(double x)
-        {
-            return x * x + 0.5;
-        }
-        public double g(double t)
-        {
-            return t + 0.5;
-        }
-        public double h(double t)
-        {
-            return t + 1.5;
-        }
     }
 }
