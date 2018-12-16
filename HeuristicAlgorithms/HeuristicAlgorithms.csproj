@@ -45,7 +45,7 @@
     <Compile Include="Algorithms\IAlgorithm.cs" />
     <Compile Include="Algorithms\FireflyAlgorithm.cs" />
     <Compile Include="Functions\EasomFunction.cs" />
-    <Compile Include="Functions\InverseTask.cs" />
+    <Compile Include="Functions\InverseProblem.cs" />
     <Compile Include="Functions\RosenbrockFunction.cs" />
     <Compile Include="Models\AnnealingTestingModel.cs" />
     <Compile Include="Models\FireflyModel.cs" />

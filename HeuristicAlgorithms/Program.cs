@@ -14,9 +14,9 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
-            //SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(null, 0);
-            // InverseTask faisnd = new InverseTask();
-            //faisnd.Solve(simulatedAnnealinga.f, simulatedAnnealinga.g, simulatedAnnealinga.h, 1, 1, 15, 480, 1, 1, 1);
+            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(null, 0);
+            InverseProblem faisnd = new InverseProblem();
+            faisnd.Solve(simulatedAnnealinga.f, simulatedAnnealinga.g, simulatedAnnealinga.h, 1, 1, 15, 480, 1, 1, 1);
 
             bool algorithm = true;
             bool circle = !true;
@@ -32,31 +32,31 @@ namespace HeuristicAlgorithms
                 else
                 {
                     simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4000, 0.001, 50000, 0.99);
-                   // simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 4000, 0.001, 5000, 0.99);
+                    // simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 4000, 0.001, 5000, 0.99);
                 }
                 //var cooling = simulatedAnnealing.GetCoolingArray();
-               // var temp = simulatedAnnealing.GetBeginingTemperatureArray();
+                // var temp = simulatedAnnealing.GetBeginingTemperatureArray();
                 //var ending = simulatedAnnealing.GetEndingTemperatureArray();
                 //var iterations = simulatedAnnealing.GetIterationsArray();
                 List<AnnealingTestingModel> lista = new List<AnnealingTestingModel>();
 
-                for(int i = 0; i < 100; i++)
-                 {
-                     lista.Add(simulatedAnnealing.Solve2(5000, 0.001, 30000, 0.99));
-                 }
+                for (int i = 0; i < 100; i++)
+                {
+                    lista.Add(simulatedAnnealing.Solve2(500, 0.001, 100000, 0.99));
+                }
 
-                 lista = lista.OrderBy(x => x.bestSolution).ToList();
-                 ;/**/
+                lista = lista.OrderBy(x => x.bestSolution).ToList();
+                ;/**/
                  //for(int i = 0; i < temp.Length; i++)
                  //for (int i = 0; i < 2; i++)
-                // {
-                     /*for(int j = 0; j < iterations.Length; j++)
-                     //for (int j = 0; j < 2; j++)
-                     {
-                         lista.Add(simulatedAnnealing.Solve2(5000, 0.001, iterations[j], 0.99));
-                     }*/
-               //  }
-                /* lista = lista.OrderBy(x => x.bestSolution).ToList();//*/
+                 // {
+                 /*for(int j = 0; j < iterations.Length; j++)
+                 //for (int j = 0; j < 2; j++)
+                 {
+                     lista.Add(simulatedAnnealing.Solve2(5000, 0.001, iterations[j], 0.99));
+                 }*/
+                 //  }
+                 /* lista = lista.OrderBy(x => x.bestSolution).ToList();//*/
 
                 /*File.AppendAllText(@"d:\secondTable.txt", @"\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
                  \hline
