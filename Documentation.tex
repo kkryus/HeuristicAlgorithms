@@ -9,6 +9,7 @@
 \newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
 \usepackage{multirow,tabularx}
 \usepackage{etoolbox}
+\usepackage{float}%obrazki na tej samej stronie
 \newcounter{rowcnt}
 \newcommand\rownum{\ifnumequal{\value{rowcnt}}{0}{\textbf{Nr.}}{\therowcnt.}\refstepcounter{rowcnt}}
 \AtEndEnvironment{tabularx}{\setcounter{rowcnt}{0}}
@@ -60,9 +61,6 @@
 
 \begin{document}
 
-
-
-
 Na problem znalezienia optymalnego rozwiązania możemy trafić w wielu dziedzinach życia i nauki, np. w matematyce szukając globalnego minimum/maximum lub szukając najkrótszego połączenia pomiędzy kilkoma miastami (problem komiwojażera). Szukając rozwiązań, zawsze chcemy by było ono jak najlepsze (lub dokładnie najlepsze) i zostało znalezione w rozsądnym czasie. W tym celu wła\si nie jest używana heurystyka.\\ 
 
 
@@ -78,36 +76,8 @@ Jednak aby metodę heurystyczną uznać za dobrą, musi ona spełniać 3 wymagan
 	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być niskie.
 \end{itemize}
 
-\section{Opis problemu}
+\section{Geneza i cel projektu}
 
-
-Tu jest wnętrze rozdziału.
-
-\begin{twa}
-Twierdzenie Twierdzenie Twierdzenie Twierdzenie Twierdzenie 
-\end{twa}
-\begin{dd}
-Twierdzenie Twierdzenie Twierdzenie Twierdzenie Twierdzenie 
-\end{dd}
-
-\thesection,\thesubsection,\thesubsubsection,
-
-\subsection{Tytuł podrozdziału}
-Francuzów sto wozów sieci purpurowe kwiaty każdy mimowolnie porządku pilnował
-\begin{equation}
-a^2+b^2=c^2.
-\end{equation}
-
-\begin{tw}
-Twierdzenie Twierdzenie Twierdzenie Twierdzenie Twierdzenie 
-\end{tw}
-
-\begin{dd}
-Twierdzenie Twierdzenie Twierdzenie Twierdzenie Twierdzenie 
-\end{dd}
-\begin{equation}
-E=mc^2.
-\end{equation}
 \subsection{Cel}
 	Przetestowanie algorytmu wyżarzania, bla bla 
 pomimo, ze najlepiej sprawdza sie w zadaniach kombinatorycznych, to jak bedzie dzialac przy szukaniu minimum globalnym i zadaniach odwrotnych
@@ -158,7 +128,7 @@ gdzie:\\
 \end{flalign}
 T - obecna warto\si ć temperatury\\
 
-Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemne), natomiast wyższa warto\si ć temperatury zwiększa prawdopodobieństwo. Decydując o tym czy powinniśmy zamienić nasze gorsze rozwiązanie z lepszym powinniśmy porównać obliczone prawdopodobieństwo z wartością losową zawierającą się w zakresie [0,1].\\ \newLine
+Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemne), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym czy powinniśmy zamienić nasze gorsze rozwiązanie z lepszym powinniśmy porównać obliczone prawdopodobieństwo z wartością losową zawierającą się w zakresie [0,1].\\ \newLine
 
 
 \noindent \underline{Zmniejszanie temperatury} \\ \newLine
@@ -188,18 +158,32 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 
 \section{Funkcje testowe}
 	\subsection{Funkcja kwadratowa dwóch parametrów}
-	Funkcja ta ma następującą postać:
+	Jako pierwszą funkcję do testów przyjąłem funkcję kwadratową dwóch parametrów następującej postaci:
+\[f(x, y) = x^2 + y^2 \] \\
 
-\[f(x, y) = x^2 + y^2 \]
+Funkcja ta jest funkcją parzystą i przyjmuje tylko warto\si ci nieujemne. Na potrzeby projektu zakres dla tej funkcji został zawężony następująco:
+\[x_i, y_i \in [-10, 10] \] \\
 
-Co\si o wykresie:\\
-\includegraphics[height=8cm]{quadraticFunction1.png}\\
-\includegraphics[height=8cm]{quadraticFunction2.png}\\
-<tutaj jakis wykres >
+Posiada ona następujące globalne minimum:
+\[ f(0, 0) = 0 \] \\
 
-Funkcja ta przyjmuje jedynie warto\si ci dodatnie, zakres dla potrzeb projektu został zawężony do [-10, 10], natomiast minimum globalne posiada w punkcie [0, 0] i wynosi 0. 
+Funkcję tę można zaprezentować na wykresie 2 wymiarowym, co prezentują następujące obrazki:\\
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=7cm]{quadraticFunction1.png}\\
+	\end{center}
+	\caption{Funkcja kwadratowa dwóch parametrów}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=7cm]{quadraticFunction2.png}\\
+	\end{center}
+	\caption{Funkcja kwadratowa dwóch parametrów}
+\end{figure}
+
+
 	\subsection{Funkcja Rastrigina}
-	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. 
+	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
 
 \[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{(2 \pi x_i)}] \]
 
@@ -207,19 +191,53 @@ gdzie: \\
 A = 10, \\
 n = ilo\si ć wymiarów \\ \newLine
 
-\includegraphics[height=8cm]{rastriginFunction1.png}\\
-\includegraphics[height=8cm]{rastriginFunction2.png}\\
+Zakres warto\si ci dla tej funkcji znajdziemy w przedziale:
+\[x_i \in [-5.12, 5.12] \] \\
+
+Posiada ona następujące globalne minimum:
+\[ f(0,...,0) = 0 \] \\
+
+By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowałem jej wykres w 2 wymiarach na poniższych obrazkach:\\
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=7cm]{rastriginFunction1.png}\\
+	\end{center}
+	\caption{Funkcja Rastrigina o 2 wymiarach}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=7cm]{rastriginFunction2.png}\\
+	\end{center}
+	\caption{Funkcja Rastrigina o 2 wymiarach}
+\end{figure}
 
 
-Parametry funkcji możemy znaleźć w zakresie [-5.12; 5.12], minimum globalne natomiast w punkcie [0,...,0] i wynosi 0.
+
 	\subsection{Funkcja Rosenbrocka}
-	Rosenbrock's valley function is known as the second function of De Jong. This test function is continuous, scalable, naturally nonseparable, nonconvex, and unimodal.
+Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
+
+\[f(x) = \sum_{i=1}^{n-1} [100(x_{i+1} - x_i^2)^2 + (1- x_i)^2 ]\] \\
 
 
-\[f(x) = \sum_{i=1}^{n-1} [100(x_{i+1} - x_i^2)^2 + (1- x_i)^2 ]\]
+Funkcja ta przyjmuje wyłącznie warto\si ci nieujemnie. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
+\[x_i \in [-10, 10] \] \\
 
-\includegraphics[height=8cm]{rosenbrockFunction1.png}\\
-\includegraphics[height=8cm]{rosenbrockFunction2.png}\\
+Posiada ona następujące globalne minimum:
+\[ f(1,...,1) = 0 \] \\
+
+Poniższe wykresy prezentują jej wygląd w zadanym zakresie:\\
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=7cm]{rosenbrockFunction1.png}\\
+	\end{center}
+	\caption{Funkcja Rosenbrocka o 2 wymiarach}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=7cm]{rosenbrockFunction2.png}\\
+	\end{center}
+	\caption{Funkcja Rosenbrocka o 2 wymiarach}
+\end{figure}
 
 \section{Dobór parametrów}
 Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
@@ -458,17 +476,25 @@ skutecznosc:\\
 \section{Implementacja}
 \section{Dostosowanie algorytmów do funkcji testowej zadań odwrotnych}
 \section{Narzędzia i technologie}
-	\subsection{Użyte narzędzia}
-	Aby zapewnić bezpieczeństwo oraz możliwo\si ć pracy w kilku miejscach nad jednym problemem, zastosowałem kilka rozwiązań.
+	\subsection{Metodyka pracy}
 	\subsubsection{System kontroli wersji}
-	Git
-	\subsubsection{Podział pracy na mniejsze zadania}
-	Git
+	System kontroli wersji posiada wiele zalet, jak m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
+W moim projekcie skorzystałem z systemu kontroli Git, a repozytorium można znaleźć na portalu github.com. 
+	\subsubsection{Github Project Management}
+Pomimo, iż praca w pojedynkę nie wymagała ode mnie zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
+	\subsubsection{\SI rodowisko programistyczne}
+Do implementacji projektu użyłem \si rodowiska Microsoft Visual Studio Community 2017, które to zostało stworzone przez firmę Microsoft i pozwala na programowanie konsolowe oraz z graficznym interfejsem użytkownika (zarówno aplikacje desktopowe, jak i strony internetowe).  \\
+Dobra znajomo\si ć i przejrzysto\si ć tego \si rodowiska programistycznego pozwoliła mi skupić się na rozwiązywaniu problemu, omijając problem zapoznawania się z nowym narzędziem.
+	\subsubsection{Mathematica}
+	Mathematica jest programem opartym na systemie obliczeń symbolicznych oraz numerycznych. Program ten jest do\si ć popularny w\si ród naukowców ze względu na wiele zalet, jak np. wydajno\si ć czy rozpięte możliwo\si ci wizualizacji danych. Mathematica jest programem komercyjnym, dlatego stworzenie wykresów do tego projektu oparłem na licencji wydziału Matematyki Stosowanej.
+	
 	\subsection{Użyte technologie}
-	.NET Framework \\
-Ponadto wykresy zawarte w dokumentacji są stworzone z pomocą programu Mathematica używanego na licencji Wydziału Matematyki Stosowanej.
+	\subsubsection{C\#}
+Język programowania C\# należy do obiektowych języków programowania, którego koncepcja opiera się na tworzeniu klas, które poprzez swoją zawarto\si ć (m.in. wła\si ciwo\si ci czy metody) mogą być reprezentowane poprzez obiekty i każde operacje są wykonywane poprzez nie. W projekcie korzystam z języka C\# w wersji 7.0, która w momencie rozpoczęcia pracy była aktualna. Dobra znajomo\si ć tego języka pozwoliła mi nie zważać na problemy w znajomo\si ci składni czy funkcji i skupić się bezpo\si rednio na implementacji algorytmów, dobraniu odpowiednich parametrów dla poszczególnych funkcji testowych oraz lepszym przetestowaniu całej funkcjonalno\si ci.
 
-b labla
+\subsubsection{Wolfram Language}
+Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
+
 \section{Podsumowanie}
 	\subsection{Dalsze kierunki rozwoju}
 	\subsection{Źródła}
