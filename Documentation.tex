@@ -76,11 +76,24 @@ Jednak aby metodę heurystyczną uznać za dobrą, musi ona spełniać 3 wymagan
 	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być niskie.
 \end{itemize}
 
-\section{Geneza i cel projektu}
+\section{Opis}
+\subsection{Opis problemu}
+Czasami w nauce, zwłaszcza w matematyce, możemy natrafić na zadanie, które będzie polegało na wyznaczeniu niektórych parametrów modelu, gdy posiadamy obserwowane warto\si ci. W odróżnieniu od "zwyczajnych" problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
+
+Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać 3 wymagania:
+\begin{enumerate}
+	\item rozwiązanie problemu musi istnieć,
+	\item każde rozwiązanie jest unikalne,
+	\item rozwiązanie zależy od danych oraz parametrów (np. małe zmiany w funkcjach wej\si cia powodują małe zmiany w rozwiązaniu). \\
+\end{enumerate}
+
+Jednym z typów problemów pasujących do grupy problemów odwrotnych, jest odwrotne zagadnienie przewodnictwa ciepła. Przy posiadaniu niekompletnego modelu matematycznego oraz funkcji opisującej rozkład temperatury, zadanie polega na rekonstrukcji niektórych granicznych parametrów modelu. 
 
 \subsection{Cel}
-	Przetestowanie algorytmu wyżarzania, bla bla 
-pomimo, ze najlepiej sprawdza sie w zadaniach kombinatorycznych, to jak bedzie dzialac przy szukaniu minimum globalnym i zadaniach odwrotnych
+
+Ze względu na dużą użyteczno\si ć algorytmów heurystycznych, postanowiłem rozwinąć swoją wiedzę na ich temat i dobrze poznać algorytm symulowanego wyżarzania i poprzez jego implementację, sprawdzić jego skuteczno\si ć i użyteczno\si ć w praktyce w przypadku kilku funkcji oraz przy rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła, tworząc przy tym aplikację rozwiązującą konkretny problem. \\ \newLine
+Stworzenie aplikacji pozwalającej na obliczenie warunków granicznych w podanym problemie odwrotnym pozwoliłoby na uzupełnianie modelu matematycznego w prosty i szybki sposób. Ponadto uniwersalne podej\si cie do implementacji danego algorytmu pozwala również na intuicyjne znajdowanie przybliżonej warto\si ci globalnego minimum funkcji.
+
 
 
 \section{Opis algorytmów}
@@ -92,7 +105,7 @@ Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych loso
 
 
 \noindent \underline{Początkowa konfiguracja} \\ \newLine
-\indent W tym kroku powinniśmy zainicjalizować naszą temperaturę wysoką wartością oraz znaleźć początkowe losowe rozwiązanie naszego problemu. 
+\indent W tym kroku powinniśmy zainicjalizować naszą temperaturę wysoką wartością oraz znaleźć początkowe, losowe rozwiązanie naszego problemu. 
 \\ \newLine
 
 \noindent \underline{Temperatura} \\ \newLine
@@ -100,7 +113,7 @@ Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych loso
 
 
 \noindent \underline{Końcowa temperatura} \\ \newLine
-\indent Jest to bardzo mała wartość. Temperatura osiągając taki poziom informuje nas iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
+\indent Jest to bardzo mała wartość. Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
 Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większa prowadziła do bardzo niskiego prawdopodobieństwa, a jednocze\si nie nie wymagało to zbyt dużej ilo\si ci iteracji. \\ \newLine
 
 
@@ -113,12 +126,11 @@ Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większ
 
 
 \noindent \underline{Funkcja kosztu} \\ \newLine
-\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna.
- W tym wypadku nowe rozwiązanie zawsze jest gorsze (a tym samym przy poszukiwaniu minimum globalnego posiada warto\si ć większą), to w tym wypadku warto\si ć jest ujemna.\\ \newLine
+\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamiany gorszego rozwiązania na lepsze. Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine  \\ \newLine
 
 
 \noindent \underline{Prawdopodobieństwo zamiany P} \\ \newLine
-\indent Prawdopodobieństwo jest potrzebne do decyzji czy zamienić nasze nowe i gorsze rozwiązanie z wcze\si niejszym, lepszym. 
+\indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i gorszego rozwiązania, z wcze\si niejszym i lepszym. 
 
 Prawdopodobieństwo zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zatem można przedstawić w następujący sposób:
 \[P = e^\frac{\Delta E}{T} \]
@@ -131,8 +143,8 @@ T - obecna warto\si ć temperatury\\
 Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemne), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym czy powinniśmy zamienić nasze gorsze rozwiązanie z lepszym powinniśmy porównać obliczone prawdopodobieństwo z wartością losową zawierającą się w zakresie [0,1].\\ \newLine
 
 
-\noindent \underline{Zmniejszanie temperatury} \\ \newLine
-\indent Szybkość zmniejszania nie powinna być zbyt duża, aby pozwolić algorytmowi na sprawdzenie jak największego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa, a tym samym finalnie pozwolić na pozostanie w gorszym rozwiązaniu. W większości opracowań można spotkać ten proces, jako mnożnik temperatury w zakresie [0.8;0.99].\\ \newLine
+\noindent \underline{Chłodzenie temperatury} \\ \newLine
+\indent Szybkość chłodzenia temperatury nie powinna być zbyt duża, aby pozwolić algorytmowi na sprawdzenie jak największego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie gorszych (lub dużo gorszych) rozwiązań. W większości opracowań można spotkać ten proces, jako mnożnik temperatury w zakresie [0.8;0.99].\\ \newLine
 		
 		\subsubsection{Kroki algorytmu}
 		
@@ -140,9 +152,9 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 
 \begin{enumerate}
 	\item Zainicjalizuj początkową konfigurację
-	\item Dopóki temperatura > minimum, powtarzaj:
+	\item Dopóki temperatura $>$ minimum, powtarzaj:
 	\begin{enumerate}
-		\item Powtórz pewną ilość razy dla danej temperatury
+		\item Powtórz zadaną ilość razy dla danej temperatury
 		\begin{enumerate}
 			\item Znajdź losowo sąsiada poprzedniego rozwiązania
 			\item Sprawdź czy rozwiązanie jest lepsze od poprzedniego (funkcja kosztu)
@@ -183,7 +195,7 @@ Funkcję tę można zaprezentować na wykresie 2 wymiarowym, co prezentują nast
 
 
 	\subsection{Funkcja Rastrigina}
-	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
+	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
 
 \[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{(2 \pi x_i)}] \]
 
@@ -191,7 +203,7 @@ gdzie: \\
 A = 10, \\
 n = ilo\si ć wymiarów \\ \newLine
 
-Zakres warto\si ci dla tej funkcji znajdziemy w przedziale:
+Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdziemy w przedziale:
 \[x_i \in [-5.12, 5.12] \] \\
 
 Posiada ona następujące globalne minimum:
@@ -219,7 +231,7 @@ Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
 \[f(x) = \sum_{i=1}^{n-1} [100(x_{i+1} - x_i^2)^2 + (1- x_i)^2 ]\] \\
 
 
-Funkcja ta przyjmuje wyłącznie warto\si ci nieujemnie. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
+Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemnie. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
 \[x_i \in [-10, 10] \] \\
 
 Posiada ona następujące globalne minimum:
@@ -474,14 +486,14 @@ iteracje\\
 skutecznosc:\\
 
 \section{Implementacja}
-\section{Dostosowanie algorytmów do funkcji testowej zadań odwrotnych}
+\section{Zastosowanie algorytmów w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
 \section{Narzędzia i technologie}
 	\subsection{Metodyka pracy}
 	\subsubsection{System kontroli wersji}
-	System kontroli wersji posiada wiele zalet, jak m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
+	System kontroli wersji posiada wiele zalet, m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
 W moim projekcie skorzystałem z systemu kontroli Git, a repozytorium można znaleźć na portalu github.com. 
 	\subsubsection{Github Project Management}
-Pomimo, iż praca w pojedynkę nie wymagała ode mnie zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
+Pomimo, iż praca w pojedynkę nie wymagała ode mnie zaawansowanego zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
 	\subsubsection{\SI rodowisko programistyczne}
 Do implementacji projektu użyłem \si rodowiska Microsoft Visual Studio Community 2017, które to zostało stworzone przez firmę Microsoft i pozwala na programowanie konsolowe oraz z graficznym interfejsem użytkownika (zarówno aplikacje desktopowe, jak i strony internetowe).  \\
 Dobra znajomo\si ć i przejrzysto\si ć tego \si rodowiska programistycznego pozwoliła mi skupić się na rozwiązywaniu problemu, omijając problem zapoznawania się z nowym narzędziem.
@@ -509,6 +521,13 @@ DOI 10.1007/978-3-540-72962-4 2, © Springer-Verlag Berlin Heidelberg 2011
 R. Mart'ı and G. Reinelt, The Linear Ordering Problem, Exact and Heuristic Methods
 in Combinatorial Optimization 175, DOI: 10.1007/978-3-642-16729-4 2,
 c Springer-Verlag Berlin Heidelberg 2011
+
+%problemy odwrotne/1 rozdzial
+http://prac.im.pwr.edu.pl/~plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
+
+https://www.math.unl.edu/~scohn1/8423/wellposed.pdf
+
+%
 
 
 ----------------------------------------------------------------------------------------------------------------------
