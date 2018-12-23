@@ -52,8 +52,13 @@ namespace HeuristicAlgorithms.Functions
 
         private double GetSecondThing(double p, double q, double s)
         {
-            double t = 2;
-            return Math.Pow(p * t, 2) + q * t + s;
+            double a = p * -1;
+            double b = 1 - q;
+            double c = 1.5 - s;
+            double delta = (b * b) / (4 * a * c);
+            double deltaSqrt = Math.Sqrt(delta);
+            double t = deltaSqrt;
+            return (p * Math.Pow(t, 2)) + (q * t) + s;
         }
 
         private double[] GetTemperatureMeasurements(int every)
