@@ -22,6 +22,10 @@ namespace HeuristicAlgorithms.Functions
 
         public double[][] Temperature { get; set; }
 
+        public double p, q, s;
+
+        private int everyXMeasurement = 48;
+
         /// <summary>
         /// p, q, s
         /// </summary>
@@ -30,34 +34,39 @@ namespace HeuristicAlgorithms.Functions
         public override double Solve(params double[] values)
         {
             double sum = 0;
-            double[] measurements = GetTemperatureMeasurements(48);
+            double[] measurements = GetTemperatureMeasurements(everyXMeasurement);
             for (int i = 0; i < measurements.Length; i++)
             {
-                double firstPart = InverseProblem.T * measurements[i] * InverseProblem.tau;
-                double secondPart = GetSecondThing(values) * measurements[i] * InverseProblem.tau;
+                double firstPart = InverseProblem.T * measurements[i] * (i*InverseProblem.tau);
+                //double secondPart = GetSecondThing(i, values) * measurements[i] * InverseProblem.tau;
+                double secondPart = GetSecondThing(values[0], values[1], values[2], i) * measurements[i] * (i*InverseProblem.tau);
                 double together = firstPart - secondPart;
                 sum += Math.Pow(together, 2);
+            }
+            if(sum < 0.001)
+            {
+                ;
             }
             return sum;
         }
 
-        private double GetSecondThing(params double[] values)
+        private double GetSecondThing(int iterator, params double[] values)
         {
-            if(values.Length < 3)
+            //p,q,s
+            if (values.Length < 3)
             {
                 throw new Exception();
             }
-            return GetSecondThing(values[0], values[1], values[2]);
+            return GetSecondThing(values[0], values[1], values[2], iterator);
         }
 
-        private double GetSecondThing(double p, double q, double s)
+        private double GetSecondThing(double p, double q, double s, int i)
         {
-            double a = p * -1;
-            double b = 1 - q;
-            double c = 1.5 - s;
-            double delta = (b * b) / (4 * a * c);
-            double deltaSqrt = Math.Sqrt(delta);
-            double t = deltaSqrt;
+            double t = ( everyXMeasurement * i) * InverseProblem.tau;
+
+            this.p = p;
+            this.q = q;
+            this.s = s;          
             return (p * Math.Pow(t, 2)) + (q * t) + s;
         }
 
