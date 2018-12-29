@@ -10,7 +10,7 @@ namespace HeuristicAlgorithms.Utilities
     {
         public double f(double x)
         {
-            return x * x + 0.5;
+            return 0.5*(x * x) + 0.5;
         }
         public double g(double t)
         {
@@ -18,7 +18,7 @@ namespace HeuristicAlgorithms.Utilities
         }
         public double h(double t)
         {
-            return t + 1.5;
+            return t + 1;
         }
     }
 }
