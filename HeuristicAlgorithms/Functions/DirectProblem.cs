@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HeuristicAlgorithms.Functions
 {
-    class InverseProblem
+    class DirectProblem
     {
-        public InverseProblem(Func<double, double> f, Func<double, double> g, Func<double, double> h, double a, double T, int nx, int nt, double c, double rho, double lambda)
+        public DirectProblem(Func<double, double> f, Func<double, double> g, Func<double, double> h, double a, double T, int nx, int nt, double c, double rho, double lambda)
         {
             this.f = f;
             this.g = g;

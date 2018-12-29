@@ -486,6 +486,129 @@ iteracje\\
 skutecznosc:\\
 
 \section{Implementacja}
+
+Moja implementacja algorytmu symulowanego wyżarzania składą się z kilku etapów, przedstawionych w roździale 2.1.2, które zostaną omówione i/lub zostanie przedstawiona ich implementacja. \\
+
+
+\underline{Używane parametry i zmienne} \\
+Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, ustawiam mu kilka parametrów na wej\si cie, a konkretniej problem do rozwiązania i parametry samego algorytmu. W moim programie nazywane są: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{Iterations}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
+
+\textbf{Function} jest zmienną, która przetrzymuje obiekt problemu. Każdy problem musi dziedziczyć po klasie abstrakcyjnej ,,TestingFunction", co zapewnia uniwersalno\si ć stosowania algorytmu symulowanego wyżarzania oraz zapewnia nasz algorytm, iż implementacja samego problemu będzie posiadać pewne cechy (jak np. jawnie okre\si loną ilo\si ć wymiarów). \\
+
+\textbf{Arguments} jest wła\si ciwo\si cią, która przetrzymuje w sobie tablicę argumentów dla obecnie najlepszego rozwiązania problemu. \\
+
+\textbf{Arguments2} za to jest tablicą argumentów dla tymczasowego rozwiązania. Jest tego samego rozmiaru, co zmienna \textbf{Arguments}. \\
+
+\textbf{Iterations} jest liczbą wewnętrznych iteracji. Tyle razy algorytm będzie szukał sąsiadów najlepszego rozwiązania, zanim obniży temperaturę. \\
+
+\textbf{BeginingTemperature} - jest to warto\si ć, od której rozpoczyna się proces poszukiwań.\\ 
+
+\textbf{EndingTemperature} jest liczbą, która informuje o zakończeniu iteracji. Gdy warto\si ć zmiennej \textbf{temperature} spadnie do tego poziomu, proces poszukiwania się zakończył. \\
+
+\textbf{Cooling}, w każdym kroku zmienna \textbf{temperature} jest mnożona przez tą warto\si ć. Jest ona mniejsza od 1, więc temperatura powoli się obniża. \\
+
+\textbf{SatisfactionSolutionValue} jest minimalną liczbą, jaką rozwiązanie musi osiągnąć, aby wynik poszukiwania rozwiązania był dla satysfakcjonujący. Jest to zmienna opcjonalna, algorytm nadal będzie działać, gdy nie poda się jej warto\si ci.\\
+
+W programie również używam kilku pomocnicznych zmiennych: \\
+
+\textbf{temperature} jest zmienną używaną w "globalnej" iteracji oraz przy sprawdzaniu funkcji prawdopodobieństwa. Z postępem iteracji maleje ona. \\
+
+\textbf{bestSolution} jest obecnie najlepszym wynikiem rozwiązania. Finalnie będzie ona najlepszym rozwiązaniem całego problemu. \\
+
+\textbf{tmpSolution} jest tymczasowym wynikiem rozwiązania (wynikiem rozwiązania problemu dla parametrów ze zmiennej \textbf{Arguments2}). \\
+
+\textbf{counter} jest liczbą oznaczającą obecną iterację. \\
+
+\underline{Funkcja SetMaxCounter()} \\
+W funkcji tej symuluję proces obniżania temperatury aby obliczyć maksymalną ilo\si ć globalnych iteracji. \\
+\begin{verbatim}
+private void SetMaxCounter()
+{
+    maxCounter = 0;
+    double tmpTemperature = BeginingTemperature;
+    while (tmpTemperature > EndingTemperature)
+    {
+        tmpTemperature *= Cooling;
+        maxCounter++;
+    }
+}
+\end{verbatim}
+
+\underline{Funkcja DrawArguments()} \\
+W metodzie tej losuję początkowe argumenty (zmienna \textbf{Arguments}) z przedziału zadanego w danym problemie. \\
+
+\underline{Funkcja Move()} \\
+W tym kroku najpierw obliczam jaki procent iteracji pozostał do ukończenia procesu. Następnie biorąc 80\% pełnej puli możliwych warto\si ci problemu, mnożę ją przez pozostały procent iteracji (i przypisuję do zmiennej value). Dalej w pętli każdemu argumentowi tymczasowego rozwiązania (zmienna \textbf{Arguments2}), przypisuję sumę odpowiedniej liczby z argumentów najlepszego rozwiązania (żeby był to sąsiad najlepszego rozwiązania) oraz losową liczbę z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy, ale rozwiązanie powinno też już być bliskie szukanemu. Na końcu upewniam się, iż nowa warto\si ć nie wychodzi poza ustalony przez problem zakres. \\
+\begin{verbatim}
+private void Move(int counter)
+{
+    double leftTemperatureCoolingTimes = maxCounter - counter;
+    double leftPercent = leftTemperatureCoolingTimes / maxCounter;
+
+    double domainValue = (Function.RightBound - Function.LeftBound);
+    double value = (0.8 * domainValue) * (leftPercent);
+    for (int i = 0; i < AmountOfArguments; i++)
+    {
+        double newValue = Arguments[i] + 
+RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
+        if (newValue < Function.LeftBound)
+        {
+            newValue = Function.LeftBound;
+        }
+        if (newValue > Function.RightBound)
+        {
+            newValue = Function.RightBound;
+        }
+        Arguments2[i] = newValue;
+    }
+}
+\end{verbatim}
+
+\underline{Funkcja ShouldChangeAnyway()} \\
+Jest to prosta implementacja funkcji prawdopodobieństwa, o której mowa była w rozdziale 2.1.1. \\
+
+\underline{Funkcja CopyValues()} \\
+Ze względu, iż język C\# traktuje tablicę jako obiekt, tablica jest typu referencyjnego i konieczne jest skopiowanie warto\si ci ze zmiennej \textbf{Arguments2} do zmiennej \textbf{Arguments}. \\
+
+\underline{Implementacja algorytmu} \\
+Algorytm ten w kolejnych punktach wykonuje kroki, które zostały wła\si nie opisane. Po obliczeniu maksymalnej ilo\si ci iteracji, losuje pierwsze rozwiązanie. Następnie w pętli i następnej zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym jeżeli zostały spełnione odpowiednie warunki i kończy program zwracając najlepsze rozwiązanie, jeżeli spełnia warunek. Jeżeli nie, wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, ,,globalnej" iteracji.
+
+\begin{verbatim}
+public double Solve()
+{
+    SetMaxCounter();
+    int counter = 0;
+
+    DrawArguments();
+    double bestSolution = Function.Solve(Arguments);
+
+    double temperature = BeginingTemperature;
+    while (temperature > EndingTemperature)
+    {
+        for (int i = 0; i < Iterations; i++)
+        {
+            Move(counter);
+            double tmpSolution = Function.Solve(Arguments2);
+
+            if (tmpSolution < bestSolution || 
+ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
+            {
+                bestSolution = tmpSolution;
+                CopyValues();
+                if(SatisfactionSolutionValue != null &&
+ bestSolution < SatisfactionSolutionValue)
+                {
+                    return bestSolution;
+                }
+            }
+        }
+        temperature *= Cooling;
+        counter++;
+    }
+    return bestSolution;
+}
+\end{verbatim}
+
 \section{Zastosowanie algorytmów w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
 \section{Narzędzia i technologie}
 	\subsection{Metodyka pracy}
@@ -531,53 +654,7 @@ https://www.math.unl.edu/~scohn1/8423/wellposed.pdf
 
 
 ----------------------------------------------------------------------------------------------------------------------
-%% UWaga na \newlineTekst oraz \newlineSpis. Można też użyć \newline, działa jak \newlineSpis\newlineTekst
-\section[Tytuł drugiego rozdziału. Bardzo długi \ldots]
-        {Tytuł drugiego rozdziału. \newlineTekst Bardzo długi tytuł. \newlineTekst
-          Jego \newlineSpis formatowanie jest trudniejsze}
 
-
-
-\dodatek{Mój specjalny dodatek}
-
-Tu treść dodatku. Zwróćmy uwagę na sposób numerowania dodatku, 
-możliwa jest zmiana numerowania, patrz wyjaśnienia.
-          
-%% to wpisuje się do spisu treści, ale bez numeru rozdziału,
-%% można też używać \dodatek{Tytuł}, który jest numerowany, ale inaczej niż rozdziały.
-\dodatkowo{Rysunki}
-
-Tu rysunki
-
-\dodatkowo{Programy}
-
-Tu programy
-
-\begin{verbatim}
-#include <stdio.h>
-
-int main()
-{
-   printf("Hello world\n");
-}
-\end{verbatim}
-
-\noindent
-Oraz 
-
-\bigskip
-
-\vrule\hspace{10pt}\begin{minipage}{10cm}
-\begin{verbatim*}
-<?php
-   echo "test=$test";
-?>
-\end{verbatim*}
-\end{minipage}
-
-\begin{tw}
-Twierdzenie Twierdzenie Twierdzenie Twierdzenie Twierdzenie 
-\end{tw}
 \begin{thebibliography}{12}
 
 \bibitem{PozNazwa1} Jakaś pozycja literatury

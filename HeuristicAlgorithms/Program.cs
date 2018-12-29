@@ -16,9 +16,9 @@ namespace HeuristicAlgorithms
         {
 
             UtilitiesMethods tmp = new UtilitiesMethods();
-            InverseProblem faisnd = new InverseProblem(tmp.f, tmp.g, tmp.h, 1, 1, 15, 480, 1, 1, 1);
+            DirectProblem faisnd = new DirectProblem(tmp.f, tmp.g, tmp.h, 1, 1, 15, 480, 1, 1, 1);
             InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction = new InverseHeatConductionProblemFunction(faisnd);
-            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction, 3, 10, 0.01, 100, 0.99);
+            SimulatedAnnealingAlgorithm simulatedAnnealinga = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction, 3, 4000, 0.01, 100, 0.99, 0.001);
             var oko = simulatedAnnealinga.Solve();
             //inverseHeatConductionProblemFunction.Solve(1, 2, 3);
             //faisnd.Solve();
@@ -36,7 +36,7 @@ namespace HeuristicAlgorithms
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4000, 0.001, 50000, 0.99);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4000, 0.001, 50000, 0.99, 0.001);
                     // simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 4000, 0.001, 5000, 0.99);
                 }
                 //var cooling = simulatedAnnealing.GetCoolingArray();

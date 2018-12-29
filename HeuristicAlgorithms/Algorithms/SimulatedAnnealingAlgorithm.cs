@@ -21,7 +21,7 @@ namespace HeuristicAlgorithms
             Arguments2 = new double[amountOfArguments];
         }
 
-        public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments, double beginingTemperature, double endingTemperature, double iterations, double cooling)
+        public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments, double beginingTemperature, double endingTemperature, double iterations, double cooling, double? satisfactionSolutionValue = null)
         {
             Function = function;
             AmountOfArguments = amountOfArguments;
@@ -31,6 +31,7 @@ namespace HeuristicAlgorithms
             EndingTemperature = endingTemperature;
             Iterations = iterations;
             Cooling = cooling;
+            SatisfactionSolutionValue = satisfactionSolutionValue;
         }
         #endregion
 
@@ -59,6 +60,10 @@ namespace HeuristicAlgorithms
         /// Temperature will be multiplied by this factor, should be less than 1
         /// </summary>
         public double Cooling { get; set; }
+        /// <summary>
+        /// If solution will be lower than this, we can end process.
+        /// </summary>
+        public double? SatisfactionSolutionValue { get; set; }
         #endregion
 
         /// <summary>
@@ -122,6 +127,10 @@ namespace HeuristicAlgorithms
                     {
                         bestSolution = tmpSolution;
                         CopyValues();
+                        if(SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
+                        {
+                            return bestSolution;
+                        }
                     }
                 }
                 temperature *= Cooling;

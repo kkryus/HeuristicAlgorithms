@@ -8,13 +8,13 @@ namespace HeuristicAlgorithms.Functions
 {
     class InverseHeatConductionProblemFunction : TestingFunction
     {
-        public InverseHeatConductionProblemFunction(InverseProblem inverseProblem)
+        public InverseHeatConductionProblemFunction(DirectProblem inverseProblem)
         {
             InverseProblem = inverseProblem;
             Temperature = InverseProblem.Solve();
         }
 
-        public InverseProblem InverseProblem { get; set; }
+        public DirectProblem InverseProblem { get; set; }
 
         public override double LeftBound => -100;
 
