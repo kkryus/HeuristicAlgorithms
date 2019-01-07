@@ -78,7 +78,7 @@ Jednak aby metodę heurystyczną uznać za dobrą, musi ona spełniać 3 wymagan
 
 \section{Opis}
 \subsection{Opis problemu}
-Czasami w nauce, zwłaszcza w matematyce, możemy natrafić na zadanie, które będzie polegało na wyznaczeniu niektórych parametrów modelu, gdy posiadamy obserwowane warto\si ci. W odróżnieniu od "zwyczajnych" problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
+Czasami w nauce, zwłaszcza w matematyce, możemy natrafić na zadanie, które będzie polegało na wyznaczeniu niektórych parametrów modelu, gdy posiadamy obserwowane warto\si ci. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
 
 Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać 3 wymagania:
 \begin{enumerate}
@@ -91,21 +91,21 @@ Jednym z typów problemów pasujących do grupy problemów odwrotnych, jest odwr
 
 \subsection{Cel}
 
-Ze względu na dużą użyteczno\si ć algorytmów heurystycznych, postanowiłem rozwinąć swoją wiedzę na ich temat i dobrze poznać algorytm symulowanego wyżarzania i poprzez jego implementację, sprawdzić jego skuteczno\si ć i użyteczno\si ć w praktyce w przypadku kilku funkcji oraz przy rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła, tworząc przy tym aplikację rozwiązującą konkretny problem. \\ \newLine
+Ze względu na dużą użyteczno\si ć algorytmów heurystycznych, postanowili\si my rozwinąć swoją wiedzę na ich temat i dobrze poznać algorytm symulowanego wyżarzania i poprzez jego implementację, sprawdzić jego skuteczno\si ć i użyteczno\si ć w praktyce w przypadku kilku funkcji oraz przy rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła, tworząc przy tym aplikację rozwiązującą konkretny problem. \\ \newLine
 Stworzenie aplikacji pozwalającej na obliczenie warunków granicznych w podanym problemie odwrotnym pozwoliłoby na uzupełnianie modelu matematycznego w prosty i szybki sposób. Ponadto uniwersalne podej\si cie do implementacji danego algorytmu pozwala również na intuicyjne znajdowanie przybliżonej warto\si ci globalnego minimum funkcji.
 
 
 
-\section{Opis algorytmów}
+\section{Opis algorytmu}
 	\subsection{Algorytm symulowanego wyżarzania}
 				Algorytm ten został stworzony wzorując się na zjawisku wyżarzania w metalurgii, które polega na nagrzaniu elementu stalowego do odpowiedniej temperatury, przetrzymaniu go w tej temperaturze przez pewien czas, a następnie powolnym jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
-Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych losowych przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, jak np. problemu komiwojażera.
+Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych losowych przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, jak np. problemu komiwojażera. \\
+
+
 		\subsubsection{Parametry}
 		
-
-
 \noindent \underline{Początkowa konfiguracja} \\ \newLine
-\indent W tym kroku powinniśmy zainicjalizować naszą temperaturę wysoką wartością oraz znaleźć początkowe, losowe rozwiązanie naszego problemu. 
+\indent W tym kroku powinniśmy zainicjalizować naszą temperaturę pewną wartością oraz znaleźć początkowe, losowe rozwiązanie naszego problemu. 
 \\ \newLine
 
 \noindent \underline{Temperatura} \\ \newLine
@@ -118,7 +118,7 @@ Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większ
 
 
 \noindent \underline{Powtarzanie pewną ilość razy dla zadanej temperatury} \\ \newLine
-\indent Wartość ta powinna być z góry ustalona i powinna dać nam możliwość sprawdzenia wielu sąsiadów obecnego rozwiązania, równocześnie nie powodując zbyt dużego obciążenia dla algorytmu.\\ \newLine
+\indent Wartość ta powinna być z góry ustalona i powinna dać nam możliwość sprawdzenia wielu sąsiadów obecnego rozwiązania, równocześnie nie powodując zbyt dużego obciążenia dla algorytmu. Parametr ten jednak jest najbardziej dostosowywalny ze względu na jego "niezależno\si ć". \\ \newLine
 
 
 \noindent \underline{Znajdowanie losowego sąsiada poprzedniego rozwiązania} \\ \newLine
@@ -126,7 +126,7 @@ Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większ
 
 
 \noindent \underline{Funkcja kosztu} \\ \newLine
-\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamiany gorszego rozwiązania na lepsze. Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine  \\ \newLine
+\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamianie gorszego rozwiązania na lepsze. Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine  \\ \newLine
 
 
 \noindent \underline{Prawdopodobieństwo zamiany P} \\ \newLine
@@ -170,7 +170,7 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 
 \section{Funkcje testowe}
 	\subsection{Funkcja kwadratowa dwóch parametrów}
-	Jako pierwszą funkcję do testów przyjąłem funkcję kwadratową dwóch parametrów następującej postaci:
+	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch parametrów następującej postaci:
 \[f(x, y) = x^2 + y^2 \] \\
 
 Funkcja ta jest funkcją parzystą i przyjmuje tylko warto\si ci nieujemne. Na potrzeby projektu zakres dla tej funkcji został zawężony następująco:
@@ -209,7 +209,7 @@ Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdz
 Posiada ona następujące globalne minimum:
 \[ f(0,...,0) = 0 \] \\
 
-By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowałem jej wykres w 2 wymiarach na poniższych obrazkach:\\
+By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres w 2 wymiarach na poniższych obrazkach:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{rastriginFunction1.png}\\
@@ -231,7 +231,7 @@ Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
 \[f(x) = \sum_{i=1}^{n-1} [100(x_{i+1} - x_i^2)^2 + (1- x_i)^2 ]\] \\
 
 
-Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemnie. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
+Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemne. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
 \[x_i \in [-10, 10] \] \\
 
 Posiada ona następujące globalne minimum:
@@ -254,7 +254,7 @@ Poniższe wykresy prezentują jej wygląd w zadanym zakresie:\\
 \section{Dobór parametrów}
 Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
 
-Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjąłem kilka założeń, a następnie sukcesywnie poszukiwałem odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzałem jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki, a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
+Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjęli\si my kilka założeń, a następnie sukcesywnie poszukiwali\si my odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzali\si my jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki, a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
 
 	\subsection{Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina}
 
@@ -487,40 +487,49 @@ skutecznosc:\\
 
 \section{Implementacja}
 
-Moja implementacja algorytmu symulowanego wyżarzania składą się z kilku etapów, przedstawionych w roździale 2.1.2, które zostaną omówione i/lub zostanie przedstawiona ich implementacja. \\
+Na realizację algorytmu symulowanego wyżarzania składa się implementacja kilku metod, które zostały przedstawione w roździale 2.1.2 i będą tutaj omówione i/lub zostanie przedstawiony ich kod. \\
 
+\subsection{Używane parametry i zmienne}
+Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, ustawianych jest kilka parametrów na wej\si cie, a konkretniej problem do rozwiązania i parametry samego algorytmu. W moim programie nazywane są: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{Iterations}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
 
-\underline{Używane parametry i zmienne} \\
-Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, ustawiam mu kilka parametrów na wej\si cie, a konkretniej problem do rozwiązania i parametry samego algorytmu. W moim programie nazywane są: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{Iterations}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
+\textbf{Function} jest identyfikatorem referencji do obiektu problemu. Każdy problem musi dziedziczyć po klasie abstrakcyjnej ,,TestingFunction", co zapewnia uniwersalno\si ć stosowania algorytmu symulowanego wyżarzania oraz zapewnia nasz algorytm, iż implementacja samego problemu będzie posiadać pewne cechy (jak np. jawnie okre\si loną ilo\si ć wymiarów). \\
 
-\textbf{Function} jest zmienną, która przetrzymuje obiekt problemu. Każdy problem musi dziedziczyć po klasie abstrakcyjnej ,,TestingFunction", co zapewnia uniwersalno\si ć stosowania algorytmu symulowanego wyżarzania oraz zapewnia nasz algorytm, iż implementacja samego problemu będzie posiadać pewne cechy (jak np. jawnie okre\si loną ilo\si ć wymiarów). \\
+\textbf{Arguments} jest wła\si ciwo\si cią w postaci tablicy liczb zmiennoprzecinkowych, które zawierają argumenty dla obecnie najlepszego rozwiązania problemu. \\
 
-\textbf{Arguments} jest wła\si ciwo\si cią, która przetrzymuje w sobie tablicę argumentów dla obecnie najlepszego rozwiązania problemu. \\
-
-\textbf{Arguments2} za to jest tablicą argumentów dla tymczasowego rozwiązania. Jest tego samego rozmiaru, co zmienna \textbf{Arguments}. \\
+\textbf{Arguments2} jest również tablicą liczb zmiennoprzecinkowych, jednak przechowuje ona warto\si ci argumentów dla tymczasowego rozwiązania. Jest tego samego rozmiaru, co wła\si ciwo\si ć \textbf{Arguments}. \\
 
 \textbf{Iterations} jest liczbą wewnętrznych iteracji. Tyle razy algorytm będzie szukał sąsiadów najlepszego rozwiązania, zanim obniży temperaturę. \\
 
-\textbf{BeginingTemperature} - jest to warto\si ć, od której rozpoczyna się proces poszukiwań.\\ 
+\textbf{BeginingTemperature} jest to początkowa warto\si ć temperatury, od której rozpoczyna się proces poszukiwań rozwiązania. \\ 
 
-\textbf{EndingTemperature} jest liczbą, która informuje o zakończeniu iteracji. Gdy warto\si ć zmiennej \textbf{temperature} spadnie do tego poziomu, proces poszukiwania się zakończył. \\
+\textbf{EndingTemperature} jest liczbą, którą obniżana temperatura (zmienna \textbf{temperature}) musi osiągnąć, by zakończyć działanie algorytmu. \\
 
-\textbf{Cooling}, w każdym kroku zmienna \textbf{temperature} jest mnożona przez tą warto\si ć. Jest ona mniejsza od 1, więc temperatura powoli się obniża. \\
+\textbf{Cooling} to liczba zmiennoprzecinkowa, w każdym globalnym kroku algorytmu zmienna \textbf{temperature} jest mnożona przez tą warto\si ć. Jest ona mniejsza od 1, więc temperatura powoli się obniża. \\
 
 \textbf{SatisfactionSolutionValue} jest minimalną liczbą, jaką rozwiązanie musi osiągnąć, aby wynik poszukiwania rozwiązania był dla satysfakcjonujący. Jest to zmienna opcjonalna, algorytm nadal będzie działać, gdy nie poda się jej warto\si ci.\\
 
 W programie również używam kilku pomocnicznych zmiennych: \\
 
-\textbf{temperature} jest zmienną używaną w "globalnej" iteracji oraz przy sprawdzaniu funkcji prawdopodobieństwa. Z postępem iteracji maleje ona. \\
+\textbf{temperature} to zmienna, która przetrzymuje obecną liczbę stanowiącą temperaturę. Jest ona używana przy warunkach globalnej iteracji oraz przy funkcji prawdopodobieństwa. Wraz z postępem iteracji maleje. \\
 
-\textbf{bestSolution} jest obecnie najlepszym wynikiem rozwiązania. Finalnie będzie ona najlepszym rozwiązaniem całego problemu. \\
+\textbf{bestSolution} to liczba zmiennoprzecinkowa, która jest obecnie najlepszym wynikiem rozwiązania. Finalnie będzie ona najlepszym rozwiązaniem całego problemu. \\
 
 \textbf{tmpSolution} jest tymczasowym wynikiem rozwiązania (wynikiem rozwiązania problemu dla parametrów ze zmiennej \textbf{Arguments2}). \\
 
-\textbf{counter} jest liczbą oznaczającą obecną iterację. \\
+\textbf{counter} jest liczbą oznaczającą obecną, globalną iterację. \\
+
+\subsection{Schemat blokowy}
+Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu, co można zobaczyć na poniższym rysunku.
+
+\begin{figure}[H]
+		\includegraphics[height=22cm, width=16cm]{schematBlokowy.png}\\
+	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+\end{figure}
+
+\subsection{Implementacja metod i algorytmu}
 
 \underline{Funkcja SetMaxCounter()} \\
-W funkcji tej symuluję proces obniżania temperatury aby obliczyć maksymalną ilo\si ć globalnych iteracji. \\
+Metoda ta symuluje proces obniżania temperatury w celu obliczenia maksymalnej ilo\si ci globalnych iteracji. \\
 \begin{verbatim}
 private void SetMaxCounter()
 {
@@ -535,10 +544,10 @@ private void SetMaxCounter()
 \end{verbatim}
 
 \underline{Funkcja DrawArguments()} \\
-W metodzie tej losuję początkowe argumenty (zmienna \textbf{Arguments}) z przedziału zadanego w danym problemie. \\
+W metodzie tej losuję początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego w danym problemie. \\
 
 \underline{Funkcja Move()} \\
-W tym kroku najpierw obliczam jaki procent iteracji pozostał do ukończenia procesu. Następnie biorąc 80\% pełnej puli możliwych warto\si ci problemu, mnożę ją przez pozostały procent iteracji (i przypisuję do zmiennej value). Dalej w pętli każdemu argumentowi tymczasowego rozwiązania (zmienna \textbf{Arguments2}), przypisuję sumę odpowiedniej liczby z argumentów najlepszego rozwiązania (żeby był to sąsiad najlepszego rozwiązania) oraz losową liczbę z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy, ale rozwiązanie powinno też już być bliskie szukanemu. Na końcu upewniam się, iż nowa warto\si ć nie wychodzi poza ustalony przez problem zakres. \\
+W tym kroku najpierw obliczany jest pozostały procent iteracji do ukończenia procesu. Następnie biorąc 80\% pełnej puli możliwych warto\si ci problemu, mnożymy ją przez pozostały procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdemu argumentowi tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniego argumentu najlepszego rozwiązania (aby był to sąsiad najlepszego rozwiązania) oraz losowa liczba z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy, ale rozwiązanie powinno też już być bliskie optymalnemu. Na końcu walidujemy nowy argument do podanego zakresu. \\
 \begin{verbatim}
 private void Move(int counter)
 {
@@ -568,10 +577,10 @@ RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
 Jest to prosta implementacja funkcji prawdopodobieństwa, o której mowa była w rozdziale 2.1.1. \\
 
 \underline{Funkcja CopyValues()} \\
-Ze względu, iż język C\# traktuje tablicę jako obiekt, tablica jest typu referencyjnego i konieczne jest skopiowanie warto\si ci ze zmiennej \textbf{Arguments2} do zmiennej \textbf{Arguments}. \\
+Ze względu, iż język C\# traktuje tablicę jako obiekt, to tablica jest typem referencyjnym i konieczne jest skopiowanie warto\si ci ze zmiennej \textbf{Arguments2} do zmiennej \textbf{Arguments}. \\
 
 \underline{Implementacja algorytmu} \\
-Algorytm ten w kolejnych punktach wykonuje kroki, które zostały wła\si nie opisane. Po obliczeniu maksymalnej ilo\si ci iteracji, losuje pierwsze rozwiązanie. Następnie w pętli i następnej zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym jeżeli zostały spełnione odpowiednie warunki i kończy program zwracając najlepsze rozwiązanie, jeżeli spełnia warunek. Jeżeli nie, wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, ,,globalnej" iteracji.
+Opisane metody są wykorzystywane w poszczególnych krokach samego algorytmu. Po obliczeniu maksymalnej ilo\si ci iteracji, algorytm losuje pierwsze rozwiązanie. Następnie w pętli i następnej zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym jeżeli zostały spełnione odpowiednie warunki. Jeżeli nowe rozwiązanie spełnia kolejny warunek, to kończy program zwracając najlepsze rozwiązanie. Jeżeli nie, wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, ,,globalnej" iteracji. Jeżeli program nie osiągnie satysfakcjonującego rozwiązania, a proces obniżania temperatury zakończy się, zwróci rozwiązanie, które udało mu się znaleźć kończąc tym samym program.
 
 \begin{verbatim}
 public double Solve()

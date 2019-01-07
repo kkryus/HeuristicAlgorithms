@@ -3,16 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace HeuristicAlgorithms.Functions
 {
     class InverseHeatConductionProblemFunction : TestingFunction
     {
-        public InverseHeatConductionProblemFunction(DirectProblem directProblem)
+        public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent)
         {
             DirectProblem = directProblem;
             Temperature = DirectProblem.Solve();
             Measurements = GetDirectProblemTemperatureMeasurements(everyXMeasurement);
+            var tmp = Measurements;
+            Percent = percent;
+            if(percent > 0)
+            {
+                Utilities.UtilitiesMethods.WorsenTemperature(percent, ref tmp);
+            }
+           // File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt", 
+
+            for (int i = 0; i < Measurements.Length; i++)
+            {
+                File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt",
+                    String.Format("{0}", Measurements[i] + Environment.NewLine));
+            }
+
+            //File.AppendAllText(@"d:\firstTable.txt", @"\end{tabularx}");
+
+            InverseProblem = new DirectProblem(directProblem.f, directProblem.g, GetSecondThing2, directProblem.a, directProblem.T, directProblem.nx, directProblem.nt, directProblem.c, directProblem.rho, directProblem.lambda);
+        }
+
+        public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent, double[] temperatures)
+        {
+            DirectProblem = directProblem;
+            Temperature = DirectProblem.Solve();
+            Measurements = temperatures;
+            Percent = percent;
+            GetDirectProblemTemperatureMeasurements(everyXMeasurement);
+            // File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt", 
+
+            /*for (int i = 0; i < Measurements.Length; i++)
+            {
+                File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt",
+                    String.Format("{0}", Measurements[i] + Environment.NewLine));
+            }*/
+
+            //File.AppendAllText(@"d:\firstTable.txt", @"\end{tabularx}");
+
             InverseProblem = new DirectProblem(directProblem.f, directProblem.g, GetSecondThing2, directProblem.a, directProblem.T, directProblem.nx, directProblem.nt, directProblem.c, directProblem.rho, directProblem.lambda);
         }
 
@@ -22,6 +59,8 @@ namespace HeuristicAlgorithms.Functions
         public override double LeftBound => -10;
 
         public override double RightBound => 10;
+
+        public double Percent { get; set; }
 
         public double[][] Temperature { get; set; }
 

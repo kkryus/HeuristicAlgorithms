@@ -7,6 +7,7 @@ using HeuristicAlgorithms.Functions;
 using HeuristicAlgorithms.Utilities;
 using System.IO;
 using HeuristicAlgorithms.Models;
+using HeuristicAlgorithms.Functions;
 
 namespace HeuristicAlgorithms
 {
@@ -127,8 +128,11 @@ namespace HeuristicAlgorithms
                     {
                         bestSolution = tmpSolution;
                         CopyValues();
-                        if(SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
+                        if (SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
                         {
+                            File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+                                String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+                                ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
                             return bestSolution;
                         }
                     }
@@ -136,7 +140,9 @@ namespace HeuristicAlgorithms
                 temperature *= Cooling;
                 counter++;
             }
-
+            File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+                                String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+                                ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
             return bestSolution;
         }
 

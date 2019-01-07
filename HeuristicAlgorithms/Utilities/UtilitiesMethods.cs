@@ -10,7 +10,7 @@ namespace HeuristicAlgorithms.Utilities
     {
         public double f(double x)
         {
-            return 0.5*(x * x) + 0.5;
+            return 0.5 * (x * x) + 0.5;
         }
         public double g(double t)
         {
@@ -19,6 +19,16 @@ namespace HeuristicAlgorithms.Utilities
         public double h(double t)
         {
             return t + 1;
+        }
+
+        public static void WorsenTemperature(int percent, ref double[] temperature)
+        {
+            for (int i = 0; i < temperature.Length; i++)
+            {
+                double tmp = temperature[i];
+                double newValue = RandomGenerator.Instance.GetRandomDoubleInDomain(tmp - (tmp * percent / 100), tmp + (tmp * percent / 100));
+                temperature[i] = newValue;
+            }           
         }
     }
 }
