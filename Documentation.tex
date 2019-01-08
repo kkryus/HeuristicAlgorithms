@@ -19,7 +19,7 @@
 %\drukJednostronny
 
 %% tytuł promotor iautor (\title to komenda standardowa)
-\title{Porównanie wybranych algorytmów heurystycznych w rozwiązywaniu zagadnień odwrotnych}
+\title{Algorytm symulowanego wyżarzania - zastosowanie w rozwiązywaniu zagadnień odwrotnych}
 \promotor{dr inż. Adam Zielonka}
 
 
@@ -60,25 +60,25 @@
 \newtheorem{dd}{Definicja}%[subsection]
 
 \begin{document}
+Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski albo szukając najkrótszego połączenia pomiędzy miastami. Szukając rozwiązania, zawsze dążymy żeby było ono jak,,najlepsze" (lub dokładnie ,,najlepsze") i zostało znalezione w rozsądnym czasie. W tym celu często korzysta się z algorytmów heurystycznych. \\ 
 
-Na problem znalezienia optymalnego rozwiązania możemy trafić w wielu dziedzinach życia i nauki, np. w matematyce szukając globalnego minimum/maximum lub szukając najkrótszego połączenia pomiędzy kilkoma miastami (problem komiwojażera). Szukając rozwiązań, zawsze chcemy by było ono jak najlepsze (lub dokładnie najlepsze) i zostało znalezione w rozsądnym czasie. W tym celu wła\si nie jest używana heurystyka.\\ 
 
+Metody heurystyczne znacznie skracają czas wyszukiwania rozwiązania problemu, aczkolwiek często ich wynikiem jest jedynie wynik przybliżony do ,,najlepszego''.  Otrzymując takie wła\si nie rozwiązanie możemy:
 
-Metody heurystyczne znacznie skracają czas wyszukiwania rozwiązania problemu, aczkolwiek często ich wynikiem jest jedynie wynik bardzo zbliżony do najlepszego. Pozwala jednak nam to na jedną z dwóch rzeczy:
 \begin{enumerate}
-	\item zaakceptowanie takiego wyniku, gdy dokładne rozwiązanie nie jest konieczne (np. kompresja obrazu),
-	\item zawężenia zakresu i dalszych poszukiwań najlepszego rozwiązania. \\
+	\item zaakceptować je, np. gdy dokładne rozwiązanie nie jest konieczne (np. kompresja obrazu),
+	\item zawęzić (istotnie) zakres i prowadzić dalsze poszukiwania. \\
 \end{enumerate}
-Jednak aby metodę heurystyczną uznać za dobrą, musi ona spełniać 3 wymagania:
+Jednak aby metodę heurystyczną uznać za akceptowalną, chcemy żeby spełniała następujące wymagania:
 \begin{itemize}
-	\item[--] rozwiązanie jest możliwe do znalezienia z rozsądnym wysiłkiem obliczeniowym,
-	\item[--] rozwiązanie powinno być bliskie optymalnemu,
+	\item[--] optymalne rozwiązanie jest możliwe do znalezienia z rozsądnym wysiłkiem obliczeniowym,
+	\item[--] otrzymane rozwiązanie powinno być bliskie optymalnemu,
 	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być niskie.
 \end{itemize}
 
 \section{Opis}
 \subsection{Opis problemu}
-Czasami w nauce, zwłaszcza w matematyce, możemy natrafić na zadanie, które będzie polegało na wyznaczeniu niektórych parametrów modelu, gdy posiadamy obserwowane warto\si ci. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
+Częto w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
 
 Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać 3 wymagania:
 \begin{enumerate}
@@ -87,13 +87,13 @@ Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagad
 	\item rozwiązanie zależy od danych oraz parametrów (np. małe zmiany w funkcjach wej\si cia powodują małe zmiany w rozwiązaniu). \\
 \end{enumerate}
 
-Jednym z typów problemów pasujących do grupy problemów odwrotnych, jest odwrotne zagadnienie przewodnictwa ciepła. Przy posiadaniu niekompletnego modelu matematycznego oraz funkcji opisującej rozkład temperatury, zadanie polega na rekonstrukcji niektórych granicznych parametrów modelu. 
+Jednym z tego typów problemów (problemów odwrotnych) są odwrotne zagadnienia przewodnictwa ciepła. Przy posiadaniu niekompletnego opisu modelu matematycznego oraz funkcji opisującej rozkład temperatury w wybranych punktach, zadanie polega na rekonstrukcji niektórych brakujących parametrów modelu. 
 
 \subsection{Cel}
 
-Ze względu na dużą użyteczno\si ć algorytmów heurystycznych, postanowili\si my rozwinąć swoją wiedzę na ich temat i dobrze poznać algorytm symulowanego wyżarzania i poprzez jego implementację, sprawdzić jego skuteczno\si ć i użyteczno\si ć w praktyce w przypadku kilku funkcji oraz przy rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła, tworząc przy tym aplikację rozwiązującą konkretny problem. \\ \newLine
-Stworzenie aplikacji pozwalającej na obliczenie warunków granicznych w podanym problemie odwrotnym pozwoliłoby na uzupełnianie modelu matematycznego w prosty i szybki sposób. Ponadto uniwersalne podej\si cie do implementacji danego algorytmu pozwala również na intuicyjne znajdowanie przybliżonej warto\si ci globalnego minimum funkcji.
+W pracy opisany i zaimplementowany zostanie algorytm symulowanego wyżarzania. Dla wybranych funkcji testowych zostały dobrane jego parametry, a finalnie zostanie on wykorzystany do rozwiązania odwrotnego zadania przewodnictwa ciepła.
 
+W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie globalnego minimum kilku funkcji testowych wraz z zadanymi przez siebie parametrami oraz odtworzenie jednego z brakujących parametrów modelu matematycznego zadanego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie.
 
 
 \section{Opis algorytmu}
@@ -109,11 +109,11 @@ Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych loso
 \\ \newLine
 
 \noindent \underline{Temperatura} \\ \newLine
-\indent Temperatura jest zarówno czynnikiem iteracyjnym, jak i jest związana z funkcją prawdopodobieństwa zamiany gorszego rozwiązania na lepsze. Zatem zakres temperatury powinien być taki, aby na początku działania naszego algorytmu dawał wysoką możliwość zamian, a wraz z postępem iteracji te prawdopodobieństwo się zmniejszało i pod koniec było bliskie zeru.\\ \newLine
+\indent Temperatura jest zarówno czynnikiem iteracyjnym, jak i jest związana z funkcją prawdopodobieństwa zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania naszego algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego te prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
 
 
 \noindent \underline{Końcowa temperatura} \\ \newLine
-\indent Jest to bardzo mała wartość. Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
+\indent Jest to ,,bardzo niska" wartość. Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
 Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większa prowadziła do bardzo niskiego prawdopodobieństwa, a jednocze\si nie nie wymagało to zbyt dużej ilo\si ci iteracji. \\ \newLine
 
 
@@ -122,7 +122,7 @@ Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większ
 
 
 \noindent \underline{Znajdowanie losowego sąsiada poprzedniego rozwiązania} \\ \newLine
-\indent Funkcja ta powinna nam pozwalać przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie najlepszego rozwiązania, zatem warto uzależnić tą funkcję od stopnia ukończenia globalnych iteracji.\\ \newLine
+\indent Funkcja ta powinna nam pozwalać przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie najlepszego rozwiązania, zatem warto uzależnić tą funkcję od stopnia zaawansowania procesu iteracyjnego.\\ \newLine
 
 
 \noindent \underline{Funkcja kosztu} \\ \newLine
@@ -132,8 +132,8 @@ Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większ
 \noindent \underline{Prawdopodobieństwo zamiany P} \\ \newLine
 \indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i gorszego rozwiązania, z wcze\si niejszym i lepszym. 
 
-Prawdopodobieństwo zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zatem można przedstawić w następujący sposób:
-\[P = e^\frac{\Delta E}{T} \]
+Prawdopodobieństwo tej zamiany zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zatem można przedstawić w następujący sposób:
+$$ P = \exp(\frac{\Delta E}{T})  $$
 gdzie:\\
 \begin{flalign}
 & \Delta E - funkcja\ kosztu& 
@@ -179,20 +179,13 @@ Funkcja ta jest funkcją parzystą i przyjmuje tylko warto\si ci nieujemne. Na p
 Posiada ona następujące globalne minimum:
 \[ f(0, 0) = 0 \] \\
 
-Funkcję tę można zaprezentować na wykresie 2 wymiarowym, co prezentują następujące obrazki:\\
+Funkcję prezentują poniższe wykresy:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{quadraticFunction1.png}\\
 	\end{center}
 	\caption{Funkcja kwadratowa dwóch parametrów}
 \end{figure}
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[height=7cm]{quadraticFunction2.png}\\
-	\end{center}
-	\caption{Funkcja kwadratowa dwóch parametrów}
-\end{figure}
-
 
 	\subsection{Funkcja Rastrigina}
 	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
@@ -216,12 +209,6 @@ By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres w 2 
 	\end{center}
 	\caption{Funkcja Rastrigina o 2 wymiarach}
 \end{figure}
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[height=7cm]{rastriginFunction2.png}\\
-	\end{center}
-	\caption{Funkcja Rastrigina o 2 wymiarach}
-\end{figure}
 
 
 
@@ -241,12 +228,6 @@ Poniższe wykresy prezentują jej wygląd w zadanym zakresie:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{rosenbrockFunction1.png}\\
-	\end{center}
-	\caption{Funkcja Rosenbrocka o 2 wymiarach}
-\end{figure}
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[height=7cm]{rosenbrockFunction2.png}\\
 	\end{center}
 	\caption{Funkcja Rosenbrocka o 2 wymiarach}
 \end{figure}
