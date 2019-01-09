@@ -45,6 +45,8 @@
     <Compile Include="Algorithms\IAlgorithm.cs" />
     <Compile Include="Algorithms\FireflyAlgorithm.cs" />
     <Compile Include="Functions\EasomFunction.cs" />
+    <Compile Include="Functions\InverseHeatConductionProblemFunction.cs" />
+    <Compile Include="Functions\DirectProblem.cs" />
     <Compile Include="Functions\RosenbrockFunction.cs" />
     <Compile Include="Models\AnnealingTestingModel.cs" />
     <Compile Include="Models\FireflyModel.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Utilities\Exceptions\AmountOfArgumentsNotSetException.cs" />
     <Compile Include="Utilities\RandomGenerator.cs" />
     <Compile Include="Utilities\Exceptions\ValueOutOfDomainException.cs" />
+    <Compile Include="Utilities\UtilitiesMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -7,6 +7,7 @@ using HeuristicAlgorithms.Functions;
 using HeuristicAlgorithms.Utilities;
 using System.IO;
 using HeuristicAlgorithms.Models;
+using HeuristicAlgorithms.Functions;
 
 namespace HeuristicAlgorithms
 {
@@ -21,7 +22,7 @@ namespace HeuristicAlgorithms
             Arguments2 = new double[amountOfArguments];
         }
 
-        public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments, double beginingTemperature, double endingTemperature, double iterations, double cooling)
+        public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments, double beginingTemperature, double endingTemperature, double iterations, double cooling, double? satisfactionSolutionValue = null)
         {
             Function = function;
             AmountOfArguments = amountOfArguments;
@@ -31,6 +32,7 @@ namespace HeuristicAlgorithms
             EndingTemperature = endingTemperature;
             Iterations = iterations;
             Cooling = cooling;
+            SatisfactionSolutionValue = satisfactionSolutionValue;
         }
         #endregion
 
@@ -59,8 +61,12 @@ namespace HeuristicAlgorithms
         /// Temperature will be multiplied by this factor, should be less than 1
         /// </summary>
         public double Cooling { get; set; }
+        /// <summary>
+        /// If solution will be lower than this, we can end process.
+        /// </summary>
+        public double? SatisfactionSolutionValue { get; set; }
         #endregion
-    
+
         /// <summary>
         /// Amount of arguments.
         /// </summary>
@@ -111,7 +117,7 @@ namespace HeuristicAlgorithms
             double bestSolution = Function.Solve(Arguments);
 
             double temperature = BeginingTemperature;
-            while (temperature > EndingTemperature || bestSolution > 0.01)
+            while (temperature > EndingTemperature)
             {
                 for (int i = 0; i < Iterations; i++)
                 {
@@ -122,12 +128,21 @@ namespace HeuristicAlgorithms
                     {
                         bestSolution = tmpSolution;
                         CopyValues();
+                        if (SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
+                        {
+                            File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+                                String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+                                ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
+                            return bestSolution;
+                        }
                     }
                 }
                 temperature *= Cooling;
                 counter++;
             }
-
+            File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+                                String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+                                ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
             return bestSolution;
         }
 
@@ -141,72 +156,36 @@ namespace HeuristicAlgorithms
         /// <returns></returns>
         public AnnealingTestingModel Solve2(double beginingTemperature, double endingTemperature, int iterations, double cooling)
         {
-            //Obliczanie maxCountera
+            double best2Solution = 0;
+            int repetitions = 1;
+            //double tmp2Solution = 0;
+            for (int k = 0; k < repetitions; k++)
             {
-                maxCounter = 0;
-                double tmpTemperature = beginingTemperature;
-                while (tmpTemperature > endingTemperature)
-                {
-                    tmpTemperature *= cooling;
-                    maxCounter++;
-                }
-            }
+                SetTmpMaxCounter(beginingTemperature, endingTemperature, cooling);
+                int counter = 0;
 
-            #region Sumaryczne wartosci wynikowe
-            //double best = 0;
-            //double temp = 0;
-            //double tempbest = 0;
-            #endregion
-            #region Poczatkowe wartosci musze zainicjowac, aby na samym dole ich uzywac, a wysoka liczba i tak bedzie zmniejszona poprzez wywolanie funkcji
-            //double bestSolution = 10000000000;
-            double tmpBestSolution = 1000000000000;
-            double tmpSolution = 100000;
-            #endregion
-            //int repetitions = 1;
-            //Licznik ile razy dana temperatura sie zmniejszy az osiagnie wartosc minimalna
-            int counter = 0;
-            //zeby wynik byl w miare pewny, powtarzam dzialanie pewna ilosc razy sumujac wyniki, a nastepnie dzielac przez ilosc powtorzen
-            //for (int k = 0; k < repetitions; k++)
-            //{
-            //Losuje poczatkowe argumenty dla tablicy Arguments				
-            DrawArguments();
-            //bestSolution = Function.Solve(Arguments);
-            tmpBestSolution = Function.Solve(Arguments);
-            tmpSolution = Function.Solve(Arguments);
+                DrawArguments();
+                double bestSolution = Function.Solve(Arguments);
+                double tmpSolution = Function.Solve(Arguments);
 
-            //Dla kazdego nowego powtorzenia zaczynam od poczatkowej, wysokiej temperatury
-            double temperature = beginingTemperature;
-            while (temperature > endingTemperature)
-            {
-                for (int i = 0; i < iterations; i++)
+                double temperature = beginingTemperature;
+                while (temperature > endingTemperature)
                 {
-                    //Wykonuje pewien losowy ruch argumentow
-                    //Wybiera sasiadow z tablicy Arguments do tablicy Arguments2
-                    Move(counter);
-                    tmpSolution = Function.Solve(Arguments2);
-                    //if (tmpSolution < bestSolution)
-                    //{
-                    //	bestSolution = tmpSolution;
-                    //}
-                    if (tmpSolution < tmpBestSolution)
+                    for (int i = 0; i < iterations; i++)
                     {
-                        tmpBestSolution = tmpSolution;
-                        CopyValues();
+                        Move(counter);
+                        tmpSolution = Function.Solve(Arguments2);
+
+                        if (tmpSolution < bestSolution || ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
+                        {
+                            bestSolution = tmpSolution;
+                            CopyValues();
+                        }
                     }
-                    //Funkcja prawdopodobienstwa, nawet jezeli wynik jest gorszy, to z pewnym prawdopodobienstwem je zamieni
-                    else if (ShouldChangeAnyway(tmpBestSolution - tmpSolution, temperature))
-                    {
-                        tmpBestSolution = tmpSolution;
-                        CopyValues();
-                    }
+                    temperature *= cooling;
+                    counter++;
                 }
-                temperature *= cooling;
-                counter++;
-                //}
-                //best += bestSolution;
-                //temp += tmpSolution;
-                //tempbest += tmpBestSolution;
-                //counter = 0;
+                best2Solution += bestSolution;
             }
             return new AnnealingTestingModel()
             {
@@ -214,9 +193,9 @@ namespace HeuristicAlgorithms
                 endingTemperature = endingTemperature,
                 iterations = iterations,
                 cooling = cooling,
-                //bestSolution = bestSolution,// / repetitions,
-                tmpBestSolution = tmpBestSolution,// / repetitions,
-                tmpSolution = tmpSolution,// / repetitions
+                bestSolution = best2Solution / repetitions,// / repetitions,
+                //tmpBestSolution = bestSolution,// / repetitions,
+                //tmpSolution = tmpSolution,// / repetitions
             };
             //return bestSolution;
         }
@@ -299,18 +278,36 @@ namespace HeuristicAlgorithms
                 maxCounter++;
             }
         }
+        private void SetTmpMaxCounter(double beginingTemperature, double endingTemperature, double cooling)
+        {
+            maxCounter = 0;
+            double tmpTemperature = beginingTemperature;
+            while (tmpTemperature > endingTemperature)
+            {
+                tmpTemperature *= cooling;
+                maxCounter++;
+            }
+        }
 
         #endregion
+
+
+        // 3 scenariusze:
+        //1. niska temp(100-500, co 100 -> 5), niska ilosc iteracji(100-500, -> 5) -> slaby wynik -> 5*5 = 25
+        //2. wieksza ilosc temp (1k-10k, co 2k -> 5), wieksza ilosc iteracji (1k-10k, co 2k) -> 5*5 = 25, wieksza temp nie daje az takich efektow, dlatego iteracje mocno zwiekszam
+        //3. najlepsiejsza temp zostaje, iteracje 10k - 100k
+
 
         #region Utilities Methods
         //500-5000?
         //drop = 500?
         // ->20?
+        //1k - 4k -> 4
         public double[] GetBeginingTemperatureArray()
         {
-            int arraySize = 8;
-            double beginingValue = 4001;
-            double dropValue = 500;
+            int arraySize = 5;
+            double beginingValue = 10000;
+            double dropValue = 2000;
             double[] beginingTemperatureArray = new double[arraySize];
             for (int i = 0; i < arraySize; i++)
             {
@@ -354,11 +351,13 @@ namespace HeuristicAlgorithms
         //100 - 3000
         //every 250?
         // -> 15?
+        //1k - 60k
+        //7
         public int[] GetIterationsArray()
         {
-            int arraySize = 13;
-            int beginingValue = 100;
-            int riseValue = 250;
+            int arraySize = 6;
+            int beginingValue = 10000;
+            int riseValue = 10000;
             int[] iterationsArray = new int[arraySize];
             for (int i = 0; i < arraySize; i++)
             {
