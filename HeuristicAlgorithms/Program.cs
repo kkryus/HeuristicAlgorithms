@@ -83,18 +83,18 @@ namespace HeuristicAlgorithms
             ;
             UtilitiesMethods tmp = new UtilitiesMethods();
             DirectProblem faisnd = new DirectProblem(tmp.f, tmp.g, tmp.h, 1, 1, 15, 480, 1, 1, 1);
-            InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction0 = new InverseHeatConductionProblemFunction(faisnd, 0);
+            //InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction0 = new InverseHeatConductionProblemFunction(faisnd, 0);
             InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction1 = new InverseHeatConductionProblemFunction(faisnd, 1, temps);
             InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction2 = new InverseHeatConductionProblemFunction(faisnd, 2, temps2);
             InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction5 = new InverseHeatConductionProblemFunction(faisnd, 5, temps5);
-            SimulatedAnnealingAlgorithm simulatedAnnealinga0 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction0, 3, 20, 0.001, 35000, 0.99, 0.001);
+            //SimulatedAnnealingAlgorithm simulatedAnnealinga0 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction0, 3, 20, 0.001, 35000, 0.99, 0.001);
             SimulatedAnnealingAlgorithm simulatedAnnealinga1 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction1, 3, 20, 0.001, 35000, 0.99, 0.001);
             SimulatedAnnealingAlgorithm simulatedAnnealinga2 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction2, 3, 20, 0.001, 35000, 0.99, 0.001);
             SimulatedAnnealingAlgorithm simulatedAnnealinga5 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction5, 3, 20, 0.001, 35000, 0.99, 0.001);
-            simulatedAnnealinga0.Solve();
-            simulatedAnnealinga1.Solve();
-            simulatedAnnealinga2.Solve();
             simulatedAnnealinga5.Solve();
+            //simulatedAnnealinga1.Solve();
+            //simulatedAnnealinga2.Solve();
+            //simulatedAnnealinga5.Solve();
             /* Parallel.Invoke(
                  () => simulatedAnnealinga0.Solve(),
                  () => simulatedAnnealinga1.Solve()

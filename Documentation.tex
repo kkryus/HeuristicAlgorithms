@@ -73,12 +73,11 @@ Jednak aby metodę heurystyczną uznać za akceptowalną, chcemy żeby spełnia�
 \begin{itemize}
 	\item[--] optymalne rozwiązanie jest możliwe do znalezienia z rozsądnym wysiłkiem obliczeniowym,
 	\item[--] otrzymane rozwiązanie powinno być bliskie optymalnemu,
-	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być niskie.
+	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być ,,niskie".
 \end{itemize}
 
 \section{Opis}
-\subsection{Opis problemu}
-Częto w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
+Często w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
 
 Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać 3 wymagania:
 \begin{enumerate}
@@ -96,13 +95,12 @@ W pracy opisany i zaimplementowany zostanie algorytm symulowanego wyżarzania. D
 W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie globalnego minimum kilku funkcji testowych wraz z zadanymi przez siebie parametrami oraz odtworzenie jednego z brakujących parametrów modelu matematycznego zadanego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie.
 
 
-\section{Opis algorytmu}
-	\subsection{Algorytm symulowanego wyżarzania}
+\section{Opis algorytmu symulowanego wyżarzania}
 				Algorytm ten został stworzony wzorując się na zjawisku wyżarzania w metalurgii, które polega na nagrzaniu elementu stalowego do odpowiedniej temperatury, przetrzymaniu go w tej temperaturze przez pewien czas, a następnie powolnym jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
 Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych losowych przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, jak np. problemu komiwojażera. \\
 
 
-		\subsubsection{Parametry}
+		\subsection{Parametry}
 		
 \noindent \underline{Początkowa konfiguracja} \\ \newLine
 \indent W tym kroku powinniśmy zainicjalizować naszą temperaturę pewną wartością oraz znaleźć początkowe, losowe rozwiązanie naszego problemu. 
@@ -146,7 +144,7 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 \noindent \underline{Chłodzenie temperatury} \\ \newLine
 \indent Szybkość chłodzenia temperatury nie powinna być zbyt duża, aby pozwolić algorytmowi na sprawdzenie jak największego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie gorszych (lub dużo gorszych) rozwiązań. W większości opracowań można spotkać ten proces, jako mnożnik temperatury w zakresie [0.8;0.99].\\ \newLine
 		
-		\subsubsection{Kroki algorytmu}
+		\subsection{Kroki algorytmu}
 		
 		Algorytm ten można również przedstawić za pomocą listy kroków:
 
@@ -179,7 +177,7 @@ Funkcja ta jest funkcją parzystą i przyjmuje tylko warto\si ci nieujemne. Na p
 Posiada ona następujące globalne minimum:
 \[ f(0, 0) = 0 \] \\
 
-Funkcję prezentują poniższe wykresy:\\
+Funkcję prezentuje poniższy wykres:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{quadraticFunction1.png}\\
@@ -202,7 +200,7 @@ Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdz
 Posiada ona następujące globalne minimum:
 \[ f(0,...,0) = 0 \] \\
 
-By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres w 2 wymiarach na poniższych obrazkach:\\
+By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres w 2 wymiarach na poniższym obrazku:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{rastriginFunction1.png}\\
@@ -224,7 +222,7 @@ Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemne. Na potrzeby pr
 Posiada ona następujące globalne minimum:
 \[ f(1,...,1) = 0 \] \\
 
-Poniższe wykresy prezentują jej wygląd w zadanym zakresie:\\
+Poniższy wykres prezentuje jej wygląd w zadanym zakresie:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{rosenbrockFunction1.png}\\
@@ -232,7 +230,6 @@ Poniższe wykresy prezentują jej wygląd w zadanym zakresie:\\
 	\caption{Funkcja Rosenbrocka o 2 wymiarach}
 \end{figure}
 
-\section{Dobór parametrów}
 Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
 
 Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjęli\si my kilka założeń, a następnie sukcesywnie poszukiwali\si my odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzali\si my jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki, a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
@@ -600,14 +597,16 @@ ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
 \end{verbatim}
 
 \section{Zastosowanie algorytmów w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
+
 \section{Narzędzia i technologie}
+W procesie tworzenia aplikacji zdecydowali\si my się na użycie kilku rozwiązań, które pozwoliły na bezpieczną i przejrzystą pracę w kolejnych jego etapach. \\
 	\subsection{Metodyka pracy}
 	\subsubsection{System kontroli wersji}
 	System kontroli wersji posiada wiele zalet, m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
 W moim projekcie skorzystałem z systemu kontroli Git, a repozytorium można znaleźć na portalu github.com. 
 	\subsubsection{Github Project Management}
 Pomimo, iż praca w pojedynkę nie wymagała ode mnie zaawansowanego zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
-	\subsubsection{\SI rodowisko programistyczne}
+	\subsubsection{Środowisko programistyczne}
 Do implementacji projektu użyłem \si rodowiska Microsoft Visual Studio Community 2017, które to zostało stworzone przez firmę Microsoft i pozwala na programowanie konsolowe oraz z graficznym interfejsem użytkownika (zarówno aplikacje desktopowe, jak i strony internetowe).  \\
 Dobra znajomo\si ć i przejrzysto\si ć tego \si rodowiska programistycznego pozwoliła mi skupić się na rozwiązywaniu problemu, omijając problem zapoznawania się z nowym narzędziem.
 	\subsubsection{Mathematica}
@@ -621,34 +620,34 @@ Język programowania C\# należy do obiektowych języków programowania, któreg
 Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
 
 \section{Podsumowanie}
-	\subsection{Dalsze kierunki rozwoju}
-	\subsection{Źródła}
-%funkcje testowe
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4538776/
+Celem tej pracy inżynierskiej było stworzenie aplikacji, która pozwoliłaby rozwiązać zadany problem przewodnictwa ciepła poprzez zastosowanie algorytmu symulowanego wyżarzania. Stworzono więc program, który poprzez prosty interfejs graficzny pozwala na użycie tego algorytmu heurystycznego w kilku funkcjach testowych oraz zadanym odwrotnym problemie przewodnictwa ciepła i znalezienia ich optymalnego rozwiązania. Dodatkowo użytkownik jest w stanie zmodyfikować (domy\si lne i sugerowane) parametry algorytmu i sprawdzić jak wpłynie to na rezultat wykonywania programu. \\
 
-%wstep i opis problemu[?]
-F. Rothlauf, Design of Modern Heuristics, Natural Computing Series,
-DOI 10.1007/978-3-540-72962-4 2, © Springer-Verlag Berlin Heidelberg 2011
+Realizacja założeń projektu wymagała przeprowadzenia badań w kwestii odpowiedniego doboru parametrów dla poszczególnych problemów i ich jako\si ci oraz przetestowania i zoptymalizowania samego działania algorytmu symulowanego wyżarzania. Dobrane parametry dla poszczególnych problemów pozwalają na stosunkowo szybkie i poprawne znalezienie optymalnego rozwiązania danego problemu, a wyniki przeprowadzonych testów rozwiązania odwrotnego zadania przewodnictwa ciepła na zbliżone odtworzenie jednego z brakujących parametrów modelu matematycznego. \\
 
-%wstep i opis problemu
-R. Mart'ı and G. Reinelt, The Linear Ordering Problem, Exact and Heuristic Methods
-in Combinatorial Optimization 175, DOI: 10.1007/978-3-642-16729-4 2,
-c Springer-Verlag Berlin Heidelberg 2011
+Dalsze prace nad programem powinny rozwinąć projekt o możliwo\si ć zadania problemu tradycyjnego i odwrotnego przewodnictwa ciepła, stając się tym samym jeszcze bardziej użytecznym. Pomimo, iż algorytmy heurystyczne znacznie przyspieszają znalezienie optymalnego rozwiązania, to jednak bywa to proces czasochłonny, stąd informacja o estymowanym czasie do ukończenia procesie może być użyteczna dla użytkownika. Ze względu na zasoby czasowe i błąd ludzki, warto by było zautomatyzować proces przeprowadzania testów parametrów nowych problemów oraz dla już istniejących. Rozszerzenie projektu o dodatkowe algorytmy heurystyczne pozwoliłoby porównywać ze sobą jako\si ć rozwiązań i złożono\si ć pamięciową i czasową poszczególnych algorytmów, dzięki czemu w praktycznych celach można by dobierać odpowiedni algorytm do konkretnego problemu.
 
-%problemy odwrotne/1 rozdzial
-http://prac.im.pwr.edu.pl/~plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
-
-https://www.math.unl.edu/~scohn1/8423/wellposed.pdf
-
-%
-
-
-----------------------------------------------------------------------------------------------------------------------
 
 \begin{thebibliography}{12}
 
-\bibitem{PozNazwa1} Jakaś pozycja literatury
-\bibitem{InnPoz} Jakaś pozycja literatury
+%funkcje testowe
+\bibitem{1} H. Abiyev and M. Tunay, \textit{Optimization of High-Dimensional Functions through Hypercube Evaluation} [online] Dostępny w Internecie: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4538776/ [dostęp: 13 listopada 2018]
+
+
+%wstep i opis problemu[?]
+\bibitem{2} F. Rothlauf, \textit{Design of Modern Heuristics: Principles and Application} [online], [w:] ,,Natural Computing Series", 2011 nr 1, s. 7-44
+Dostępny w Internecie: https://pdfs.semanticscholar.org/b333/0f96d1a937fc2c63b3294729cfea30826134.pdf [dostęp: 27 listopada 2018]
+
+%wstep i opis problemu
+\bibitem{3} R. Mart'ı and G. Reinelt, The Linear Ordering Problem, Exact and Heuristic Methods
+in Combinatorial Optimization 175, DOI: 10.1007/978-3-642-16729-4 2,
+c Springer-Verlag Berlin Heidelberg 2011
+[dostęp 28 listopada 2018]
+
+%problemy odwrotne/1 rozdzial
+\bibitem{4}http://prac.im.pwr.edu.pl/~plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
+
+\bibitem{5}https://www.math.unl.edu/~scohn1/8423/wellposed.pdf
+
 
 \end{thebibliography}
 \end{document}
