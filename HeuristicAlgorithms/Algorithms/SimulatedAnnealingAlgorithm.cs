@@ -130,9 +130,9 @@ namespace HeuristicAlgorithms
                         CopyValues();
                         if (SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
                         {
-                            File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
-                                String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
-                                ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
+                            //File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+                            //    String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+                           //     ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
                             return bestSolution;
                         }
                     }
@@ -140,9 +140,9 @@ namespace HeuristicAlgorithms
                 temperature *= Cooling;
                 counter++;
             }
-            File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
-                                String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
-                                ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
+           // File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+           //                     String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+            //                    ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
             return bestSolution;
         }
 
@@ -157,7 +157,7 @@ namespace HeuristicAlgorithms
         public AnnealingTestingModel Solve2(double beginingTemperature, double endingTemperature, int iterations, double cooling)
         {
             double best2Solution = 0;
-            int repetitions = 1;
+            int repetitions = 10;
             //double tmp2Solution = 0;
             for (int k = 0; k < repetitions; k++)
             {
@@ -348,15 +348,15 @@ namespace HeuristicAlgorithms
             }
             return coolingArray;
         }
-        //100 - 3000
+        //1000 - 10000
         //every 250?
         // -> 15?
         //1k - 60k
         //7
         public int[] GetIterationsArray()
         {
-            int arraySize = 6;
-            int beginingValue = 10000;
+            int arraySize = 5;
+            int beginingValue = 60000;
             int riseValue = 10000;
             int[] iterationsArray = new int[arraySize];
             for (int i = 0; i < arraySize; i++)

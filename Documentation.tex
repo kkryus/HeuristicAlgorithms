@@ -596,7 +596,351 @@ ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
 }
 \end{verbatim}
 
-\section{Zastosowanie algorytmów w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
+\section{Zastosowanie algorytmu w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
+Posiadając gotowy model matematyczny tradycyjnego problemu przewodnictwa ciepła możliwe jest zasymulowanie tego procesu i otrzymanie serii pomiarów temperatur. Obliczone pomiary temperatur można użyć do rozwiązania problemu odwrotnego. 
+\subsection{Tradycyjny problem}
+\subsubsection{Parametry}
+Proces obliczania rozkładu temperatur wymaga podania kilku parametrów, które zostaną teraz wyja\si nione. \\
+Delegaty oznaczone $f$, $g$ i $h$ są opisem warunków brzegowych, odpowiednio rozkładem temperatury w czasie $t_0$ oraz rozkładem temperatur na początku i końcu procesu zależnym od czasu. W projekcie funkcje te przyjmują następującą postać:
+
+\[ f(x) = 0.5 x^2 + 0.5 \] 
+\[ g(t) = t + 0.5 \] 
+\[ h(t) = t + 1 \] 
+\noindent gdzie: \\
+$ x \in [0, a] $, \\
+$ t \in [0, T] $, \\
+$ a, T = 1$. \\
+
+Liczby $nx$ i $nt$ są maksymalną liczbą węzłów, na którą dzielimy odpowiednie osie rozkładu temperatur (odpowiednio $x$ i $t$). W projekcie przyjmują one następujące warto\si ci: 
+\[ nx = 15 \]
+\[nt = 480 \]
+%cos o hx i tau?
+
+Pozostałe parametry wynikają z równania przewodnictwa ciepła: \\
+c - ciepło wła\si ciwe,\\
+rho - gęsto\si ć,\\
+lambda - współczynnik przewodno\si ci ciepła.\\
+
+\noindent  gdzie: \\
+$ c, rho, lambda = 1 $
+
+\subsubsection{Obliczanie rozkładu temperatur}
+Następujący fragment kodu przedstawia obliczenie rozkładu temperatur.
+
+\begin{verbatim}
+public double[][] Solve()
+{
+    double[][] temp = new double[this.nt + 1][];
+    for (int i = 0; i < this.nt + 1; i++)
+    {
+        temp[i] = new double[this.nx + 1];
+        for (int j = 0; j < this.nx + 1; j++)
+        {
+            temp[i][j] = 0;
+        }
+    }
+    double hx = a / nx;
+    if (this.tau / (hx * hx) >= 0.5)
+    {
+        Console.WriteLine("Niestabline");
+        return null;
+    }
+    var x = new double[this.nx + 1];
+    for (int i = 0; i < this.nx + 1; i++)
+    {
+        x[i] = i * hx;
+    }
+    for (int i = 0; i < this.nx + 1; i++)
+    {
+        temp[0][i] = this.f(x[i]);
+    }
+    for (int i = 0; i < nt + 1; i++)
+    {
+        temp[i][0] = this.g((i) * this.tau);
+        temp[i][this.nx] = this.h((i) * this.tau);
+    }
+    var wsp = this.lambda * this.tau / (hx * hx * this.c * this.rho);
+    for (int j = 1; j < this.nt + 1; j++)
+    {
+        for (int i = 1; i < this.nx; i++)
+        {
+            temp[j][i] = wsp * (temp[j - 1][i - 1] - 2.0 * temp[j - 1][i] +
+ temp[j - 1][i + 1]) + temp[j - 1][i];
+        }
+    }
+    return temp;
+}   
+
+\end{verbatim}
+
+Korzystając z powyższej metody 
+
+\subsection{Problem odwrotny}
+Posiadając rozkład temperatur, pobrali\si my 10 jej pomiarów w 80 \% maksymalnej ilo\si węzłów w równych odstępach czasu. Następująca tabela przedstawia temperatury wykorzystywane w obliczeniach:
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+\hline
+& \textbf{ $t_i$} \\ \hline
+& 0,82\\ \hline 
+&0,92\\ \hline 
+&1,02\\ \hline 
+&1,12\\ \hline 
+&1,22\\ \hline 
+&1,32\\ \hline 
+&1,42\\ \hline 
+&1,52\\ \hline 
+&1,62\\ \hline 
+&1,72 \\ \hline 
+\end{tabularx}\\
+
+Posiadając model problemu tradycyjnego oraz pobranych pomiarów, zadanie polegało na odtworzeniu jednego z warunków granicznych ($h$) za pomocą równania kwadratowego:
+
+\[h(t) = p^2 t + qt + s \]
+
+w taki sposób, by obliczony na nowo rozkład temperatur przy pomocy nowej funkcji i pobrany zestaw danych jak najbardziej przypominał oryginalny. By odtworzona funkcja była równa pierwotnej, parametry powinny przyjąć następujące warto\si ci:
+\[ p = 0\]
+\[ q = 1\]
+\[ s = 1\]
+
+\subsection{Wykorzystanie algorytmu heurystycznego}
+Do odnalezienia parametrów równania kwadratowego został użyty algorytm symulowanego wyżarzania. Algorytm w procesie iteracyjnym sprawdzał jakie warto\si ci $p$, $q$ i $s$ pozwalały na uzyskanie jak najmniejszego błędu odtworzenia (liczonego jako sumę warto\si ci bewzględnej różnic odpowiednich pomiarów temperatur), co przedstawia poniższy wzór:
+
+$$ \sum_{i=1}^{n} = \left| x_i - z_i \right| $$
+
+gdzie: \\
+$ x_i $ - oryginalny i-ty pomiar  \\
+$ z_i$  - odtworzony i-ty pomiar  \\
+$ n $ - liczba pomiarów. \\
+
+Poszukiwania parametrów zostały ograniczone do następującego przedziału:
+
+\[ p, q, s \in [-10, 10] \]
+
+\subsubsection{Implementacja rozwiązania problemu odwrotnego}
+
+Klasa odpowiadająca za problem odwrotny posiada metodę Solve(), która zwraca błąd odtworzenia funkcji. Funkcja ta przyjmuje dowolną ilo\si ć parametrów (ze względu na uniwersalno\si ć metody Solve() w problemach), gdzie tutaj pierwsze trzy argumenty są parametrami funkcji kwadratowej. W implementacji tej metody jest używanych kilka zmiennych/metod, które oznaczają:\\
+
+\noindent $GetInverseProblemTemperatureMeasurements()$, pomocnicza metoda, która zwraca odpowiednie pomiary temperatur dla odtworzonego problemu tradycyjnego (z funkcją $h$ jako odtworzona funkcja kwadratowa), \\
+\noindent $Measurements$ - oryginalny zestaw pomiarów. \\
+
+Implementacja metody Solve() ma następującą postać:
+
+\begin{verbatim}
+public override double Solve(params double[] values)
+{
+    this.p = values[0];
+    this.q = values[1];
+    this.s = values[2];
+
+    double sum = 0;
+
+    double[] tmpMeasurements = GetInverseProblemTemperatureMeasurements();
+    for (int i = 0; i < Measurements.Length; i++)
+    {
+        sum += Math.Abs(Measurements[i] - tmpMeasurements[i]);
+    }
+    return sum;
+}
+\end{verbatim}
+
+Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do obliczania jak ,,najniższej" warto\si ci błędu odtworzenia i to wła\si nie algorytm przekazuje warto\si ci parametrów funkcji odtwarzanej.
+
+\subsubsection{Parametry algorytmu}
+Ze względu na czas oczekiwania znalezienia pojedynczego optymalnego rozwiązania problemu, ilo\si ć prób sprawdzających jako\si ć dobranych parametrów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z satysfakcjonującym wynikiem błędu odtworzenia. \\
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
+\hline
+& \textbf{ $T_0$} &
+ \textbf{ $T_{end}$} &
+ \textbf{ Iteracje}&
+ \textbf{ Chłodzenie}\\ \hline
+& 20 & 0.001 & 35000 & 0.99 \\ \hline 
+\end{tabularx}
+
+\subsection{Rezultaty}
+
+Oprócz prób odtworzenia funkcji granicznej dla dokładnych pomiarów, zostały również podjęte próby jej odtworzenia dla pomiarów, które posiadają kolejno 1, 2 i 5\% zakres błędu. Każda warto\si ć temperatury została obliczona w następujący sposób dla poszczególnych pomiarów:
+
+\[ t_{ip} = rand(t_{i} - (\frac{t_{i} p}{100}), t_{i} + (\frac{t_{i} p}{100})) \]
+
+gdzie:\\
+$p$ - warto\si ć procentu zakresu błędu,\\
+$t_i$ - oryginalny i-ty pomiar,\\
+$t_{ip}$ - pomiar z p-procentowym zakresem błędu,\\
+$rand$ - funkcja losująca liczbę z zakresu (od, do).
+
+
+\subsubsection{Dokładne pomiary temperatur}
+
+Następna tabela przedstawia wyniki osiągniete przy pomocy tych parametrów (liczby zaokrąglono do 6 miejsca po przecinku) przy niezmienionych pomiarach temperatur. \\
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
+\hline
+& \textbf{Błąd} &
+ \textbf{P} &
+ \textbf{Q} &
+ \textbf{S}\\ \hline
+& 0,000694 & -0,001192 & 1,001541 & 0,999601 \\ \hline 
+& 0,000944 & 0,002767  & 0,997142  & 1,000632 \\ \hline 
+& 0,000611  & -0,001293 & 1,001497 & 0,999587 \\ \hline 
+& 0,000540 & -0,000139 & 1,000482 & 0,999830 \\ \hline 
+& 0,000872 & -0,002574 & 1,002608  & 0,999527 \\ \hline 
+\end{tabularx} \\
+%f = 0.77081279536 t^2 + 0.30699515969 t + 1.12485497268
+%f = -0.24177239639 t^2 + 1.19268820119 t + 0.98276740318
+%f = 0.12636545557 t^2 + 0.89758728094 t + 1.01513765916
+%f = -0.00048605428 t^2 + 1.00065381003 t + 0.9998353925
+
+Różnicę pomiędzy pierwotną funkcją graniczną, a odtworzoną została również przedstawiona na wykresie (żółty kolor oznacza oryginał, niebieska odtworzoną, niebieska posiada większą grubo\si ć w celu zauważenia nachodzenia na siebie linii).
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{0reconstruction.png}\\
+	\caption{Porównanie początkowej funkcji granicznej z odtworzoną}
+\end{figure}
+
+Przygotowano również wykres pokazujący błąd bezwzględny obliczeń, co przedstawia poniższy rysunek: \\
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{0abs.png}\\
+	\caption{Błąd bezwzględny obliczeń}
+\end{figure}
+
+\subsubsection{1\% błąd pomiarowy temperatur}
+
+Pomiary wykorzystywane przy obliczeniach z 1\% zakresem błędu pomiarowego wyglądają następująco: \\
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+\hline
+& \textbf{ $t_i$} \\ \hline
+&0,825351111074887\\ \hline 
+&0,927342643023162\\ \hline 
+&1,02297612208909\\ \hline 
+&1,11725360196924\\ \hline 
+&1,2245631980555\\ \hline 
+&1,31688200037204\\ \hline 
+&1,42067680637374\\ \hline 
+&1,52267106404764\\ \hline 
+&1,62394119003831\\ \hline 
+&1,73631774015795\\ \hline 
+\end{tabularx}\\
+
+Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezultaty (zaokrąglone do 6 miejsca po przecinku): \\
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
+\hline
+& \textbf{Błąd} &
+ \textbf{P} &
+ \textbf{Q} &
+ \textbf{S}\\ \hline
+& 0,027209 & 0,119038 & 0,895152 & 1,018938 \\ \hline 
+& 0,023787 & 0,115199 & 0,915740 & 1,013953 \\ \hline 
+& 0,027362 & 0,149960 & 0,885986 & 1,006287 \\ \hline 
+& 0,023056 & 0,117270 & 0,888978 & 1,017797 \\ \hline 
+& 0,023617 & 0,130361 & 0,902080 & 1,018714 \\ \hline 
+\end{tabularx} \\
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{1reconstruction.png}\\
+	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+\end{figure}
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{1abs.png}\\
+	\caption{Błąd bezwzględny obliczeń}
+\end{figure}
+
+
+
+\subsubsection{2\% błąd pomiarowy temperatur}
+
+Przy obliczaniu parametrów odtwarzanej funkcji przy 2\% zakresie błędu pomiarowego wykorzystano następujące pomiary temperatur: \\
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+\hline
+& \textbf{ $t_i$} \\ \hline
+&0,832676937581728\\ \hline 
+&0,922541154071009\\ \hline 
+&1,01610763695636\\ \hline 
+&1,13368222511601\\ \hline 
+&1,24050689425995\\ \hline 
+&1,33037780534922\\ \hline 
+&1,43757166475485\\ \hline 
+&1,50969160181027\\ \hline 
+&1,61262938854183\\ \hline 
+&1,69925458435307\\ \hline 
+\end{tabularx}\\ \newLine
+
+Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrągleniu do 6 miejsca po przecinku): \\
+
+\noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
+\hline
+& \textbf{Błąd} &
+ \textbf{P} &
+ \textbf{Q} &
+ \textbf{S}\\ \hline
+& 0,068528  & -0,364171 & 1,299335  & 0,951341 \\ \hline 
+& 0,065422  & -0,256919 & 1,197051  & 0,999223 \\ \hline 
+& 0,058742  & -0,235167 & 1,185274  & 0,989484 \\ \hline 
+& 0,060410  & -0,153094 & 1,117493  & 0,993703 \\ \hline 
+& 0,060850  & -0,199511 & 1,164290  & 0,980086 \\ \hline 
+\end{tabularx} \\
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{2reconstruction.png}\\
+	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+\end{figure}
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{2abs.png}\\
+	\caption{Błąd bezwzględny obliczeń}
+\end{figure}
+
+
+
+\subsubsection{5\% błąd pomiarowy temperatur}
+
+Pomiary wykorzystywane przy obliczeniach z 5\% zakresem błędu pomiarowego wyglądają następująco: \\
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+\hline
+& \textbf{ $t_i$} \\ \hline
+&0,805057901030433\\ \hline 
+&0,929989068601275\\ \hline 
+&1,05148950317152\\ \hline 
+&1,1398041024412\\ \hline 
+&1,21390826781975\\ \hline 
+&1,29058231760775\\ \hline 
+&1,3879814341464\\ \hline 
+&1,58770452886806\\ \hline 
+&1,62664563802893\\ \hline 
+&1,79591014782987\\ \hline 
+\end{tabularx}\\
+
+Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb do 6 miejsca po przecinku): \\
+
+\noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
+\hline
+& \textbf{Błąd} &
+ \textbf{P} &
+ \textbf{Q} &
+ \textbf{S}\\ \hline
+& 0,203137 & 0,867815 & 0,203345 & 1,159725 \\ \hline 
+& 0,204883 & 0,656280 & 0,429536 & 1,098522 \\ \hline 
+& 0,203023 & 0,765145 & 0,316677 & 1,126484 \\ \hline 
+& 0,206009 & 0,813253 & 0,242778 & 1,127690 \\ \hline 
+& 0,204143 & 0,751570 & 0,342640 & 1,111854 \\ \hline 
+\end{tabularx}
+
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{5reconstruction.png}\\
+	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+\end{figure}
+
+\begin{figure}[H]
+		\includegraphics[height=7cm, width=10cm]{5abs.png}\\
+	\caption{Błąd bezwzględny obliczeń}
+\end{figure}
+
+
 
 \section{Narzędzia i technologie}
 W procesie tworzenia aplikacji zdecydowali\si my się na użycie kilku rozwiązań, które pozwoliły na bezpieczną i przejrzystą pracę w kolejnych jego etapach. \\

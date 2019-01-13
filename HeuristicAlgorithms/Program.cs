@@ -14,7 +14,7 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
-            #region 1%
+            /*#region 1%
             String line = "";
             try
             {   // Open the text file using a stream reader.
@@ -91,10 +91,10 @@ namespace HeuristicAlgorithms
             SimulatedAnnealingAlgorithm simulatedAnnealinga1 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction1, 3, 20, 0.001, 35000, 0.99, 0.001);
             SimulatedAnnealingAlgorithm simulatedAnnealinga2 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction2, 3, 20, 0.001, 35000, 0.99, 0.001);
             SimulatedAnnealingAlgorithm simulatedAnnealinga5 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction5, 3, 20, 0.001, 35000, 0.99, 0.001);
-            simulatedAnnealinga5.Solve();
+            simulatedAnnealinga2.Solve();
             //simulatedAnnealinga1.Solve();
             //simulatedAnnealinga2.Solve();
-            //simulatedAnnealinga5.Solve();
+            //simulatedAnnealinga5.Solve();*/
             /* Parallel.Invoke(
                  () => simulatedAnnealinga0.Solve(),
                  () => simulatedAnnealinga1.Solve()
@@ -108,9 +108,9 @@ namespace HeuristicAlgorithms
             //inverseHeatConductionProblemFunction.Solve(1, 2, 3);
             //faisnd.Solve();
 
-            // bool algorithm = true;
-            //bool circle = !true;
-            /*if (algorithm)
+            bool algorithm = true;
+            bool circle = !true;
+            if (algorithm)
             {
                 //IAlgorithm<double[]> simulatedAnnealing;
                 SimulatedAnnealingAlgorithm simulatedAnnealing;
@@ -121,73 +121,61 @@ namespace HeuristicAlgorithms
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 1000, 0.001, 50000, 0.99, 0.001);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 100000, 0.99, 0.01);
                     // simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 4000, 0.001, 5000, 0.99);
                 }
                 //var sol = simulatedAnnealing.Solve();
-               // ;
+                // ;
                 //var cooling = simulatedAnnealing.GetCoolingArray();
                 // var temp = simulatedAnnealing.GetBeginingTemperatureArray();
                 //var ending = simulatedAnnealing.GetEndingTemperatureArray();
-                //var iterations = simulatedAnnealing.GetIterationsArray();
+                var iterations = simulatedAnnealing.GetIterationsArray();
                 List<AnnealingTestingModel> lista = new List<AnnealingTestingModel>();
-                List<double> lists = new List<double>();
+                 List<double> lists = new List<double>();
 
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     lists.Add(simulatedAnnealing.Solve());
-                   // lista.Add(simulatedAnnealing.Solve2(500, 0.001, 100000, 0.99));
+                     //lista.Add(simulatedAnnealing.Solve2(100, 0.01, 10000, 0.99));
                 }
 
+
+                lists = lists.OrderBy(x => x).ToList();//*/
+                ;
+                // }
+
+                //for(int i = 0; i < temp.Length; i++)
+                //for (int i = 0; i < 2; i++)
+                // {
+                /*for (int j = 0; j < iterations.Length; j++)
+                //for (int j = 0; j < 2; j++)
+                {
+                    lista.Add(simulatedAnnealing.Solve2(100, 0.01, iterations[j], 0.99));
+                }
+                //}
                 lista = lista.OrderBy(x => x.bestSolution).ToList();
-                ;/**/
-            //for(int i = 0; i < temp.Length; i++)
-            //for (int i = 0; i < 2; i++)
-            // {
-            /*for(int j = 0; j < iterations.Length; j++)
-            //for (int j = 0; j < 2; j++)
-            {
-                lista.Add(simulatedAnnealing.Solve2(5000, 0.001, iterations[j], 0.99));
-            }*/
-            //  }
-            /* lista = lista.OrderBy(x => x.bestSolution).ToList();//*/
+                string fileName = "f3Table.txt";
 
-            /*File.AppendAllText(@"d:\secondTable.txt", @"\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
-             \hline
-             & \textbf{ T0}
-             & \textbf{ Iteracje}
-             &\textbf{ Rozwiązanie}\\ \hline");
-            for (int i = 0; i < lista.Count; i++)
-            {
-                File.AppendAllText(@"d:\thirdTable.txt",
-                    String.Format("& {0} & {1} & {2} \\\\ \\hline ", lista[i].beginingTemperature, lista[i].iterations, lista[i].bestSolution) + Environment.NewLine);
+                File.AppendAllText(@"d:\" + fileName, @"\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+                  \hline
+                  & \textbf{ T0}
+                  & \textbf{ Iteracje}
+                  &\textbf{ Rozwiązanie}\\ \hline");
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    File.AppendAllText(@"d:\" + fileName,
+                        String.Format("& {0} & {1} & {2} \\\\ \\hline ", lista[i].beginingTemperature, lista[i].iterations, lista[i].bestSolution) + Environment.NewLine);
+                }
+
+                File.AppendAllText(@"d:\" + fileName, @"\end{tabularx}");//*/
             }
-
-            File.AppendAllText(@"d:\firstTable.txt", @"\end{tabularx}");//*/
-
             //RosenbrockFunction oko = new RosenbrockFunction();
             //var foo = oko.Solve(100, 55);
             // double elapsedMs = 0;
             //for (int h = 0; h < 10; h++)
             //{
             //var watch = System.Diagnostics.Stopwatch.StartNew();
-            #region Wyniki
-            //40k = 80%
-            //50k = 86%
-            //86%                    
-            //60k = 78%
-            //-------
-            //dla temperatury = 100 i iteracji 50k
-            //9/30
-            //dla temperatury = 1000 i iteracji 50k
-            //10/50 = 80%
-            //dla 3k temperatury, 50k iteracji, 0.9 cooling
-            //wyniki zle
-            //dla 4k temp, 50k iteracji, 0.01 i 0.99
-            //80%
-            // dla 3k temp, 50k iteracji, 0.001, 0.99
-            //wyniki zle
-            #endregion
+
             //simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99);
             //var okooo = simulatedAnnealing.Solve2();
             //lista.Add(simulatedAnnealing.Solve3(4000, 0.001, 1650, 0.99));
