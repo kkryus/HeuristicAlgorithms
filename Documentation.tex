@@ -188,7 +188,7 @@ Funkcję prezentuje poniższy wykres:\\
 	\subsection{Funkcja Rastrigina}
 	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
 
-\[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{(2 \pi x_i)}] \]
+\[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}] \]
 
 gdzie: \\
 A = 10, \\
@@ -213,7 +213,7 @@ By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres w 2 
 	\subsection{Funkcja Rosenbrocka}
 Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
 
-\[f(x) = \sum_{i=1}^{n-1} [100(x_{i+1} - x_i^2)^2 + (1- x_i)^2 ]\] \\
+\[f(x) = \sum_{i=1}^{n-1} [100\left(x_{i+1} - x_i^2\right)^2 + \left(1- x_i\right)^2 ]\] \\
 
 
 Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemne. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
@@ -759,7 +759,7 @@ Ze względu na czas oczekiwania znalezienia pojedynczego optymalnego rozwiązani
 
 Oprócz prób odtworzenia funkcji granicznej dla dokładnych pomiarów, zostały również podjęte próby jej odtworzenia dla pomiarów, które posiadają kolejno 1, 2 i 5\% zakres błędu. Każda warto\si ć temperatury została obliczona w następujący sposób dla poszczególnych pomiarów:
 
-\[ t_{ip} = rand(t_{i} - (\frac{t_{i} p}{100}), t_{i} + (\frac{t_{i} p}{100})) \]
+\[ t_{ip} = rand\left(t_{i} - \left(\frac{t_{i} p}{100}\right), t_{i} +\left (\frac{t_{i} p}{100}\right)\right) \]
 
 gdzie:\\
 $p$ - warto\si ć procentu zakresu błędu,\\
@@ -792,15 +792,19 @@ Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów
 Różnicę pomiędzy pierwotną funkcją graniczną, a odtworzoną (poprzez u\si rednienie parametrów $p$, $q$ i $s$) została również przedstawiona na wykresie (żółty kolor oznacza oryginał, niebieska odtworzoną, niebieska posiada większą grubo\si ć w celu zauważenia nachodzenia na siebie linii).
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{0reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną}
+\end{center}
 \end{figure}
 
 Przygotowano również wykres pokazujący błąd bezwzględny obliczeń, co przedstawia poniższy rysunek: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{0abs.png}\\
-	\caption{Błąd bezwzględny obliczeń}
+	\caption{Błąd bezwzględny obliczeń}\
+\end{center}
 \end{figure}
 
 \subsubsection{1\% błąd pomiarowy temperatur}
@@ -840,15 +844,19 @@ Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezul
 Różnica pomiędzy oryginalną funkcją, a uzyskaną (poprzez u\si rednienie parametrów) została przedstawiona na wykresie: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{1reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 1 \% zakresem błędu pomiarów)}
+\end{center}
 \end{figure}
 
 Następujący rysunek przedstawia błąd bezwzględny obliczeń: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{1abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}
+\end{center}
 \end{figure}
 
 
@@ -889,15 +897,19 @@ Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrą
 Różnicę pomiędzy funkcjami pierwotną i obliczoną (poprzez u\si rednienie parametrów) przedstawia poniższy wykres: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{2reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 2 \% zakresem błędu pomiarów)}
+\end{center}
 \end{figure}
 
 Błąd bezwzględny obliczeń został przedstawiony poniżej: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{2abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}
+\end{center}
 \end{figure}
 
 
@@ -938,15 +950,19 @@ Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb 
 Wykresy obu funkcji zostały przedstawione poniżej: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{5reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 5 \% zakresem błędu pomiarów)}
+\end{center}
 \end{figure}
 
 Poniższy rysunek przedstawia błąd bewzględny obliczeń: \\
 
 \begin{figure}[H]
+\begin{center}
 		\includegraphics[height=7cm, width=10cm]{5abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}
+\end{center}
 \end{figure}
 
 
