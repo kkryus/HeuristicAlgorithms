@@ -121,7 +121,7 @@ namespace HeuristicAlgorithms
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 30000, 0.99, 0.01);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 70000, 0.99, 0.01);
                      //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 10, 0.01, 500, 0.99, 0.01);
                 }
                 //var sol = simulatedAnnealing.Solve();
