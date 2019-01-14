@@ -60,10 +60,10 @@
 \newtheorem{dd}{Definicja}%[subsection]
 
 \begin{document}
-Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski albo szukając najkrótszego połączenia pomiędzy miastami. Szukając rozwiązania, zawsze dążymy żeby było ono jak,,najlepsze" (lub dokładnie ,,najlepsze") i zostało znalezione w rozsądnym czasie. W tym celu często korzysta się z algorytmów heurystycznych. \\ 
+Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski, szukając najkrótszego połączenia pomiędzy miastami. Szukając rozwiązania (zazwyczaj przybliżonego), zawsze dążymy do tego żeby było ono jak,,najlepsze" (jak najbliższe dokładnemu) i zostało znalezione w rozsądnym czasie. W tym celu często korzysta się z algorytmów heurystycznych. \\ 
 
 
-Metody heurystyczne znacznie skracają czas wyszukiwania rozwiązania problemu, aczkolwiek często ich wynikiem jest jedynie wynik przybliżony do ,,najlepszego''.  Otrzymując takie wła\si nie rozwiązanie możemy:
+Metody heurystyczne są przybliżonymi metodami optymalizacyjnymi, ale otrzymane dzięki nim rezulaty są satysfakcjonujące. Otrzymując w ten sposób rozwiązanie możemy:
 
 \begin{enumerate}
 	\item zaakceptować je, np. gdy dokładne rozwiązanie nie jest konieczne (np. kompresja obrazu),
@@ -71,7 +71,7 @@ Metody heurystyczne znacznie skracają czas wyszukiwania rozwiązania problemu, 
 \end{enumerate}
 Jednak aby metodę heurystyczną uznać za akceptowalną, chcemy żeby spełniała następujące wymagania:
 \begin{itemize}
-	\item[--] optymalne rozwiązanie jest możliwe do znalezienia z rozsądnym wysiłkiem obliczeniowym,
+	\item[--] rozwiązanie jest możliwe do znalezienia przy rozsądnej liczby obliczeń (w przeliczeniu na ich koszt),
 	\item[--] otrzymane rozwiązanie powinno być bliskie optymalnemu,
 	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być ,,niskie".
 \end{itemize}
@@ -617,15 +617,15 @@ Liczby $nx$ i $nt$ są maksymalną liczbą węzłów, na którą dzielimy odpowi
 %cos o hx i tau?
 
 Pozostałe parametry wynikają z równania przewodnictwa ciepła: \\
-c - ciepło wła\si ciwe,\\
-rho - gęsto\si ć,\\
-lambda - współczynnik przewodno\si ci ciepła.\\
+$c$ - ciepło wła\si ciwe,\\
+$rho$ - gęsto\si ć,\\
+$lambda$ - współczynnik przewodno\si ci ciepła.\\
 
 \noindent  gdzie: \\
 $ c, rho, lambda = 1 $
 
 \subsubsection{Obliczanie rozkładu temperatur}
-Następujący fragment kodu przedstawia obliczenie rozkładu temperatur.
+Następujący fragment kodu przedstawia proces obliczania rozkładu temperatur.
 
 \begin{verbatim}
 public double[][] Solve()
@@ -670,10 +670,8 @@ public double[][] Solve()
     }
     return temp;
 }   
-
 \end{verbatim}
 
-Korzystając z powyższej metody 
 
 \subsection{Problem odwrotny}
 Posiadając rozkład temperatur, pobrali\si my 10 jej pomiarów w 80 \% maksymalnej ilo\si węzłów w równych odstępach czasu. Następująca tabela przedstawia temperatury wykorzystywane w obliczeniach:
@@ -693,9 +691,9 @@ Posiadając rozkład temperatur, pobrali\si my 10 jej pomiarów w 80 \% maksymal
 &1,72 \\ \hline 
 \end{tabularx}\\
 
-Posiadając model problemu tradycyjnego oraz pobranych pomiarów, zadanie polegało na odtworzeniu jednego z warunków granicznych ($h$) za pomocą równania kwadratowego:
+Posiadając model problemu tradycyjnego oraz obliczone pomiary temperatur, zadanie polegało na odtworzeniu jednego z warunków granicznych ($h$) za pomocą równania kwadratowego:
 
-\[h(t) = p^2 t + qt + s \]
+\[\overline{h}(t) = p^2 t + qt + s \]
 
 w taki sposób, by obliczony na nowo rozkład temperatur przy pomocy nowej funkcji i pobrany zestaw danych jak najbardziej przypominał oryginalny. By odtworzona funkcja była równa pierwotnej, parametry powinny przyjąć następujące warto\si ci:
 \[ p = 0\]
@@ -705,7 +703,7 @@ w taki sposób, by obliczony na nowo rozkład temperatur przy pomocy nowej funkc
 \subsection{Wykorzystanie algorytmu heurystycznego}
 Do odnalezienia parametrów równania kwadratowego został użyty algorytm symulowanego wyżarzania. Algorytm w procesie iteracyjnym sprawdzał jakie warto\si ci $p$, $q$ i $s$ pozwalały na uzyskanie jak najmniejszego błędu odtworzenia (liczonego jako sumę warto\si ci bewzględnej różnic odpowiednich pomiarów temperatur), co przedstawia poniższy wzór:
 
-$$ \sum_{i=1}^{n} = \left| x_i - z_i \right| $$
+$$ \sum_{i=1}^{n} \left| x_i - z_i \right| $$
 
 gdzie: \\
 $ x_i $ - oryginalny i-ty pomiar  \\
@@ -720,7 +718,7 @@ Poszukiwania parametrów zostały ograniczone do następującego przedziału:
 
 Klasa odpowiadająca za problem odwrotny posiada metodę Solve(), która zwraca błąd odtworzenia funkcji. Funkcja ta przyjmuje dowolną ilo\si ć parametrów (ze względu na uniwersalno\si ć metody Solve() w problemach), gdzie tutaj pierwsze trzy argumenty są parametrami funkcji kwadratowej. W implementacji tej metody jest używanych kilka zmiennych/metod, które oznaczają:\\
 
-\noindent $GetInverseProblemTemperatureMeasurements()$, pomocnicza metoda, która zwraca odpowiednie pomiary temperatur dla odtworzonego problemu tradycyjnego (z funkcją $h$ jako odtworzona funkcja kwadratowa), \\
+\noindent $GetInverseProblemTemperatureMeasurements()$, pomocnicza metoda, która zwraca odpowiednie pomiary temperatur dla odtworzonego problemu tradycyjnego (z funkcją $\overline{h}$ jako odtworzona funkcja kwadratowa), \\
 \noindent $Measurements$ - oryginalny zestaw pomiarów. \\
 
 Implementacja metody Solve() ma następującą postać:
@@ -743,7 +741,7 @@ public override double Solve(params double[] values)
 }
 \end{verbatim}
 
-Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do obliczania jak ,,najniższej" warto\si ci błędu odtworzenia i to wła\si nie algorytm przekazuje warto\si ci parametrów funkcji odtwarzanej.
+Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do obliczania jak ,,najniższej" warto\si ci błędu odtworzenia i to wła\si nie algorytm przekazuje warto\si ci parametrów metodzie Solve().
 
 \subsubsection{Parametry algorytmu}
 Ze względu na czas oczekiwania znalezienia pojedynczego optymalnego rozwiązania problemu, ilo\si ć prób sprawdzających jako\si ć dobranych parametrów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z satysfakcjonującym wynikiem błędu odtworzenia. \\
@@ -766,13 +764,13 @@ Oprócz prób odtworzenia funkcji granicznej dla dokładnych pomiarów, zostały
 gdzie:\\
 $p$ - warto\si ć procentu zakresu błędu,\\
 $t_i$ - oryginalny i-ty pomiar,\\
-$t_{ip}$ - pomiar z p-procentowym zakresem błędu,\\
+$t_{ip}$ - i-ty pomiar z p-procentowym zakresem błędu,\\
 $rand$ - funkcja losująca liczbę z zakresu (od, do).
 
 
 \subsubsection{Dokładne pomiary temperatur}
 
-Następna tabela przedstawia wyniki osiągniete przy pomocy tych parametrów (liczby zaokrąglono do 6 miejsca po przecinku) przy niezmienionych pomiarach temperatur. \\
+Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów (liczby zaokrąglono do 6 miejsca po przecinku) przy niezmienionych pomiarach temperatur. \\
 
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
@@ -791,7 +789,7 @@ Następna tabela przedstawia wyniki osiągniete przy pomocy tych parametrów (li
 %f = 0.12636545557 t^2 + 0.89758728094 t + 1.01513765916
 %f = -0.00048605428 t^2 + 1.00065381003 t + 0.9998353925
 
-Różnicę pomiędzy pierwotną funkcją graniczną, a odtworzoną została również przedstawiona na wykresie (żółty kolor oznacza oryginał, niebieska odtworzoną, niebieska posiada większą grubo\si ć w celu zauważenia nachodzenia na siebie linii).
+Różnicę pomiędzy pierwotną funkcją graniczną, a odtworzoną (poprzez u\si rednienie parametrów $p$, $q$ i $s$) została również przedstawiona na wykresie (żółty kolor oznacza oryginał, niebieska odtworzoną, niebieska posiada większą grubo\si ć w celu zauważenia nachodzenia na siebie linii).
 
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{0reconstruction.png}\\
@@ -839,10 +837,14 @@ Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezul
 & 0,023617 & 0,130361 & 0,902080 & 1,018714 \\ \hline 
 \end{tabularx} \\
 
+Różnica pomiędzy oryginalną funkcją, a uzyskaną (poprzez u\si rednienie parametrów) została przedstawiona na wykresie: \\
+
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{1reconstruction.png}\\
-	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 1 \% zakresem błędu pomiarów)}
 \end{figure}
+
+Następujący rysunek przedstawia błąd bezwzględny obliczeń: \\
 
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{1abs.png}\\
@@ -884,10 +886,14 @@ Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrą
 & 0,060850  & -0,199511 & 1,164290  & 0,980086 \\ \hline 
 \end{tabularx} \\
 
+Różnicę pomiędzy funkcjami pierwotną i obliczoną (poprzez u\si rednienie parametrów) przedstawia poniższy wykres: \\
+
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{2reconstruction.png}\\
-	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 2 \% zakresem błędu pomiarów)}
 \end{figure}
+
+Błąd bezwzględny obliczeń został przedstawiony poniżej: \\
 
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{2abs.png}\\
@@ -929,11 +935,14 @@ Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb 
 & 0,204143 & 0,751570 & 0,342640 & 1,111854 \\ \hline 
 \end{tabularx}
 
+Wykresy obu funkcji zostały przedstawione poniżej: \\
 
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{5reconstruction.png}\\
-	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 5 \% zakresem błędu pomiarów)}
 \end{figure}
+
+Poniższy rysunek przedstawia błąd bewzględny obliczeń: \\
 
 \begin{figure}[H]
 		\includegraphics[height=7cm, width=10cm]{5abs.png}\\

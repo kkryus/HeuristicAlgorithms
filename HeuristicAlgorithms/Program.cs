@@ -116,13 +116,13 @@ namespace HeuristicAlgorithms
                 SimulatedAnnealingAlgorithm simulatedAnnealing;
                 if (circle)
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments, 1, 0.01, 1, 0.99, 0.01);
                     //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new EasomFunction(), EasomFunction.AmountOfArguments);
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 100000, 0.99, 0.01);
-                    // simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 4000, 0.001, 5000, 0.99);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 30000, 0.99, 0.01);
+                     //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 10, 0.01, 500, 0.99, 0.01);
                 }
                 //var sol = simulatedAnnealing.Solve();
                 // ;
