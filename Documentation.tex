@@ -167,6 +167,10 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 		
 
 \section{Funkcje testowe}
+Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
+
+Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjęli\si my kilka założeń, a następnie sukcesywnie poszukiwali\si my odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzali\si my jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki (zaokrąglone do 4 miejsca po przecinku), a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
+
 	\subsection{Funkcja kwadratowa dwóch parametrów}
 	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch parametrów następującej postaci:
 \[f(x, y) = x^2 + y^2 \] \\
@@ -180,11 +184,24 @@ Posiada ona następujące globalne minimum:
 Funkcję prezentuje poniższy wykres:\\
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[height=7cm]{quadraticFunction1.png}\\
+		\includegraphics[height=7cm]{pics/quadraticFunction1.png}\\
 	\end{center}
 	\caption{Funkcja kwadratowa dwóch parametrów}
 \end{figure}
 
+	\subsubsection{Parametry dobrane dla funkcji kwadratowej dwóch parametrów}
+Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania z satysfakcjonującą jako\si cią:\\
+
+\begin{tabularx}{\textwidth}{ |X|X|} 
+\hline
+ \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
+ $T_0$ & 1\\ \hline 
+ $T_{end}$ & 0.01 \\ \hline 
+ Chłodzenie& 0.99 \\ \hline 
+ Iteracje & 1 \\ \hline 
+ Skuteczno\si ć & 100\% \\ \hline 
+\end{tabularx} \\
+ 
 	\subsection{Funkcja Rastrigina}
 	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
 
@@ -200,14 +217,184 @@ Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdz
 Posiada ona następujące globalne minimum:
 \[ f(0,...,0) = 0 \] \\
 
-By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres w 2 wymiarach na poniższym obrazku:\\
+By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres na poniższym obrazku:\\
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[height=7cm]{rastriginFunction1.png}\\
+		\includegraphics[height=7cm]{pics/rastriginFunction1.png}\\
 	\end{center}
 	\caption{Funkcja Rastrigina o 2 wymiarach}
 \end{figure}
 
+	\subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 3 wymiarach}
+Po przeprowadzeniu testów zostały dobrane następujące parametry: \\
+
+\begin{tabularx}{\textwidth}{ |X|X|} 
+\hline
+ \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
+ $T_0$ & 10 \\ \hline 
+ $T_{end}$ & 0.01 \\ \hline 
+ Chłodzenie& 0.99 \\ \hline 
+ Iteracje & 600 \\ \hline 
+ Skuteczno\si ć & 100\% \\ \hline 
+\end{tabularx} \\
+
+\subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach}
+
+Przed rozpoczęciem testów przyjęto dwa założenia:
+\begin{enumerate}
+	\item Końcowa temperatura została ustawiona na stałą warto\si ć równą 0.01,
+	\item Stopień chłodzenia temperatury został ustawiony na 0.99.
+\end{enumerate}
+
+W pierwszym etapie została sprawdzona temperatura w zakresie 2-10 oraz ilo\si ć iteracji w liczbie 100-1100.
+
+\scalebox{0.9}{
+\renewcommand\arraystretch{1.333}
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+                  \hline
+                  & \textbf{ $T_0$}
+                  & \textbf{ Iteracje}
+                  &\textbf{ Średnia rozwiązań}\\ \hline
+& 6 & 900 & 1,3201 \\ \hline 
+& 6 & 1100 & 1,3214 \\ \hline 
+& 8 & 1100 & 1,4151 \\ \hline 
+& 10 & 700 & 1,4182\\ \hline 
+& 2 & 500 & 1,5137 \\ \hline 
+& 6 & 500 & 1,5151 \\ \hline 
+& 4 & 900 & 1,5182 \\ \hline 
+& 8 & 900 & 1,5191 \\ \hline 
+& 8 & 700 & 1,6145 \\ \hline 
+& 8 & 500 & 1,6169 \\ \hline 
+& 10 & 1100 & 1,6194 \\ \hline 
+& 10 & 900 & 1,7176 \\ \hline 
+& 2 & 1100 & 1,8087 \\ \hline 
+& 10 & 300 & 1,8099 \\ \hline 
+& 10 & 500 & 1,8106 \\ \hline 
+& 6 & 700 & 1,8174 \\ \hline 
+& 4 & 1100 & 1,8291 \\ \hline 
+& 2 & 700 & 1,9127 \\ \hline 
+& 6 & 300 & 2,0083 \\ \hline 
+& 2 & 900 & 2,2128 \\ \hline 
+& 4 & 500 & 2,2251 \\ \hline 
+& 4 & 700 & 2,3089 \\ \hline 
+& 2 & 300 & 2,3170 \\ \hline 
+& 8 & 300 & 2,4199 \\ \hline 
+& 4 & 300 & 2,5146 \\ \hline 
+& 10 & 100 & 2,8057 \\ \hline 
+& 6 & 100 & 3,0047 \\ \hline 
+& 2 & 100 & 3,0159 \\ \hline 
+& 8 & 100 & 3,2014 \\ \hline 
+& 4 & 100 & 3,2157 \\ \hline 
+\end{tabularx}
+}
+
+Powyższe wyniki nie dają zadowalających rezultatów. Można jednak zauważyć, iż w tym momencie badań temperatura nie ma aż takiego znaczenia, a większa ilo\si ć iteracji zdaje się dawać lepsze rezultaty. Zgodnie z założeniem, iż temperatura nie powinna być zbyt wysoka, postanowili\si my dalej sprawdzać ten sam zakres temperatur i zwiększyć ilo\si ć iteracji około stukrotnie, co prezentuje następna tabela.
+
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+                  \hline
+                  & \textbf{ $T_0$}
+                  & \textbf{ Iteracje (*1000)}
+                  &\textbf{ Średnia rozwiązań}\\ \hline
+& 2 & 11 & 0,5162 \\ \hline 
+& 6 & 7 & 0,7157 \\ \hline 
+& 10 & 11 & 0,7165\\ \hline 
+& 6 & 9 & 0,7189 \\ \hline 
+& 8 & 11 & 0,8120 \\ \hline 
+& 10 & 9 & 0,8208 \\ \hline 
+& 10 & 5 & 0,8244 \\ \hline 
+& 2 & 5 & 0,9171 \\ \hline 
+& 4 & 5 & 0,9184 \\ \hline 
+& 6 & 11 & 0,9273 \\ \hline 
+& 4 & 9 & 0,9278 \\ \hline 
+& 8 & 7 & 1,0155 \\ \hline 
+& 4 & 3 & 1,0177 \\ \hline 
+& 8 & 9 & 1,0224 \\ \hline 
+& 2 & 9 & 1,1158 \\ \hline 
+& 4 & 11 & 1,1203 \\ \hline 
+& 8 & 3 & 1,2153 \\ \hline 
+& 2 & 3 & 1,3114 \\ \hline 
+& 4 & 7 & 1,3136 \\ \hline 
+& 6 & 1 & 1,3147 \\ \hline 
+& 2 & 7 & 1,3152 \\ \hline 
+& 6 & 3 & 1,3194 \\ \hline 
+& 6 & 5 & 1,3202 \\ \hline 
+& 8 & 5 & 1,3222 \\ \hline 
+& 10 & 1 & 1,3252 \\ \hline 
+& 10 & 7 & 1,3270 \\ \hline 
+& 2 & 1 & 1,4161 \\ \hline 
+& 10 & 3 & 1,5143 \\ \hline 
+& 4 & 1 & 1,5184 \\ \hline 
+& 8 & 1 & 1,6182 \\ \hline 
+\end{tabularx} \\
+
+Średnia rozwiązań najlepszego wyniku w tym te\si cie wydawała się być obiecująca, jednak sprawdzenie jako\si ci takich parametrów zwróciło jako\si ć równą 34\% (przy stukrotnym uruchomieniu programu), co jest niskim wynikiem. Postanowili\si my zwiększyć znowu zakres iteracji dziesięciokrotnie, co można zobaczyć w następnej tabeli.
+
+\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+                  \hline
+                  & \textbf{ $T_0$}
+                  & \textbf{ Iteracje (* 1000)}
+                  &\textbf{Średnia rozwiązań}\\ \hline
+& 10 & 90 & 0,0252 \\ \hline
+& 10 & 100 & 0,1215 \\ \hline
+& 10 & 80 & 0,1216 \\ \hline 
+& 4 & 60 & 0,2178 \\ \hline 
+& 8 & 70 & 0,2200 \\ \hline 
+& 4 & 80 & 0,2206 \\ \hline
+& 6 & 100 & 0,2208 \\ \hline 
+& 4 & 70 & 0,2209 \\ \hline 
+& 6 & 90 & 0,2242 \\ \hline 
+& 8 & 80 & 0,2257 \\ \hline 
+& 2 & 80 & 0,2266 \\ \hline 
+& 8 & 100 & 0,2279 \\ \hline 
+& 4 & 100 & 0,2337 \\ \hline 
+& 4 & 90 & 0,3147 \\ \hline 
+& 10 & 60 & 0,3199 \\ \hline 
+& 4 & 50 & 0,3222 \\ \hline
+& 2 & 100 & 0,3224 \\ \hline 
+& 2 & 70 & 0,3247 \\ \hline 
+& 2 & 50 & 0,3248 \\ \hline 
+& 10 & 70 & 0,3249\\ \hline 
+& 8 & 90 & 0,4161 \\ \hline 
+& 6 & 50 & 0,4199\\ \hline 
+& 8 & 50 & 0,4257 \\ \hline 
+& 6 & 80 & 0,5203 \\ \hline 
+& 10 & 50 & 0,5257 \\ \hline 
+& 2 & 60 & 0,5264 \\ \hline 
+& 6 & 60 & 0,5308 \\ \hline 
+& 2 & 90 & 0,6167 \\ \hline 
+& 8 & 60 & 0,6255 \\ \hline 
+& 6 & 70 & 0,8194 \\ \hline 
+\end{tabularx} \\
+
+Otrzymane wyniki sugerują, iż najlepsze wyniki dla podanych zakresów można otrzymać przy temperaturze równej 10 i bardzo wysokich ilo\si ciach iteracji. W następnym kroku sprawdzili\si my jako\si ć rozwiązań dla temperatury równej 10 i iteracji w zakresie przedstawionej w tabeli. \\
+
+\begin{tabularx}{\textwidth}{|X|X|X|} 
+                  \hline
+ \textbf{ $T_0$} & \textbf{Iteracje (*1000)}& \textbf{ Jako\si ć [\%]}\\ \hline
+10 & 10 & 29 \\ \hline
+10 & 20 & 42 \\ \hline
+10 & 30 & 45 \\ \hline 
+10 & 40 & 57 \\ \hline 
+10 & 50 & 69 \\ \hline 
+10 & 60 & 66 \\ \hline
+10 & 70 & 68 \\ \hline 
+10 & 80 & 74 \\ \hline 
+10 & 90 &  80\\ \hline 
+10 & 100 & 81 \\ \hline 
+\end{tabularx} \\
+
+Jako\si ć rzędu 75-80\% wydaje się być zadowalająca, dlatego uznali\si my, że proces poszukiwania parametrów dla algorytmu symulowanego wyżarzania dla tego problemu został zakończony. Kolejna tabela przedstawia ostatecznie wybrane parametry dla tego problemu. \\
+
+\begin{tabularx}{\textwidth}{ |X|X|} 
+\hline
+ \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
+ $T_0$ & 10 \\ \hline 
+ $T_{end}$ & 0.01 \\ \hline 
+ Chłodzenie& 0.99 \\ \hline 
+ Iteracje & 90000 \\ \hline 
+ Skuteczno\si ć & 80\% \\ \hline 
+\end{tabularx}
 
 
 	\subsection{Funkcja Rosenbrocka}
@@ -225,243 +412,23 @@ Posiada ona następujące globalne minimum:
 Poniższy wykres prezentuje jej wygląd w zadanym zakresie:\\
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[height=7cm]{rosenbrockFunction1.png}\\
+		\includegraphics[height=7cm]{pics/rosenbrockFunction1.png}\\
 	\end{center}
 	\caption{Funkcja Rosenbrocka o 2 wymiarach}
 \end{figure}
 
-Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
+	\subsubsection{Parametry dobrane dla funkcji Rosenbrocka o 3 wymiarach}
+Poniższa tabela przedstawia parametry, które pozwalały na uzyskanie satysfakcjonującego rozwiązania z dostatecznie ,,dużą" pewno\si cią ich otrzymania: \\
 
-Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjęli\si my kilka założeń, a następnie sukcesywnie poszukiwali\si my odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzali\si my jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki, a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
-
-	\subsection{Dobieranie parametrów dla funkcji 5 wymiarowej funkcji Rastrigina}
-
-Przed rozpoczęciem testów przyjęto dwa założenia:
-\begin{enumerate}
-	\item Końcowa temperatura została ustawiona na stałą warto\si ć równą 0.001,
-	\item Stopień chłodzenia temperatury został ustawiony na 0.99.
-\end{enumerate}
-
-\renewcommand\arraystretch{1.333}
-
-
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+\begin{tabularx}{\textwidth}{ |X|X|} 
 \hline
-& \textbf{ T0} & \textbf{ Iteracje} &\textbf{ Rozwiązanie}\\ \hline
-& 500 & 300 & 1,09718505292704 \\ \hline 
-& 500 & 400 & 1,29513703551228 \\ \hline 
-& 100 & 500 & 1,29579688714116 \\ \hline 
-& 300 & 400 & 1,39516546905179 \\ \hline 
-& 100 & 400 & 1,59400704106305 \\ \hline 
-& 400 & 200 & 1,59460563439097 \\ \hline 
-& 400 & 400 & 1,59473245683331 \\ \hline 
-& 300 & 500 & 1,69368418646326 \\ \hline 
-& 100 & 200 & 1,69430049805511 \\ \hline 
-& 400 & 500 & 1,69488738622795 \\ \hline 
-& 200 & 500 & 1,79356181491557 \\ \hline 
-& 500 & 200 & 1,89311831496136 \\ \hline 
-& 300 & 100 & 1,89379034166828 \\ \hline 
-& 200 & 200 & 1,89405233085409 \\ \hline 
-& 400 & 300 & 1,99208845088035 \\ \hline 
-& 500 & 500 & 1,99250333315708 \\ \hline 
-& 300 & 300 & 1,99272286399703 \\ \hline 
-& 200 & 400 & 2,09157445324622 \\ \hline 
-& 100 & 300 & 2,19168206783873 \\ \hline 
-& 300 & 200 & 2,19179918169512 \\ \hline 
-& 500 & 100 & 2,19209302230291 \\ \hline 
-& 200 & 100 & 2,19237079270076 \\ \hline 
-& 400 & 100 & 2,19237108578013 \\ \hline 
-& 200 & 300 & 2,29096718181202 \\ \hline 
-& 100 & 100 & 2,98943206230488 \\ \hline 
+ \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
+ $T_0$ & 10 \\ \hline 
+ $T_{end}$ & 0.01 \\ \hline 
+ Chłodzenie& 0.99 \\ \hline 
+ Iteracje & 500 \\ \hline 
+ Skuteczno\si ć & 100\% \\ \hline 
 \end{tabularx}
-
-Badanie zawarte w tabeli 1 pokazuje, iz parametry na takim poziomie nie maja az tak duzego znaczenia, jednak mozna zauwazyc, iz wieksza wartosc parametrow prowadzi do nieco lepszych srednich wynikow.
-Badanie skutecznosci dla najwyzszych parametrow (czyli 500 i 500) wynioslo 12\%, co jest bardzo slabym wynikiem.
-
-
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
-                 \hline
-                 & \textbf{ T0}
-                 & \textbf{ Iteracje}
-                 &\textbf{ Rozwiązanie}\\ \hline
-& 8000 & 6000 & 0,400456362305732 \\ \hline 
-& 10000 & 4000 & 0,400942457997776 \\ \hline 
-& 4000 & 8000 & 0,499468816488703 \\ \hline 
-& 4000 & 10000 & 0,499496708877431 \\ \hline 
-& 6000 & 6000 & 0,499881155483216 \\ \hline 
-& 8000 & 8000 & 0,500190776858622 \\ \hline 
-& 8000 & 10000 & 0,500669723808464 \\ \hline 
-& 2000 & 6000 & 0,500802825547873 \\ \hline 
-& 2000 & 4000 & 0,59876018888673 \\ \hline 
-& 2000 & 8000 & 0,598944859155338 \\ \hline 
-& 10000 & 8000 & 0,69839967735632 \\ \hline 
-& 6000 & 8000 & 0,698671405088412 \\ \hline 
-& 10000 & 10000 & 0,698922421188404 \\ \hline 
-& 4000 & 6000 & 0,797834332682657 \\ \hline 
-& 6000 & 10000 & 0,798499451192562 \\ \hline 
-& 4000 & 4000 & 0,798596850008959 \\ \hline 
-& 2000 & 10000 & 0,798896772938739 \\ \hline 
-& 8000 & 4000 & 0,79899550599823 \\ \hline 
-& 10000 & 6000 & 0,898177793387154 \\ \hline 
-& 6000 & 4000 & 0,898733662378301 \\ \hline 
-& 4000 & 2000 & 0,996463628047726 \\ \hline 
-& 8000 & 2000 & 0,997870530143807 \\ \hline 
-& 6000 & 2000 & 1,09703634442711 \\ \hline 
-& 2000 & 2000 & 1,09731890136792 \\ \hline 
-& 10000 & 2000 & 1,39564290923108 \\ \hline 
-\end{tabularx}
-10k i 10k
-46\%\
-5k - 10k -> 46\%
-5k i 20k -> 58\%\
-5k i 30k ->  72\%
-
-\scalebox{0.5}{
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
-  \hline
-    & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
-    & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
-    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
-    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
-   & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
-    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
-    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
-
-\end{tabularx}
-}
-
-
-
-
-
-
-
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
-  \hline
-    & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
-    & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
-    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
-    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
-
-\end{tabularx}
-
-
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|}
-  \hline
-    & \textbf{T0} & \textbf{Iteracje} &\textbf{Rozwiązanie}\\ \hline
-    & aaaaaaa aaaaaaa & aaaaaaa aaaaaaa  & oko\\ \hline
-    & aaaaaaa aaaaaaa &aaaaaaa & oko \\ \hline
-    & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
- & aaaaaaa & aaaaaaaaaaaaaa & oko \\ \hline
-
-\end{tabularx}
-
-Ostatecznie wybrane parametry dla tego problemu:\\
-pocz temp\\
-konc temp\\
-cooling\\
-iteracje\\
-
-Badanie skutecznosci \\
-
-
-
-
-
-
-skutecznosc:\\
-
-
-
-
-
-
-	\subsection{Dobieranie parametrów dla funkcji 3 wymiarowej funkcji Rastrigina}
-Ostatecznie wybrane parametry dla tego problemu:\\
-pocz temp\\
-konc temp\\
-cooling\\
-iteracje\\
-
-
-
-
-
-
-skutecznosc:\\
-
-
-	\subsection{Parametry dobrane dla funkcji kwadratowej dwóch parametrów}
-Ostatecznie wybrane parametry dla tego problemu:\\
-pocz temp\\
-konc temp\\
-cooling\\
-iteracje\\
-
-
-
-
-
-
-skutecznosc:\\
-
-	\subsection{Parametry dobrane dla funkcji Rosenbrocka}
-Ostatecznie wybrane parametry dla tego problemu:\\
-pocz temp\\
-konc temp\\
-cooling\\
-iteracje\\
-
-
-
-
-
-
-skutecznosc:\\
 
 \section{Implementacja}
 
@@ -500,7 +467,7 @@ W programie również używam kilku pomocnicznych zmiennych: \\
 Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu, co można zobaczyć na poniższym rysunku.
 
 \begin{figure}[H]
-		\includegraphics[height=22cm, width=16cm]{schematBlokowy.png}\\
+		\includegraphics[height=22cm, width=16cm]{pics/schematBlokowy.png}\\
 	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
 \end{figure}
 
@@ -614,7 +581,6 @@ $ a, T = 1$. \\
 Liczby $nx$ i $nt$ są maksymalną liczbą węzłów, na którą dzielimy odpowiednie osie rozkładu temperatur (odpowiednio $x$ i $t$). W projekcie przyjmują one następujące warto\si ci: 
 \[ nx = 15 \]
 \[nt = 480 \]
-%cos o hx i tau?
 
 Pozostałe parametry wynikają z równania przewodnictwa ciepła: \\
 $c$ - ciepło wła\si ciwe,\\
@@ -770,7 +736,7 @@ $rand$ - funkcja losująca liczbę z zakresu (od, do).
 
 \subsubsection{Dokładne pomiary temperatur}
 
-Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów (liczby zaokrąglono do 6 miejsca po przecinku) przy niezmienionych pomiarach temperatur. \\
+Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów (liczby zaokrąglono do 4 miejsca po przecinku) przy niezmienionych pomiarach temperatur. \\
 
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
@@ -778,11 +744,11 @@ Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów
  \textbf{P} &
  \textbf{Q} &
  \textbf{S}\\ \hline
-& 0,000694 & -0,001192 & 1,001541 & 0,999601 \\ \hline 
-& 0,000944 & 0,002767  & 0,997142  & 1,000632 \\ \hline 
-& 0,000611  & -0,001293 & 1,001497 & 0,999587 \\ \hline 
-& 0,000540 & -0,000139 & 1,000482 & 0,999830 \\ \hline 
-& 0,000872 & -0,002574 & 1,002608  & 0,999527 \\ \hline 
+& 6,9416 * $10^{-4}$ & -0,0012 & 1,0015 & 0,9996 \\ \hline 
+& 9,4350 * $10^{-4}$  & 0,0028  & 0,9971  & 1,0006 \\ \hline 
+& 6,1092 * $10^{-4}$  & -0,0013 & 1,0015 & 0,9996 \\ \hline 
+& 5,3948 * $10^{-4}$  & -0,0001 & 1,0005 & 0,9998 \\ \hline 
+& 8,7191 * $10^{-4}$  & -0,0026 & 1,0026  & 0,9995 \\ \hline 
 \end{tabularx} \\
 %f = 0.77081279536 t^2 + 0.30699515969 t + 1.12485497268
 %f = -0.24177239639 t^2 + 1.19268820119 t + 0.98276740318
@@ -793,7 +759,7 @@ Różnicę pomiędzy pierwotną funkcją graniczną, a odtworzoną (poprzez u\si
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{0reconstruction.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/0reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną}
 \end{center}
 \end{figure}
@@ -802,7 +768,7 @@ Przygotowano również wykres pokazujący błąd bezwzględny obliczeń, co prze
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{0abs.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/0abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}\
 \end{center}
 \end{figure}
@@ -814,19 +780,19 @@ Pomiary wykorzystywane przy obliczeniach z 1\% zakresem błędu pomiarowego wygl
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
 \hline
 & \textbf{ $t_i$} \\ \hline
-&0,825351111074887\\ \hline 
-&0,927342643023162\\ \hline 
-&1,02297612208909\\ \hline 
-&1,11725360196924\\ \hline 
-&1,2245631980555\\ \hline 
-&1,31688200037204\\ \hline 
-&1,42067680637374\\ \hline 
-&1,52267106404764\\ \hline 
-&1,62394119003831\\ \hline 
-&1,73631774015795\\ \hline 
+&0,8254\\ \hline 
+&0,9273\\ \hline 
+&1,0230\\ \hline 
+&1,1173\\ \hline 
+&1,2246\\ \hline 
+&1,3169\\ \hline 
+&1,4207\\ \hline 
+&1,5227\\ \hline 
+&1,6239\\ \hline 
+&1,7363\\ \hline 
 \end{tabularx}\\
 
-Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezultaty (zaokrąglone do 6 miejsca po przecinku): \\
+Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezultaty (zaokrąglone do 4 miejsca po przecinku): \\
 
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
@@ -834,18 +800,18 @@ Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezul
  \textbf{P} &
  \textbf{Q} &
  \textbf{S}\\ \hline
-& 0,027209 & 0,119038 & 0,895152 & 1,018938 \\ \hline 
-& 0,023787 & 0,115199 & 0,915740 & 1,013953 \\ \hline 
-& 0,027362 & 0,149960 & 0,885986 & 1,006287 \\ \hline 
-& 0,023056 & 0,117270 & 0,888978 & 1,017797 \\ \hline 
-& 0,023617 & 0,130361 & 0,902080 & 1,018714 \\ \hline 
+& 2,7209 * $10^{-2}$ & 0,1190 & 0,8952 & 1,0189 \\ \hline 
+& 2,3787 * $10^{-2}$ & 0,1152 & 0,9157 & 1,0140 \\ \hline 
+& 2,7362 * $10^{-2}$ & 0,1500 & 0,8860 & 1,0063 \\ \hline 
+& 2,3056 * $10^{-2}$ & 0,1173 & 0,8890 & 1,0178 \\ \hline 
+& 2,3617 * $10^{-2}$ & 0,1304 & 0,9021 & 1,0187 \\ \hline 
 \end{tabularx} \\
 
 Różnica pomiędzy oryginalną funkcją, a uzyskaną (poprzez u\si rednienie parametrów) została przedstawiona na wykresie: \\
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{1reconstruction.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/1reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 1 \% zakresem błędu pomiarów)}
 \end{center}
 \end{figure}
@@ -854,7 +820,7 @@ Następujący rysunek przedstawia błąd bezwzględny obliczeń: \\
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{1abs.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/1abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}
 \end{center}
 \end{figure}
@@ -867,19 +833,19 @@ Przy obliczaniu parametrów odtwarzanej funkcji przy 2\% zakresie błędu pomiar
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
 \hline
 & \textbf{ $t_i$} \\ \hline
-&0,832676937581728\\ \hline 
-&0,922541154071009\\ \hline 
-&1,01610763695636\\ \hline 
-&1,13368222511601\\ \hline 
-&1,24050689425995\\ \hline 
-&1,33037780534922\\ \hline 
-&1,43757166475485\\ \hline 
-&1,50969160181027\\ \hline 
-&1,61262938854183\\ \hline 
-&1,69925458435307\\ \hline 
+&0,8327\\ \hline 
+&0,9225\\ \hline 
+&1,0161\\ \hline 
+&1,1337\\ \hline 
+&1,2405\\ \hline 
+&1,3304\\ \hline 
+&1,4376\\ \hline 
+&1,5097\\ \hline 
+&1,6126\\ \hline 
+&1,6993\\ \hline 
 \end{tabularx}\\ \newLine
 
-Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrągleniu do 6 miejsca po przecinku): \\
+Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrągleniu do 4 miejsca po przecinku): \\
 
 \noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
@@ -887,18 +853,18 @@ Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrą
  \textbf{P} &
  \textbf{Q} &
  \textbf{S}\\ \hline
-& 0,068528  & -0,364171 & 1,299335  & 0,951341 \\ \hline 
-& 0,065422  & -0,256919 & 1,197051  & 0,999223 \\ \hline 
-& 0,058742  & -0,235167 & 1,185274  & 0,989484 \\ \hline 
-& 0,060410  & -0,153094 & 1,117493  & 0,993703 \\ \hline 
-& 0,060850  & -0,199511 & 1,164290  & 0,980086 \\ \hline 
+& 6,8528 * $10^{-2}$  & -0,3642 & 1,2993  & 0,9513 \\ \hline 
+& 6,5422 * $10^{-2}$  & -0,2570 & 1,1971  & 0,9992 \\ \hline 
+& 5,8742 * $10^{-2}$  & -0,2352 & 1,1853  & 0,9895 \\ \hline 
+& 6,0410 * $10^{-2}$  & -0,1531 & 1,1175  & 0,9937 \\ \hline 
+& 6,0850 * $10^{-2}$  & -0,1995 & 1,1643  & 0,9801 \\ \hline 
 \end{tabularx} \\
 
 Różnicę pomiędzy funkcjami pierwotną i obliczoną (poprzez u\si rednienie parametrów) przedstawia poniższy wykres: \\
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{2reconstruction.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/2reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 2 \% zakresem błędu pomiarów)}
 \end{center}
 \end{figure}
@@ -907,7 +873,7 @@ Błąd bezwzględny obliczeń został przedstawiony poniżej: \\
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{2abs.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/2abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}
 \end{center}
 \end{figure}
@@ -920,19 +886,19 @@ Pomiary wykorzystywane przy obliczeniach z 5\% zakresem błędu pomiarowego wygl
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
 \hline
 & \textbf{ $t_i$} \\ \hline
-&0,805057901030433\\ \hline 
-&0,929989068601275\\ \hline 
-&1,05148950317152\\ \hline 
-&1,1398041024412\\ \hline 
-&1,21390826781975\\ \hline 
-&1,29058231760775\\ \hline 
-&1,3879814341464\\ \hline 
-&1,58770452886806\\ \hline 
-&1,62664563802893\\ \hline 
-&1,79591014782987\\ \hline 
+&0,8051\\ \hline 
+&0,9300\\ \hline 
+&1,0515\\ \hline 
+&1,1398\\ \hline 
+&1,2139\\ \hline 
+&1,2906\\ \hline 
+&1,3880\\ \hline 
+&1,5877\\ \hline 
+&1,6267\\ \hline 
+&1,7959\\ \hline 
 \end{tabularx}\\
 
-Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb do 6 miejsca po przecinku): \\
+Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb do 4 miejsca po przecinku): \\
 
 \noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
@@ -940,18 +906,18 @@ Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb 
  \textbf{P} &
  \textbf{Q} &
  \textbf{S}\\ \hline
-& 0,203137 & 0,867815 & 0,203345 & 1,159725 \\ \hline 
-& 0,204883 & 0,656280 & 0,429536 & 1,098522 \\ \hline 
-& 0,203023 & 0,765145 & 0,316677 & 1,126484 \\ \hline 
-& 0,206009 & 0,813253 & 0,242778 & 1,127690 \\ \hline 
-& 0,204143 & 0,751570 & 0,342640 & 1,111854 \\ \hline 
-\end{tabularx}
+& 0,2031 & 0,8678 & 0,2034 & 1,1597 \\ \hline 
+& 0,2049 & 0,6563 & 0,4295 & 1,0985 \\ \hline 
+& 0,2030 & 0,7652 & 0,3167 & 1,1265 \\ \hline 
+& 0,2060 & 0,8133 & 0,2428 & 1,1277 \\ \hline 
+& 0,2041 & 0,7516 & 0,3426 & 1,1119 \\ \hline 
+\end{tabularx}\\
 
 Wykresy obu funkcji zostały przedstawione poniżej: \\
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{5reconstruction.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/5reconstruction.png}\\
 	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 5 \% zakresem błędu pomiarów)}
 \end{center}
 \end{figure}
@@ -960,7 +926,7 @@ Poniższy rysunek przedstawia błąd bewzględny obliczeń: \\
 
 \begin{figure}[H]
 \begin{center}
-		\includegraphics[height=7cm, width=10cm]{5abs.png}\\
+		\includegraphics[height=7cm, width=10cm]{pics/5abs.png}\\
 	\caption{Błąd bezwzględny obliczeń}
 \end{center}
 \end{figure}

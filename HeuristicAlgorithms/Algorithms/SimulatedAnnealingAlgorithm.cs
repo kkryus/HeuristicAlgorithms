@@ -36,6 +36,7 @@ namespace HeuristicAlgorithms
         }
         #endregion
 
+
         #region Fields
         private int maxCounter = 0;
 
@@ -130,8 +131,8 @@ namespace HeuristicAlgorithms
                         CopyValues();
                         if (SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
                         {
-                            //File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
-                            //    String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
+                           // File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
+                            //   String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
                            //     ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
                             return bestSolution;
                         }
@@ -306,8 +307,8 @@ namespace HeuristicAlgorithms
         public double[] GetBeginingTemperatureArray()
         {
             int arraySize = 5;
-            double beginingValue = 10000;
-            double dropValue = 2000;
+            double beginingValue = 10;
+            double dropValue = 2;
             double[] beginingTemperatureArray = new double[arraySize];
             for (int i = 0; i < arraySize; i++)
             {
@@ -356,7 +357,7 @@ namespace HeuristicAlgorithms
         public int[] GetIterationsArray()
         {
             int arraySize = 5;
-            int beginingValue = 60000;
+            int beginingValue = 50000;
             int riseValue = 10000;
             int[] iterationsArray = new int[arraySize];
             for (int i = 0; i < arraySize; i++)

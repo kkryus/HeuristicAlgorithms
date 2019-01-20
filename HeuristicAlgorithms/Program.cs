@@ -121,20 +121,20 @@ namespace HeuristicAlgorithms
                 }
                 else
                 {
-                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 70000, 0.99, 0.01);
-                     //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 10, 0.01, 500, 0.99, 0.01);
+                    simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 100000, 0.99, 0.01);
+                    //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 10, 0.01, 500, 0.99, 0.01);
                 }
                 //var sol = simulatedAnnealing.Solve();
                 // ;
                 //var cooling = simulatedAnnealing.GetCoolingArray();
-                // var temp = simulatedAnnealing.GetBeginingTemperatureArray();
+                var temp = simulatedAnnealing.GetBeginingTemperatureArray();
                 //var ending = simulatedAnnealing.GetEndingTemperatureArray();
                 var iterations = simulatedAnnealing.GetIterationsArray();
                 List<AnnealingTestingModel> lista = new List<AnnealingTestingModel>();
-                 List<double> lists = new List<double>();
+                List<double> lists = new List<double>();
 
                 for (int i = 0; i < 100; i++)
-                {
+                { 
                     lists.Add(simulatedAnnealing.Solve());
                      //lista.Add(simulatedAnnealing.Solve2(100, 0.01, 10000, 0.99));
                 }
@@ -144,17 +144,17 @@ namespace HeuristicAlgorithms
                 ;
                 // }
 
-                //for(int i = 0; i < temp.Length; i++)
+                /*for (int i = 0; i < temp.Length; i++)
                 //for (int i = 0; i < 2; i++)
-                // {
-                /*for (int j = 0; j < iterations.Length; j++)
-                //for (int j = 0; j < 2; j++)
                 {
-                    lista.Add(simulatedAnnealing.Solve2(100, 0.01, iterations[j], 0.99));
+                    //for (int j = 0; j < iterations.Length; j++)
+                    //for (int j = 0; j < 2; j++)
+                    //{
+                        lista.Add(simulatedAnnealing.Solve2(temp[i], 0.01, 100000, 0.99));
+                    //}
                 }
-                //}
                 lista = lista.OrderBy(x => x.bestSolution).ToList();
-                string fileName = "f3Table.txt";
+                string fileName = "f4Table.txt";
 
                 File.AppendAllText(@"d:\" + fileName, @"\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
                   \hline
@@ -168,6 +168,8 @@ namespace HeuristicAlgorithms
                 }
 
                 File.AppendAllText(@"d:\" + fileName, @"\end{tabularx}");//*/
+                ;
+                //var simulatedAnnealing2 = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 100000, 0.99, 0.01);
             }
             //RosenbrockFunction oko = new RosenbrockFunction();
             //var foo = oko.Solve(100, 55);
