@@ -92,10 +92,6 @@ namespace HeuristicAlgorithms.Functions
             {
                 sum += Math.Abs(Measurements[i] - tmpMeasurements[i]);
             }
-            if (sum < 0.001)
-            {
-                ;
-            }
             return sum;
         }
 
