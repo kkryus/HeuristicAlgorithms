@@ -7,7 +7,6 @@ using HeuristicAlgorithms.Functions;
 using HeuristicAlgorithms.Utilities;
 using System.IO;
 using HeuristicAlgorithms.Models;
-using HeuristicAlgorithms.Functions;
 
 namespace HeuristicAlgorithms
 {

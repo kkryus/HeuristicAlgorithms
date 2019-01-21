@@ -7,6 +7,7 @@ using HeuristicAlgorithms.Functions;
 using HeuristicAlgorithms.Models;
 using System.IO;
 using HeuristicAlgorithms.Utilities;
+using System.Windows.Forms;
 
 namespace HeuristicAlgorithms
 {
@@ -14,6 +15,7 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
+            Application.Run(new MainView());
             /*#region 1%
             String line = "";
             try
@@ -101,14 +103,14 @@ namespace HeuristicAlgorithms
                  //() => simulatedAnnealinga2.Solve(),
                  //() => simulatedAnnealinga5.Solve()
                  );*/
-            ;
+           // ;
 
 
             //var oko = simulatedAnnealinga.Solve();//*/
             //inverseHeatConductionProblemFunction.Solve(1, 2, 3);
             //faisnd.Solve();
 
-            bool algorithm = true;
+            /*bool algorithm = true;
             bool circle = !true;
             if (algorithm)
             {
@@ -168,9 +170,9 @@ namespace HeuristicAlgorithms
                 }
 
                 File.AppendAllText(@"d:\" + fileName, @"\end{tabularx}");//*/
-                ;
+             //   ;
                 //var simulatedAnnealing2 = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 10, 0.01, 100000, 0.99, 0.01);
-            }
+            //}
             //RosenbrockFunction oko = new RosenbrockFunction();
             //var foo = oko.Solve(100, 55);
             // double elapsedMs = 0;
