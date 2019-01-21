@@ -97,6 +97,15 @@ namespace HeuristicAlgorithms.Utilities {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dimensions must be at least one..
+        /// </summary>
+        internal static string TooFewDimensions {
+            get {
+                return ResourceManager.GetString("TooFewDimensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There must be at least one iteration..
         /// </summary>
         internal static string TooFewIterations {
@@ -129,6 +138,15 @@ namespace HeuristicAlgorithms.Utilities {
         internal static string TooLowTemperature {
             get {
                 return ResourceManager.GetString("TooLowTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dimensions must be less, than twenty..
+        /// </summary>
+        internal static string TooManyDimensions {
+            get {
+                return ResourceManager.GetString("TooManyDimensions", resourceCulture);
             }
         }
         

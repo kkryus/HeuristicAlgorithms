@@ -52,7 +52,15 @@
     <Compile Include="Functions\InverseHeatConductionProblemFunction.cs" />
     <Compile Include="Functions\DirectProblem.cs" />
     <Compile Include="Functions\RosenbrockFunction.cs" />
+    <Compile Include="Models\CustomControlUtilitiesClasses\RegularProblemHandler.cs" />
     <Compile Include="Utilities\ViewErrorController.cs" />
+    <Compile Include="Models\CustomControlUtilitiesClasses\RegularProblem.cs" />
+    <Compile Include="Views\CustomControls\RegularProblemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\RegularProblemControl.Designer.cs">
+      <DependentUpon>RegularProblemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,17 +89,20 @@
     <Compile Include="Utilities\RandomGenerator.cs" />
     <Compile Include="Utilities\Exceptions\ValueOutOfDomainException.cs" />
     <Compile Include="Utilities\UtilitiesMethods.cs" />
-    <Compile Include="Views\SAAlgorithmParameters.cs">
+    <Compile Include="Views\CustomControls\SAAlgorithmParametersControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SAAlgorithmParameters.Designer.cs">
-      <DependentUpon>SAAlgorithmParameters.cs</DependentUpon>
+    <Compile Include="Views\CustomControls\SAAlgorithmParametersControl.Designer.cs">
+      <DependentUpon>SAAlgorithmParametersControl.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\CustomControls\RegularProblemControl.resx">
+      <DependentUpon>RegularProblemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,8 +114,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SAAlgorithmParameters.resx">
-      <DependentUpon>SAAlgorithmParameters.cs</DependentUpon>
+    <EmbeddedResource Include="Views\CustomControls\SAAlgorithmParametersControl.resx">
+      <DependentUpon>SAAlgorithmParametersControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

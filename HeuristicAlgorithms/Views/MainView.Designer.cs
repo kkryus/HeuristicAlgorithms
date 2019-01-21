@@ -30,9 +30,10 @@
         {
             this.tabsControl = new System.Windows.Forms.TabControl();
             this.regularTabPage = new System.Windows.Forms.TabPage();
-            this.ihcpTabPage = new System.Windows.Forms.TabPage();
             this.saAlgorithmParameters1 = new HeuristicAlgorithms.Views.SAAlgorithmParameters();
+            this.ihcpTabPage = new System.Windows.Forms.TabPage();
             this.saAlgorithmParameters2 = new HeuristicAlgorithms.Views.SAAlgorithmParameters();
+            this.regularProblemControl1 = new HeuristicAlgorithms.Views.CustomControls.RegularProblemControl();
             this.tabsControl.SuspendLayout();
             this.regularTabPage.SuspendLayout();
             this.ihcpTabPage.SuspendLayout();
@@ -54,6 +55,7 @@
             // 
             // regularTabPage
             // 
+            this.regularTabPage.Controls.Add(this.regularProblemControl1);
             this.regularTabPage.Controls.Add(this.saAlgorithmParameters1);
             this.regularTabPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.regularTabPage.Location = new System.Drawing.Point(4, 38);
@@ -63,6 +65,13 @@
             this.regularTabPage.TabIndex = 0;
             this.regularTabPage.Text = "REGULAR";
             this.regularTabPage.UseVisualStyleBackColor = true;
+            // 
+            // saAlgorithmParameters1
+            // 
+            this.saAlgorithmParameters1.Location = new System.Drawing.Point(-4, 0);
+            this.saAlgorithmParameters1.Name = "saAlgorithmParameters1";
+            this.saAlgorithmParameters1.Size = new System.Drawing.Size(415, 236);
+            this.saAlgorithmParameters1.TabIndex = 0;
             // 
             // ihcpTabPage
             // 
@@ -75,19 +84,19 @@
             this.ihcpTabPage.Text = "IHCP";
             this.ihcpTabPage.UseVisualStyleBackColor = true;
             // 
-            // saAlgorithmParameters1
-            // 
-            this.saAlgorithmParameters1.Location = new System.Drawing.Point(-4, 0);
-            this.saAlgorithmParameters1.Name = "saAlgorithmParameters1";
-            this.saAlgorithmParameters1.Size = new System.Drawing.Size(415, 236);
-            this.saAlgorithmParameters1.TabIndex = 0;
-            // 
             // saAlgorithmParameters2
             // 
             this.saAlgorithmParameters2.Location = new System.Drawing.Point(-4, 0);
             this.saAlgorithmParameters2.Name = "saAlgorithmParameters2";
             this.saAlgorithmParameters2.Size = new System.Drawing.Size(415, 236);
             this.saAlgorithmParameters2.TabIndex = 0;
+            // 
+            // regularProblemControl1
+            // 
+            this.regularProblemControl1.Location = new System.Drawing.Point(390, 46);
+            this.regularProblemControl1.Name = "regularProblemControl1";
+            this.regularProblemControl1.Size = new System.Drawing.Size(375, 37);
+            this.regularProblemControl1.TabIndex = 1;
             // 
             // MainView
             // 
@@ -114,5 +123,6 @@
         private System.Windows.Forms.TabPage ihcpTabPage;
         private Views.SAAlgorithmParameters saAlgorithmParameters1;
         private Views.SAAlgorithmParameters saAlgorithmParameters2;
+        private Views.CustomControls.RegularProblemControl regularProblemControl1;
     }
 }

@@ -117,40 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AmountOfArgumentsNotSetMessage" xml:space="preserve">
-    <value>Amount of arguments are not set.</value>
-  </data>
-  <data name="BeginingLowerThanEndingTemperature" xml:space="preserve">
-    <value>Begining temperature must be higher than ending temperature.</value>
-  </data>
-  <data name="CircleFunctionArguments" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Fireflies" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="TooFewDimensions" xml:space="preserve">
-    <value>Dimensions must be at least one.</value>
-  </data>
-  <data name="TooFewIterations" xml:space="preserve">
-    <value>There must be at least one iteration.</value>
-  </data>
-  <data name="TooHighCooling" xml:space="preserve">
-    <value>Cooling must be lower than one.</value>
-  </data>
-  <data name="TooLowCooling" xml:space="preserve">
-    <value>Cooling must be higher than zero.</value>
-  </data>
-  <data name="TooLowTemperature" xml:space="preserve">
-    <value>Temperature is too low.</value>
-  </data>
-  <data name="TooManyDimensions" xml:space="preserve">
-    <value>Dimensions must be less, than twenty.</value>
-  </data>
-  <data name="TooMuchIterations" xml:space="preserve">
-    <value>Iterations must be less, than one milion.</value>
-  </data>
-  <data name="ValueOutOfDomainMessage" xml:space="preserve">
-    <value>Number is not in domain.</value>
-  </data>
+  <metadata name="errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
