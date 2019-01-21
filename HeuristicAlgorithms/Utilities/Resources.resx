@@ -120,11 +120,29 @@
   <data name="AmountOfArgumentsNotSetMessage" xml:space="preserve">
     <value>Amount of arguments are not set.</value>
   </data>
+  <data name="BeginingLowerThanEndingTemperature" xml:space="preserve">
+    <value>Begining temperature must be higher than ending temperature.</value>
+  </data>
   <data name="CircleFunctionArguments" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="Fireflies" xml:space="preserve">
     <value>20</value>
+  </data>
+  <data name="TooFewIterations" xml:space="preserve">
+    <value>There must be at least one iteration.</value>
+  </data>
+  <data name="TooHighCooling" xml:space="preserve">
+    <value>Cooling must be lower than one.</value>
+  </data>
+  <data name="TooLowCooling" xml:space="preserve">
+    <value>Cooling must be higher than zero.</value>
+  </data>
+  <data name="TooLowTemperature" xml:space="preserve">
+    <value>Temperature is too low.</value>
+  </data>
+  <data name="TooMuchIterations" xml:space="preserve">
+    <value>Iterations must be less, than one milion.</value>
   </data>
   <data name="ValueOutOfDomainMessage" xml:space="preserve">
     <value>Number is not in domain.</value>

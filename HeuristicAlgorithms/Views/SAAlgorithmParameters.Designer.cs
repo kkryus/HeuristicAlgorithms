@@ -123,7 +123,7 @@
             1,
             0,
             0,
-            458752});
+            327680});
             this.BeginingTemperatureInputTextBox.Name = "BeginingTemperatureInputTextBox";
             this.BeginingTemperatureInputTextBox.Size = new System.Drawing.Size(132, 26);
             this.BeginingTemperatureInputTextBox.TabIndex = 6;
@@ -138,6 +138,11 @@
             // 
             this.EndingTemperatureInputTextBox.DecimalPlaces = 5;
             this.EndingTemperatureInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.EndingTemperatureInputTextBox.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
             this.EndingTemperatureInputTextBox.Location = new System.Drawing.Point(251, 83);
             this.EndingTemperatureInputTextBox.Maximum = new decimal(new int[] {
             10000,
@@ -148,7 +153,7 @@
             1,
             0,
             0,
-            458752});
+            327680});
             this.EndingTemperatureInputTextBox.Name = "EndingTemperatureInputTextBox";
             this.EndingTemperatureInputTextBox.Size = new System.Drawing.Size(132, 26);
             this.EndingTemperatureInputTextBox.TabIndex = 7;
@@ -163,17 +168,22 @@
             // 
             this.CoolingInputTextBox.DecimalPlaces = 5;
             this.CoolingInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.CoolingInputTextBox.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.CoolingInputTextBox.Location = new System.Drawing.Point(251, 119);
             this.CoolingInputTextBox.Maximum = new decimal(new int[] {
-            999999,
+            99999,
             0,
             0,
-            393216});
+            327680});
             this.CoolingInputTextBox.Minimum = new decimal(new int[] {
             1,
             0,
             0,
-            524288});
+            327680});
             this.CoolingInputTextBox.Name = "CoolingInputTextBox";
             this.CoolingInputTextBox.Size = new System.Drawing.Size(132, 26);
             this.CoolingInputTextBox.TabIndex = 8;
@@ -210,7 +220,13 @@
             // 
             // SatisfactionSolutionValueInputTextBox
             // 
+            this.SatisfactionSolutionValueInputTextBox.DecimalPlaces = 5;
             this.SatisfactionSolutionValueInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.SatisfactionSolutionValueInputTextBox.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
             this.SatisfactionSolutionValueInputTextBox.Location = new System.Drawing.Point(251, 191);
             this.SatisfactionSolutionValueInputTextBox.Maximum = new decimal(new int[] {
             10000,
