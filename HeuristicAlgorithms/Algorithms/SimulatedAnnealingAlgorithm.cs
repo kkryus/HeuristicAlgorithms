@@ -226,7 +226,8 @@ namespace HeuristicAlgorithms
             double leftPercent = leftTemperatureCoolingTimes / maxCounter;
 
             double domainValue = (Function.RightBound - Function.LeftBound);
-            double value = (0.8 * domainValue) * (leftPercent);
+            double partOfTheDomain = 0.8;
+            double value = (partOfTheDomain * domainValue) * (leftPercent);
             for (int i = 0; i < AmountOfArguments; i++)
             {
                 double newValue = Arguments[i] + RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);

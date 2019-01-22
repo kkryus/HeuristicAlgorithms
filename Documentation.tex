@@ -3,18 +3,21 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}%obrazki
+\usepackage{caption}
 \usepackage{array,etoolbox}%indeksowanie wierszy w tabelach
 \preto\tabular{\setcounter{magicrownumbers}{0}}
 \newcounter{magicrownumbers}
 \newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
 \usepackage{multirow,tabularx}
 \usepackage{etoolbox}
+\usepackage{makecell}
 \usepackage{float}%obrazki na tej samej stronie
 \newcounter{rowcnt}
 \newcommand\rownum{\ifnumequal{\value{rowcnt}}{0}{\textbf{Nr.}}{\therowcnt.}\refstepcounter{rowcnt}}
 \AtEndEnvironment{tabularx}{\setcounter{rowcnt}{0}}
 
-
+\captionsetup[table]{aboveskip=0pt}
+\captionsetup[table]{belowskip=0pt}
 
 %\drukJednostronny
 
@@ -34,6 +37,7 @@
 \newcommand{\newLine}{~\\}
 \newcommand{\si}{ś}
 \newcommand{\SI}{Ś}
+
 %-------------------------------------------------------------------------------
 %end Custom commands
 
@@ -246,126 +250,144 @@ Przed rozpoczęciem testów przyjęto dwa założenia:
 	\item Stopień chłodzenia temperatury został ustawiony na 0.99.
 \end{enumerate}
 
-W pierwszym etapie została sprawdzona temperatura w zakresie 2-10 oraz ilo\si ć iteracji w liczbie 100-1100.
-
-\scalebox{0.9}{
+W pierwszym etapie została sprawdzona temperatura w zakresie 2-10 oraz ilo\si ć iteracji w liczbie 100-1100. \\
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, It jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
+%\footnotesize Smaller note of table that describes what the table is all about.
 \renewcommand\arraystretch{1.333}
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+\begin{tabular}{|c|c|c||c|c|c|} 
                   \hline
-                  & \textbf{ $T_0$}
-                  & \textbf{ Iteracje}
-                  &\textbf{ Średnia rozwiązań}\\ \hline
-& 6 & 900 & 1,3201 \\ \hline 
-& 6 & 1100 & 1,3214 \\ \hline 
-& 8 & 1100 & 1,4151 \\ \hline 
-& 10 & 700 & 1,4182\\ \hline 
-& 2 & 500 & 1,5137 \\ \hline 
-& 6 & 500 & 1,5151 \\ \hline 
-& 4 & 900 & 1,5182 \\ \hline 
-& 8 & 900 & 1,5191 \\ \hline 
-& 8 & 700 & 1,6145 \\ \hline 
-& 8 & 500 & 1,6169 \\ \hline 
-& 10 & 1100 & 1,6194 \\ \hline 
-& 10 & 900 & 1,7176 \\ \hline 
-& 2 & 1100 & 1,8087 \\ \hline 
-& 10 & 300 & 1,8099 \\ \hline 
-& 10 & 500 & 1,8106 \\ \hline 
-& 6 & 700 & 1,8174 \\ \hline 
-& 4 & 1100 & 1,8291 \\ \hline 
-& 2 & 700 & 1,9127 \\ \hline 
-& 6 & 300 & 2,0083 \\ \hline 
-& 2 & 900 & 2,2128 \\ \hline 
-& 4 & 500 & 2,2251 \\ \hline 
-& 4 & 700 & 2,3089 \\ \hline 
-& 2 & 300 & 2,3170 \\ \hline 
-& 8 & 300 & 2,4199 \\ \hline 
-& 4 & 300 & 2,5146 \\ \hline 
-& 10 & 100 & 2,8057 \\ \hline 
-& 6 & 100 & 3,0047 \\ \hline 
-& 2 & 100 & 3,0159 \\ \hline 
-& 8 & 100 & 3,2014 \\ \hline 
-& 4 & 100 & 3,2157 \\ \hline 
-\end{tabularx}
-}
+                  \textbf{$T_0$}
+                  & \textbf{It}
+                  &\textbf{$\overline{f}_{min}$} 
+& \textbf{$T_0$}
+ & \textbf{It}
+ &\textbf{$\overline{f}_{min}$} \\ \hline
+
+10 & 1100 & 1,6194 &4 & 1100 & 1,8291 \\ \hline
+10 & 900 & 1,7176 &4 & 900 & 1,5182 \\ \hline
+10 & 700 & 1,4182&4 & 700 & 2,3089 \\ \hline
+10 & 500 & 1,8106&4 & 500 & 2,2251 \\ \hline
+10 & 300 & 1,8099 &4 & 300 & 2,5146 \\ \hline 
+10 & 100 & 2,8057&4 & 100 & 3,2157 \\ \Xhline{3\arrayrulewidth}
+
+8 & 1100 & 1,4151 &2 & 1100 & 1,8087 \\ \hline 
+8 & 900 & 1,5191 &2 & 900 & 2,2128 \\ \hline 
+8 & 700 & 1,6145 &2 & 700 & 1,9127 \\ \hline
+8 & 500 & 1,6169 &2 & 500 & 1,5137 \\ \hline 
+8 & 300 & 2,4199 &2 & 300 & 2,3170 \\ \hline 
+8 & 100 & 3,2014 &2 & 100 & 3,0159 \\ \Xhline{3\arrayrulewidth}
+
+6 & 1100 & 1,3214 \\ \hline 
+6 & 900 & 1,3201 \\ \hline 
+6 & 700 & 1,8174 \\ \hline 
+6 & 500 & 1,5151 \\ \hline 
+6 & 300 & 2,0083 \\ \hline 
+6 & 100 & 3,0047 \\ \hline 
+\end{tabular}
+\end{table}
 
 Powyższe wyniki nie dają zadowalających rezultatów. Można jednak zauważyć, iż w tym momencie badań temperatura nie ma aż takiego znaczenia, a większa ilo\si ć iteracji zdaje się dawać lepsze rezultaty. Zgodnie z założeniem, iż temperatura nie powinna być zbyt wysoka, postanowili\si my dalej sprawdzać ten sam zakres temperatur i zwiększyć ilo\si ć iteracji około stukrotnie, co prezentuje następna tabela.
 
 
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+\begin{tabular}{|c|c|c|} 
                   \hline
-                  & \textbf{ $T_0$}
-                  & \textbf{ Iteracje (*1000)}
-                  &\textbf{ Średnia rozwiązań}\\ \hline
-& 2 & 11 & 0,5162 \\ \hline 
-& 6 & 7 & 0,7157 \\ \hline 
-& 10 & 11 & 0,7165\\ \hline 
-& 6 & 9 & 0,7189 \\ \hline 
-& 8 & 11 & 0,8120 \\ \hline 
-& 10 & 9 & 0,8208 \\ \hline 
-& 10 & 5 & 0,8244 \\ \hline 
-& 2 & 5 & 0,9171 \\ \hline 
-& 4 & 5 & 0,9184 \\ \hline 
-& 6 & 11 & 0,9273 \\ \hline 
-& 4 & 9 & 0,9278 \\ \hline 
-& 8 & 7 & 1,0155 \\ \hline 
-& 4 & 3 & 1,0177 \\ \hline 
-& 8 & 9 & 1,0224 \\ \hline 
-& 2 & 9 & 1,1158 \\ \hline 
-& 4 & 11 & 1,1203 \\ \hline 
-& 8 & 3 & 1,2153 \\ \hline 
-& 2 & 3 & 1,3114 \\ \hline 
-& 4 & 7 & 1,3136 \\ \hline 
-& 6 & 1 & 1,3147 \\ \hline 
-& 2 & 7 & 1,3152 \\ \hline 
-& 6 & 3 & 1,3194 \\ \hline 
-& 6 & 5 & 1,3202 \\ \hline 
-& 8 & 5 & 1,3222 \\ \hline 
-& 10 & 1 & 1,3252 \\ \hline 
-& 10 & 7 & 1,3270 \\ \hline 
-& 2 & 1 & 1,4161 \\ \hline 
-& 10 & 3 & 1,5143 \\ \hline 
-& 4 & 1 & 1,5184 \\ \hline 
-& 8 & 1 & 1,6182 \\ \hline 
-\end{tabularx} \\
+                   \textbf{$T_0$}
+                  & \textbf{It (*1000)}
+                  &\textbf{$\overline{f}_{min}$}\\ \hline
+
+
+10 & 11 & 0,7165\\ \hline 
+10 & 9 & 0,8208 \\ \hline 
+10 & 7 & 1,3270 \\ \hline 
+10 & 5 & 0,8244 \\ \hline 
+10 & 3 & 1,5143 \\ \hline 
+10 & 1 & 1,3252 \\ \Xhline{3\arrayrulewidth}
+
+8 & 11 & 0,8120 \\ \hline 
+8 & 9 & 1,0224 \\ \hline 
+8 & 7 & 1,0155 \\ \hline 
+8 & 5 & 1,3222 \\ \hline 
+8 & 3 & 1,2153 \\ \hline 
+8 & 1 & 1,6182 \\ \Xhline{3\arrayrulewidth}
+
+
+6 & 11 & 0,9273 \\ \hline 
+6 & 9 & 0,7189 \\ \hline 
+6 & 7 & 0,7157 \\ \hline 
+6 & 5 & 1,3202 \\ \hline 
+6 & 3 & 1,3194 \\ \hline 
+6 & 1 & 1,3147 \\ \Xhline{3\arrayrulewidth}
+
+
+4 & 11 & 1,1203 \\ \hline 
+4 & 9 & 0,9278 \\ \hline 
+4 & 7 & 1,3136 \\ \hline 
+4 & 5 & 0,9184 \\ \hline 
+4 & 3 & 1,0177 \\ \hline 
+4 & 1 & 1,5184 \\ \Xhline{3\arrayrulewidth}
+
+2 & 11 & 0,5162 \\ \hline 
+2 & 9 & 1,1158 \\ \hline 
+2 & 7 & 1,3152 \\ \hline 
+2 & 5 & 0,9171 \\ \hline 
+2 & 3 & 1,3114 \\ \hline 
+2 & 1 & 1,4161 \\ \Xhline{3\arrayrulewidth}
+
+
+\end{tabular} \\
 
 Średnia rozwiązań najlepszego wyniku w tym te\si cie wydawała się być obiecująca, jednak sprawdzenie jako\si ci takich parametrów zwróciło jako\si ć równą 34\% (przy stukrotnym uruchomieniu programu), co jest niskim wynikiem. Postanowili\si my zwiększyć znowu zakres iteracji dziesięciokrotnie, co można zobaczyć w następnej tabeli.
 
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, It jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
+%\footnotesize Smaller note of table that describes what the table is all about.
+\begin{tabular}{|c|c|c||c|c|c|} 
                   \hline
-                  & \textbf{ $T_0$}
-                  & \textbf{ Iteracje (* 1000)}
-                  &\textbf{Średnia rozwiązań}\\ \hline
-& 10 & 90 & 0,0252 \\ \hline
-& 10 & 100 & 0,1215 \\ \hline
-& 10 & 80 & 0,1216 \\ \hline 
-& 4 & 60 & 0,2178 \\ \hline 
-& 8 & 70 & 0,2200 \\ \hline 
-& 4 & 80 & 0,2206 \\ \hline
-& 6 & 100 & 0,2208 \\ \hline 
-& 4 & 70 & 0,2209 \\ \hline 
-& 6 & 90 & 0,2242 \\ \hline 
-& 8 & 80 & 0,2257 \\ \hline 
-& 2 & 80 & 0,2266 \\ \hline 
-& 8 & 100 & 0,2279 \\ \hline 
-& 4 & 100 & 0,2337 \\ \hline 
-& 4 & 90 & 0,3147 \\ \hline 
-& 10 & 60 & 0,3199 \\ \hline 
-& 4 & 50 & 0,3222 \\ \hline
-& 2 & 100 & 0,3224 \\ \hline 
-& 2 & 70 & 0,3247 \\ \hline 
-& 2 & 50 & 0,3248 \\ \hline 
-& 10 & 70 & 0,3249\\ \hline 
-& 8 & 90 & 0,4161 \\ \hline 
-& 6 & 50 & 0,4199\\ \hline 
-& 8 & 50 & 0,4257 \\ \hline 
-& 6 & 80 & 0,5203 \\ \hline 
-& 10 & 50 & 0,5257 \\ \hline 
-& 2 & 60 & 0,5264 \\ \hline 
-& 6 & 60 & 0,5308 \\ \hline 
-& 2 & 90 & 0,6167 \\ \hline 
-& 8 & 60 & 0,6255 \\ \hline 
-& 6 & 70 & 0,8194 \\ \hline 
-\end{tabularx} \\
+                   \textbf{$T_0$}
+                  & \textbf{It (*1000)}
+                  &\textbf{$\overline{f}_{min}$} 
+& \textbf{$T_0$}
+ & \textbf{It (*1000)}
+ &\textbf{$\overline{f}_{min}$} \\ \hline
+10 & 100 & 0,1215 & 4 & 100 & 0,2337 \\ \hline
+10 & 90 & 0,0252 & 4 & 90 & 0,3147 \\ \hline
+10 & 80 & 0,1216 & 4 & 80 & 0,2206 \\ \hline
+10 & 70 & 0,3249& 4 & 70 & 0,2209 \\ \hline 
+10 & 60 & 0,3199 & 4 & 60 & 0,2178 \\ \hline 
+10 & 50 & 0,5257 & 4 & 50 & 0,3222 \\ \hline
+10 & 40 & 0,5223 & 4 & 40 & 0,5243 \\ \hline 
+10 & 30 & 0,8243 & 4 & 30 & 0,5192 \\ \hline
+10 & 20 & 0,3277 & 4 & 20 & 0,3261 \\ \hline 
+10 & 10 & 0,5312 & 4 & 10 & 0,7265 \\ \Xhline{3\arrayrulewidth}
+
+8 & 100 & 0,2279 & 2 & 100 & 0,3224 \\ \hline 
+8 & 90 & 0,4161 & 2 & 90 & 0,6167 \\ \hline 
+8 & 80 & 0,2257 & 2 & 80 & 0,2266 \\ \hline 
+8 & 70 & 0,2200 & 2 & 70 & 0,3247 \\ \hline 
+8 & 60 & 0,6255 & 2 & 60 & 0,5264 \\ \hline 
+8 & 50 & 0,4257 & 2 & 50 & 0,3248 \\ \hline 
+8 & 40 & 0,1310 & 2 & 40 & 0,4396 \\ \hline
+8 & 30 & 0,5167 & 2 & 30 & 0,6237 \\ \hline
+8 & 20 & 0,8323 & 2 & 20 & 0,4180 \\ \hline
+8 & 10 & 1,1295 & 2 & 10 & 0,8205 \\ \Xhline{3\arrayrulewidth}
+
+6 & 100 & 0,2208 \\ \hline 
+6 & 90 & 0,2242 \\ \hline 
+6 & 80 & 0,5203 \\ \hline 
+6 & 70 & 0,8194 \\ \hline 
+6 & 60 & 0,5308 \\ \hline 
+6 & 50 & 0,4199\\ \hline 
+6 & 40 & 0,3182 \\ \hline 
+6 & 30 & 0,4311 \\ \hline 
+6 & 20 & 0,5213 \\ \hline 
+6 & 10 & 0,7173 \\ \Xhline{3\arrayrulewidth}
+
+
+\end{tabular} 
+\end{table}
 
 Otrzymane wyniki sugerują, iż najlepsze wyniki dla podanych zakresów można otrzymać przy temperaturze równej 10 i bardzo wysokich ilo\si ciach iteracji. W następnym kroku sprawdzili\si my jako\si ć rozwiązań dla temperatury równej 10 i iteracji w zakresie przedstawionej w tabeli. \\
 
@@ -492,7 +514,7 @@ private void SetMaxCounter()
 W metodzie tej losuję początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego w danym problemie. \\
 
 \underline{Funkcja Move()} \\
-W tym kroku najpierw obliczany jest pozostały procent iteracji do ukończenia procesu. Następnie biorąc 80\% pełnej puli możliwych warto\si ci problemu, mnożymy ją przez pozostały procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdemu argumentowi tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniego argumentu najlepszego rozwiązania (aby był to sąsiad najlepszego rozwiązania) oraz losowa liczba z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy, ale rozwiązanie powinno też już być bliskie optymalnemu. Na końcu walidujemy nowy argument do podanego zakresu. \\
+W tym kroku najpierw obliczany jest pozostały procent iteracji do ukończenia procesu. Następnie biorąc 80\% pełnej puli możliwych warto\si ci problemu (zmienna partOfTheDomain), mnożymy ją przez pozostały procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdemu argumentowi tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniego argumentu najlepszego rozwiązania (aby był to sąsiad najlepszego rozwiązania) oraz losowa liczba z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy, ale rozwiązanie powinno też już być bliskie optymalnemu. Na końcu walidujemy nowy argument do podanego zakresu. \\
 \begin{verbatim}
 private void Move(int counter)
 {
@@ -500,7 +522,8 @@ private void Move(int counter)
     double leftPercent = leftTemperatureCoolingTimes / maxCounter;
 
     double domainValue = (Function.RightBound - Function.LeftBound);
-    double value = (0.8 * domainValue) * (leftPercent);
+    double partOfTheDomain = 0.8;
+    double value = (partOfTheDomain * domainValue) * (leftPercent);
     for (int i = 0; i < AmountOfArguments; i++)
     {
         double newValue = Arguments[i] + 

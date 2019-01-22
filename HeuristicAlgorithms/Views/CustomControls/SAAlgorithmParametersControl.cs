@@ -41,7 +41,6 @@ namespace HeuristicAlgorithms.Views
 
         private void EndingTemperatureInputTextBox_ValueChanged(object sender, EventArgs e)
         {
-
             double value = (double)(sender as NumericUpDown).Value;
             endingTemperatureValue = value;
             ValidateTemperature();
