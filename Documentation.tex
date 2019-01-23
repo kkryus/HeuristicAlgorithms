@@ -64,101 +64,141 @@
 \newtheorem{dd}{Definicja}%[subsection]
 
 \begin{document}
-Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski, szukając najkrótszego połączenia pomiędzy miastami. Szukając rozwiązania (zazwyczaj przybliżonego), zawsze dążymy do tego żeby było ono jak,,najlepsze" (jak najbliższe dokładnemu) i zostało znalezione w rozsądnym czasie. W tym celu często korzysta się z algorytmów heurystycznych. \\ 
+Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski, szukając najkrótszego połączenia pomiędzy miastami itd. Szukając rozwiązania (zazwyczaj przybliżonego), zawsze dążymy do tego żeby było ono jak ,,najlepsze" (jak najbliższe dokładnemu) i zostało znalezione w rozsądnym czasie. W tym celu można skorzystać z algorytmów heurystycznych. \\ 
 
 
 Metody heurystyczne są przybliżonymi metodami optymalizacyjnymi, ale otrzymane dzięki nim rezulaty są satysfakcjonujące. Otrzymując w ten sposób rozwiązanie możemy:
 
 \begin{enumerate}
-	\item zaakceptować je, np. gdy dokładne rozwiązanie nie jest konieczne (np. kompresja obrazu),
-	\item zawęzić (istotnie) zakres i prowadzić dalsze poszukiwania. \\
+	\item zaakceptować je, np. gdy dokładne rozwiązanie nie jest konieczne np. w kompresji obrazu,
+	\item zawęzić (istotnie) zakres i prowadzić dalsze poszukiwania w oparciu o inny algorytm. \\
 \end{enumerate}
-Jednak aby metodę heurystyczną uznać za akceptowalną, chcemy żeby spełniała następujące wymagania:
+Metodę heurystyczne uznaje się za akceptowalne, jeśli spełniają następujące wymagania:
 \begin{itemize}
-	\item[--] rozwiązanie jest możliwe do znalezienia przy rozsądnej liczby obliczeń (w przeliczeniu na ich koszt),
+	\item[--] rozwiązanie jest możliwe do znalezienia przy ,,rozsądnej" liczbie obliczeń,
 	\item[--] otrzymane rozwiązanie powinno być bliskie optymalnemu,
 	\item[--] prawdopodobieństwo uzyskania złego rozwiązania powinno być ,,niskie".
 \end{itemize}
 
 \section{Opis}
-Często w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu problemy nazywa się problemami odwrotnymi. \\
+Często w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu zadania nazywa się problemami odwrotnymi. \\
 
-Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać 3 wymagania:
+Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać następujące wymagania:
 \begin{enumerate}
 	\item rozwiązanie problemu musi istnieć,
 	\item każde rozwiązanie jest unikalne,
 	\item rozwiązanie zależy od danych oraz parametrów (np. małe zmiany w funkcjach wej\si cia powodują małe zmiany w rozwiązaniu). \\
 \end{enumerate}
 
-Jednym z tego typów problemów (problemów odwrotnych) są odwrotne zagadnienia przewodnictwa ciepła. Przy posiadaniu niekompletnego opisu modelu matematycznego oraz funkcji opisującej rozkład temperatury w wybranych punktach, zadanie polega na rekonstrukcji niektórych brakujących parametrów modelu. 
+Jednym z tego typów problemów (problemów odwrotnych) są odwrotne zagadnienia przewodnictwa ciepła. Przy posiadaniu niekompletnego opisu modelu matematycznego oraz funkcji opisującej rozkład temperatury w wybranych punktach (zazwyczaj pomiarowych), zadanie polega na rekonstrukcji brakujących parametrów modelu. 
 
 \subsection{Cel}
 
 W pracy opisany i zaimplementowany zostanie algorytm symulowanego wyżarzania. Dla wybranych funkcji testowych zostały dobrane jego parametry, a finalnie zostanie on wykorzystany do rozwiązania odwrotnego zadania przewodnictwa ciepła.
 
-W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie globalnego minimum kilku funkcji testowych wraz z zadanymi przez siebie parametrami oraz odtworzenie jednego z brakujących parametrów modelu matematycznego zadanego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie.
+W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie minimum globalnego funkcjonału, sprawdzona najpierw dla wybvranych funkcji testowych, a następnie wykorzystana do odtworzenia brakujących parametrów modelu matematycznego przykładowego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie pomiarowym.
 
 
 \section{Opis algorytmu symulowanego wyżarzania}
-				Algorytm ten został stworzony wzorując się na zjawisku wyżarzania w metalurgii, które polega na nagrzaniu elementu stalowego do odpowiedniej temperatury, przetrzymaniu go w tej temperaturze przez pewien czas, a następnie powolnym jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
-Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych losowych przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, jak np. problemu komiwojażera. \\
+				Algorytm ten został stworzony wzorując się na zjawisku wyżarzania metali, które polega na nagrzaniu elementu stalowego do ustalonej temperatury początkowej, przetrzymaniu go w tej temperaturze przez ,,pewien" czas, a następnie ,,powolnym" jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
+Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie ,,pewnych losowych" przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, takich jak np. problemu komiwojażera. \\
 
+Sformułowanie zadania optymalizacyjnegoi
+Zanim przejdziemy do opisu alg  nalezy sformulowac rozwazane zadanie optymalizacyjne
+i z kartki + opis
 
-		\subsection{Parametry}
+		\subsection{Opis algorytmu}
 		
 \noindent \underline{Początkowa konfiguracja} \\ \newLine
-\indent W tym kroku powinniśmy zainicjalizować naszą temperaturę pewną wartością oraz znaleźć początkowe, losowe rozwiązanie naszego problemu. 
+\indent W tym kroku powinniśmy zainicjalizować temperaturę początkową pewną zadaną wartością oraz znaleźć początkowe, w tym wypadku losowe rozwiązanie problemu. 
 \\ \newLine
 
 \noindent \underline{Temperatura} \\ \newLine
-\indent Temperatura jest zarówno czynnikiem iteracyjnym, jak i jest związana z funkcją prawdopodobieństwa zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania naszego algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego te prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
+\indent  Wraz z upływem czasu (kolejne iteracje) ulega zmianie i jest czynnikiem wpływającym na prawdopodobieństwo z funkcją prawdopodobieństwa zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania naszego algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego te prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
 
 
 \noindent \underline{Końcowa temperatura} \\ \newLine
-\indent Jest to ,,bardzo niska" wartość. Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
-Wartość ta powinna być na tyle mała, by temperatura będąc niewiele większa prowadziła do bardzo niskiego prawdopodobieństwa, a jednocze\si nie nie wymagało to zbyt dużej ilo\si ci iteracji. \\ \newLine
+\indent Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
+Wartość ta powinna być na tyle mała, żeby jej ,,niewielka" zmiana nie miała praktycznego wpływu na zmianę rozwiązania (prawdopodobieństwo zmiany bliskie zero), a jednocze\si nie jej za mała warto\si ć nie prowadziła do zbyt dużej liczby iteracji. \\ \newLine
 
 
-\noindent \underline{Powtarzanie pewną ilość razy dla zadanej temperatury} \\ \newLine
+
+
+
+
+\noindent \underline{Powtarzanie zadanej ilo\si ci iteracji dla okre\si lonej temperatury} \\ \newLine
+Proces iteracyjny bez zmiany temperatury wykonuje się okre\si loną (ustaloną jako parametr algorytmu) ilo\si ć razy.
+
+
+
+
+
+
 \indent Wartość ta powinna być z góry ustalona i powinna dać nam możliwość sprawdzenia wielu sąsiadów obecnego rozwiązania, równocześnie nie powodując zbyt dużego obciążenia dla algorytmu. Parametr ten jednak jest najbardziej dostosowywalny ze względu na jego "niezależno\si ć". \\ \newLine
+%6 metodyka po algorytmie/ ->opisie
+
+
+
+
 
 
 \noindent \underline{Znajdowanie losowego sąsiada poprzedniego rozwiązania} \\ \newLine
-\indent Funkcja ta powinna nam pozwalać przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie najlepszego rozwiązania, zatem warto uzależnić tą funkcję od stopnia zaawansowania procesu iteracyjnego.\\ \newLine
+\indent Funkcja ta powinna nam pozwalać przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie ,,najlepszego" rozwiązania, zatem funkcję tę należy uzależnić od stopnia zaawansowania procesu iteracyjnego, tak że wraz ze wzrostem iteracji zawężeniu ulegnie obszar przeszukiwania.\\ \newLine
+
+
+
+
 
 
 \noindent \underline{Funkcja kosztu} \\ \newLine
-\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamianie gorszego rozwiązania na lepsze. Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine  \\ \newLine
+\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamianie ,,gorszego" rozwiązania na ,,lepsze". Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine  \\ \newLine
 
 
 \noindent \underline{Prawdopodobieństwo zamiany P} \\ \newLine
-\indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i gorszego rozwiązania, z wcze\si niejszym i lepszym. 
+\indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i gorszego rozwiązania, z wcze\si niejszym lepszym. 
 
-Prawdopodobieństwo tej zamiany zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zatem można przedstawić w następujący sposób:
+Prawdopodobieństwo tej zamiany zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zamiany okre\si lone jest wzorem:
 $$ P = \exp\left(\frac{\Delta E}{T}\right)  $$
 gdzie:\\
 \begin{flalign}
-& \Delta E - funkcja\ kosztu& 
+& \Delta E&  - funkcja\ kosztu
 \end{flalign}
-T - obecna warto\si ć temperatury\\
+T - obecna warto\si ć temperatury.\\
 
-Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemne), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym czy powinniśmy zamienić nasze gorsze rozwiązanie z lepszym powinniśmy porównać obliczone prawdopodobieństwo z wartością losową zawierającą się w zakresie [0,1].\\ \newLine
+Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemna), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym czy powinniśmy zamienić nasze ,,gorsze" rozwiązanie z ,,lepszym" powinniśmy porównać obliczone prawdopodobieństwo z wartością losową o rozkładzie równomiernym.\\ \newLine
 
 
 \noindent \underline{Chłodzenie temperatury} \\ \newLine
-\indent Szybkość chłodzenia temperatury nie powinna być zbyt duża, aby pozwolić algorytmowi na sprawdzenie jak największego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie gorszych (lub dużo gorszych) rozwiązań. W większości opracowań można spotkać ten proces, jako mnożnik temperatury w zakresie [0.8;0.99].\\ \newLine
+\indent Szybkość chłodzenia temperatury nie powinna być ,,zbyt duża", aby pozwolić algorytmowi na sprawdzenie szerokiego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie gorszych (lub dużo gorszych) rozwiązań. W większości opracowań można spotkać, że ten proces okre\si la mnożnik tempa spadku temperatury ustalony w zakresie [0.8;0.99].\\ \newLine
 		
+
+Z powyższego opisu wynika, że algorytm ten zależy od czterech parametrów:
+-temperatury początkowej (Tp),
+-temperatury końcowej (Tk),
+-wewnętrznych iteracji (It),
+-chłodzenia (k).
+
 		\subsection{Kroki algorytmu}
 		
-		Algorytm ten można również przedstawić za pomocą listy kroków:
+		Algorytm ten można przedstawić schematycznie:
 
 \begin{enumerate}
-	\item Zainicjalizuj początkową konfigurację
-	\item Dopóki temperatura $>$ minimum, powtarzaj:
+	\item Inicjalizacja Tp, Tk, it, k
+	\item Je\si li T > Tk wykonuj
 	\begin{enumerate}
-		\item Powtórz zadaną ilość razy dla danej temperatury
+		\item xtmp wyznaczenie ,,sąsiada" rozwiązania xbest (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje)
 		\begin{enumerate}
-			\item Znajdź losowo sąsiada poprzedniego rozwiązania
+			\item jesli f(xbest) > f(xtmp):
+xbest = xtmp
+w przeciwnym razie
+deltaE = f(xbest) - f(x tmp)
+P = $e ^ deltaE/T$
+q = liczba losowa z p. [0,1]
+jesli p> q
+to xbest = xtmp
+a)ith razy
+II Zmniejsz temperature T = k*T
+wroc do I
 			\item Sprawdź czy rozwiązanie jest lepsze od poprzedniego (funkcja kosztu)
 			\begin{enumerate}
 				\item Jeżeli jest, zamień rozwiązania
@@ -168,22 +208,52 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 		\item Zmniejsz temperaturę
 	\end{enumerate}
 \end{enumerate}
-		
+	
+
+
+\subsection{Schemat blokowy}
+Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu, co można zobaczyć na poniższym rysunku.
+
+\begin{figure}[H]
+		\includegraphics[height=22cm, width=16cm]{pics/schematBlokowy.png}\\
+	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
+\end{figure}
+	
 
 \section{Funkcje testowe}
-Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie ważny jest czas znalezienia rozwiązania, to przed skorzystaniem z danego algorytmu jeste\si my zmuszeni ustawić parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik, oraz parametry mogą być od siebie zależne. W opracowaniach naukowych rzadko kiedy można znaleźć wytyczne co do sposobu znalezienia odpowiednich parametrów do konkretnych problemów. \\
+Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak jest informacji o funkcji, a jedynie znane są jego warto\si ci, to przed użyciem danego algorytmu musimy dobrać parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik. W opracowaniach naukowych trudno znaleźć wytyczne co do sposobu wyznaczania odpowiednich parametrów, związane to jest z ich zależno\si cią od rozwiązywanego problemu. \\
+
+
+
+
+
+
+
+
+W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ci prób wykonano po 10 powtórzeń algorytmu dla tych samych parametrów algorytmu. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyjsciowych algorytmu i następnie dla nich zostały przeprowadzone próby, gdzie wykonane po 100 powtórzeń algorytmu dla tych samych wyselekcjonowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów zostanie opisany dokładnie, a w pozostałych wypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu.
+
+
+
+
+
+
+
+
+
+
+
 
 Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjęli\si my kilka założeń, a następnie sukcesywnie poszukiwali\si my odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzali\si my jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki (zaokrąglone do 4 miejsca po przecinku), a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
 
-	\subsection{Funkcja kwadratowa dwóch parametrów}
-	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch parametrów następującej postaci:
-\[f(x, y) = x^2 + y^2 \] \\
+	\subsection{Funkcja kwadratowa dwóch zmiennych}
+	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch zmiennych postaci:
+\[f(x, y) = x^2 + y^2 \] \\(x, y) nalezy do $R^2$
 
-Funkcja ta jest funkcją parzystą i przyjmuje tylko warto\si ci nieujemne. Na potrzeby projektu zakres dla tej funkcji został zawężony następująco:
-\[x_i, y_i \in [-10, 10] \] \\
+Funkcja ta przyjmuje tylko warto\si ci nieujemne i posiada globalne minimum w punkcie (0, 0). Na potrzeby testów dziedzina tej funkcji został zawężony następująco:
+\[x_i, y_i \in [-10, 10] \] \\ 
+(x, y) nalezy do $[0,1]^2$
 
-Posiada ona następujące globalne minimum:
-\[ f(0, 0) = 0 \] \\
+Wybór tak ,,łatwej" funkcji testowej padł ze względu na to, żeby upewnić się, że algorytm został poprawnie zaimplementowany, gdyż proces wyznaczania ekstremum tej funkcji jest ,,bardzo prosty" i nie wymaga dużego nakladu obliczeń.
 
 Funkcję prezentuje poniższy wykres:\\
 \begin{figure}[H]
@@ -207,7 +277,7 @@ Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania 
 \end{tabularx} \\
  
 	\subsection{Funkcja Rastrigina}
-	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną. Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
+	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną (dla n=2, została przedstawiona na rysunku 2). Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
 
 \[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}] \]
 
@@ -215,19 +285,19 @@ gdzie: \\
 A = 10, \\
 n = ilo\si ć wymiarów \\ \newLine
 
-Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdziemy w przedziale:
-\[x_i \in [-5.12, 5.12] \] \\
-
-Posiada ona następujące globalne minimum:
-\[ f(0,...,0) = 0 \] \\
-
-By ujrzeć jej niektóre wła\si ciwo\si ci zaprezentowali\si my jej wykres na poniższym obrazku:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{pics/rastriginFunction1.png}\\
 	\end{center}
 	\caption{Funkcja Rastrigina o 2 wymiarach}
 \end{figure}
+
+Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdziemy w przedziale:
+\[x_i \in [-5.12, 5.12] \] \\
+
+Posiada ona następujące globalne minimum:
+\[ f(0,...,0) = 0 \] \\
+
 
 	\subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 3 wymiarach}
 Po przeprowadzeniu testów zostały dobrane następujące parametry: \\
@@ -250,7 +320,7 @@ Przed rozpoczęciem testów przyjęto dwa założenia:
 	\item Stopień chłodzenia temperatury został ustawiony na 0.99.
 \end{enumerate}
 
-W pierwszym etapie została sprawdzona temperatura w zakresie 2-10 oraz ilo\si ć iteracji w liczbie 100-1100. \\
+W pierwszym etapie została sprawdzona temperatura w zakresie (2, 4, ..., 10) oraz ilo\si ć iteracji w liczbie (100, 300, ..., 1100). \\
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, It jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
@@ -485,14 +555,6 @@ W programie również używam kilku pomocnicznych zmiennych: \\
 
 \textbf{counter} jest liczbą oznaczającą obecną, globalną iterację. \\
 
-\subsection{Schemat blokowy}
-Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu, co można zobaczyć na poniższym rysunku.
-
-\begin{figure}[H]
-		\includegraphics[height=22cm, width=16cm]{pics/schematBlokowy.png}\\
-	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
-\end{figure}
-
 \subsection{Implementacja metod i algorytmu}
 
 \underline{Funkcja SetMaxCounter()} \\
@@ -588,7 +650,44 @@ ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
 
 \section{Zastosowanie algorytmu w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
 Posiadając gotowy model matematyczny tradycyjnego problemu przewodnictwa ciepła możliwe jest zasymulowanie tego procesu i otrzymanie serii pomiarów temperatur. Obliczone pomiary temperatur można użyć do rozwiązania problemu odwrotnego. 
-\subsection{Tradycyjny problem}
+\subsection{Bezpo\si redni problem}
+\subsubsection{Opis}
+
+Bezpo\si redni problem można opisać za pomocą następującego równania różniczkowego cząstkowego:
+
+\begin{alignat*}{2}
+c\rho \frac{\partial u}{\partial t}&= \lambda \frac{\partial u^2}{\partial x},&\qquad  x \in [0, a], t \in [0, T]\\
+\end{alignat*}
+
+przy warunku początkowym postaci:
+\begin{alignat*}{2}
+u(x, 0) = f(x),&\qquad  x \in [0, a]\\
+\end{alignat*}
+
+oraz warunków brzegowych pierwszego rodzaju, wyrażonymi:
+\begin{alignat*}{2}
+u(0,t) = g(t),&\qquad  u(a, t) = h(t), &\qquad t \in [0, T]\\
+\end{alignat*}
+
+Chcąc otrzymać pomiary ciepła, obliczamy pochodną:
+
+\begin{alignat*}{2}
+c_i \rho _i \frac{ u^{j+1}_i - u^j_i}{ \Delta \tau}&= \lambda \frac{ u^j_{i+1} - 2u^j_i+u^j-1_i}{\Delta h^2}\\
+\end{alignat*}
+
+Wykonując kolejne przekształcenia otrzymujemy:
+
+\begin{alignat*}{2}
+ u^{j+1}_i&= \frac{\lambda \Delta \tau}{c_i \rho _i} \left( \frac{u^j_{i+1} - 2u^j_i+u^j-1_i}{\Delta h^2} \right) + u^j_i\\
+\end{alignat*}
+
+Przy założeniu, że powyższe równanie spełnia warunek stabilno\si ci:
+\begin{alignat*}{2}
+\frac{\Delta \tau}{\Delta h^2} < \frac{1}{2}\\
+\end{alignat*}
+
+%\[ c\rho \frac{\partial u}{\partial t}= \lambda \frac{\partial u}{\partial x},  x \in [0, a]\]
+
 \subsubsection{Parametry}
 Proces obliczania rozkładu temperatur wymaga podania kilku parametrów, które zostaną teraz wyja\si nione. \\
 Delegaty oznaczone $f$, $g$ i $h$ są opisem warunków brzegowych, odpowiednio rozkładem temperatury w czasie $t_0$ oraz rozkładem temperatur na początku i końcu procesu zależnym od czasu. W projekcie funkcje te przyjmują następującą postać:
@@ -978,12 +1077,13 @@ Język programowania C\# należy do obiektowych języków programowania, któreg
 Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
 
 \section{Podsumowanie}
-Celem tej pracy inżynierskiej było stworzenie aplikacji, która pozwoliłaby rozwiązać zadany problem przewodnictwa ciepła poprzez zastosowanie algorytmu symulowanego wyżarzania. Stworzono więc program, który poprzez prosty interfejs graficzny pozwala na użycie tego algorytmu heurystycznego w kilku funkcjach testowych oraz zadanym odwrotnym problemie przewodnictwa ciepła i znalezienia ich optymalnego rozwiązania. Dodatkowo użytkownik jest w stanie zmodyfikować (domy\si lne i sugerowane) parametry algorytmu i sprawdzić jak wpłynie to na rezultat wykonywania programu. \\
+Celem tej pracy inżynierskiej było stworzenie aplikacji, która pozwoliłaby rozwiązać zadany problem przewodnictwa ciepła poprzez zastosowanie algorytmu symulowanego wyżarzania. Stworzono więc program, który poprzez prosty interfejs graficzny pozwala na użycie tego algorytmu heurystycznego do wyznaczenia minimum w kilku funkcjach testowych oraz do rozwiązania zadanego odwrotnego zadania przewodnictwa ciepła. \\
 
 Realizacja założeń projektu wymagała przeprowadzenia badań w kwestii odpowiedniego doboru parametrów dla poszczególnych problemów i ich jako\si ci oraz przetestowania i zoptymalizowania samego działania algorytmu symulowanego wyżarzania. Dobrane parametry dla poszczególnych problemów pozwalają na stosunkowo szybkie i poprawne znalezienie optymalnego rozwiązania danego problemu, a wyniki przeprowadzonych testów rozwiązania odwrotnego zadania przewodnictwa ciepła na zbliżone odtworzenie jednego z brakujących parametrów modelu matematycznego. \\
 
-Dalsze prace nad programem powinny rozwinąć projekt o możliwo\si ć zadania problemu tradycyjnego i odwrotnego przewodnictwa ciepła, stając się tym samym jeszcze bardziej użytecznym. Pomimo, iż algorytmy heurystyczne znacznie przyspieszają znalezienie optymalnego rozwiązania, to jednak bywa to proces czasochłonny, stąd informacja o estymowanym czasie do ukończenia procesie może być użyteczna dla użytkownika. Ze względu na zasoby czasowe i błąd ludzki, warto by było zautomatyzować proces przeprowadzania testów parametrów nowych problemów oraz dla już istniejących. Rozszerzenie projektu o dodatkowe algorytmy heurystyczne pozwoliłoby porównywać ze sobą jako\si ć rozwiązań i złożono\si ć pamięciową i czasową poszczególnych algorytmów, dzięki czemu w praktycznych celach można by dobierać odpowiedni algorytm do konkretnego problemu.
-
+%
+Napisać o tym, że implementacja algorytmu spowodowała trudno\si ci, ważne są detale, coś o wynikach.
+%
 
 \begin{thebibliography}{12}
 
