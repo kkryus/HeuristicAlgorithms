@@ -64,7 +64,7 @@
 \newtheorem{dd}{Definicja}%[subsection]
 
 \begin{document}
-Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski, szukając najkrótszego połączenia pomiędzy miastami itd. Szukając rozwiązania (zazwyczaj przybliżonego), zawsze dążymy do tego żeby było ono jak ,,najlepsze" (jak najbliższe dokładnemu) i zostało znalezione w rozsądnym czasie. W tym celu można skorzystać z algorytmów heurystycznych. \\ 
+Z problematyką wyznaczania optymalnego rozwiązania mamy do czynienia w wielu dziedzinach życia i nauki, np. minimalizując koszty inwestycji, maksymalizując zyski, szukając najkrótszego połączenia pomiędzy miastami itd. Szukając rozwiązania (zazwyczaj przybliżonego), zawsze dążymy do tego, żeby było ono jak ,,najlepsze" (jak najbliższe dokładnemu) i zostało znalezione w rozsądnym czasie. W tym celu można skorzystać z algorytmów heurystycznych. \\ 
 
 
 Metody heurystyczne są przybliżonymi metodami optymalizacyjnymi, ale otrzymane dzięki nim rezulaty są satysfakcjonujące. Otrzymując w ten sposób rozwiązanie możemy:
@@ -73,7 +73,7 @@ Metody heurystyczne są przybliżonymi metodami optymalizacyjnymi, ale otrzymane
 	\item zaakceptować je, np. gdy dokładne rozwiązanie nie jest konieczne np. w kompresji obrazu,
 	\item zawęzić (istotnie) zakres i prowadzić dalsze poszukiwania w oparciu o inny algorytm. \\
 \end{enumerate}
-Metodę heurystyczne uznaje się za akceptowalne, jeśli spełniają następujące wymagania:
+Metody heurystyczne uznaje się za akceptowalne, jeśli spełniają następujące wymagania:
 \begin{itemize}
 	\item[--] rozwiązanie jest możliwe do znalezienia przy ,,rozsądnej" liczbie obliczeń,
 	\item[--] otrzymane rozwiązanie powinno być bliskie optymalnemu,
@@ -81,7 +81,7 @@ Metodę heurystyczne uznaje się za akceptowalne, jeśli spełniają następują
 \end{itemize}
 
 \section{Opis}
-Często w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od tradycyjnych problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu zadania nazywa się problemami odwrotnymi. \\
+Często w naukach technicznych możemy natrafić na zadania, które polegają na odtworzeniu niektórych parametrów modelu na podstawie danych będących wynikiem pewnych obserwacji. W odróżnieniu od bezpo\si rednich problemów, gdzie zaczynając od modelu i danych dochodzimy do rezultatów, w tego typu problemach dzieje się to odwrotnie. Tego typu zadania nazywa się problemami odwrotnymi. \\
 
 Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagadnieniami poprawnie postawionymi, muszą spełniać następujące wymagania:
 \begin{enumerate}
@@ -96,12 +96,12 @@ Jednym z tego typów problemów (problemów odwrotnych) są odwrotne zagadnienia
 
 W pracy opisany i zaimplementowany zostanie algorytm symulowanego wyżarzania. Dla wybranych funkcji testowych zostały dobrane jego parametry, a finalnie zostanie on wykorzystany do rozwiązania odwrotnego zadania przewodnictwa ciepła.
 
-W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie minimum globalnego funkcjonału, sprawdzona najpierw dla wybvranych funkcji testowych, a następnie wykorzystana do odtworzenia brakujących parametrów modelu matematycznego przykładowego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie pomiarowym.
+W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie minimum globalnego funkcjonału, sprawdzona najpierw dla wybranych funkcji testowych, a następnie wykorzystana do odtworzenia brakujących parametrów modelu matematycznego przykładowego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie pomiarowym.
 
 
 \section{Opis algorytmu symulowanego wyżarzania}
 				Algorytm ten został stworzony wzorując się na zjawisku wyżarzania metali, które polega na nagrzaniu elementu stalowego do ustalonej temperatury początkowej, przetrzymaniu go w tej temperaturze przez ,,pewien" czas, a następnie ,,powolnym" jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
-Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie ,,pewnych losowych" przeskoków do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, takich jak np. problemu komiwojażera. \\
+Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych ,,losowych przeskoków" do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, takich jak np. problem komiwojażera. \\
 
 Sformułowanie zadania optymalizacyjnegoi
 Zanim przejdziemy do opisu alg  nalezy sformulowac rozwazane zadanie optymalizacyjne
@@ -110,106 +110,52 @@ i z kartki + opis
 		\subsection{Opis algorytmu}
 		
 \noindent \underline{Początkowa konfiguracja} \\ \newLine
-\indent W tym kroku powinniśmy zainicjalizować temperaturę początkową pewną zadaną wartością oraz znaleźć początkowe, w tym wypadku losowe rozwiązanie problemu. 
+\indent W tym kroku powinniśmy zainicjalizować temperaturę początkową pewną zadaną wartością oraz znaleźć początkowe, w tym wypadku losowe, rozwiązanie problemu. 
 \\ \newLine
 
 \noindent \underline{Temperatura} \\ \newLine
-\indent  Wraz z upływem czasu (kolejne iteracje) ulega zmianie i jest czynnikiem wpływającym na prawdopodobieństwo z funkcją prawdopodobieństwa zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania naszego algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego te prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
-
+\indent  Wraz z upływem czasu (kolejne iteracje) ulega zmianie i jest czynnikiem wpływającym na prawdopodobieństwo zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego te prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
 
 \noindent \underline{Końcowa temperatura} \\ \newLine
 \indent Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
-Wartość ta powinna być na tyle mała, żeby jej ,,niewielka" zmiana nie miała praktycznego wpływu na zmianę rozwiązania (prawdopodobieństwo zmiany bliskie zero), a jednocze\si nie jej za mała warto\si ć nie prowadziła do zbyt dużej liczby iteracji. \\ \newLine
+Wartość ta powinna być na tyle mała, żeby jej ,,niewielka" zmiana nie miała praktycznego wpływu na zmianę rozwiązania (prawdopodobieństwo zmiany bliskie zeru), a jednocze\si nie jej za mała warto\si ć nie prowadziła do zbyt dużej liczby iteracji. \\ \newLine
 
-
-
-
-
-
-\noindent \underline{Powtarzanie zadanej ilo\si ci iteracji dla okre\si lonej temperatury} \\ \newLine
-Proces iteracyjny bez zmiany temperatury wykonuje się okre\si loną (ustaloną jako parametr algorytmu) ilo\si ć razy.
-
-
-
-
-
-
-\indent Wartość ta powinna być z góry ustalona i powinna dać nam możliwość sprawdzenia wielu sąsiadów obecnego rozwiązania, równocześnie nie powodując zbyt dużego obciążenia dla algorytmu. Parametr ten jednak jest najbardziej dostosowywalny ze względu na jego "niezależno\si ć". \\ \newLine
-%6 metodyka po algorytmie/ ->opisie
-
-
-
-
-
+\noindent \underline{Powtarzanie zadanej ilo\si ci iteracji dla stałej temperatury} \\ \newLine
+Proces iteracyjny bez zmiany temperatury wykonuje się okre\si loną (ustaloną jako parametr algorytmu) ilo\si ć razy. \\ \newLine
 
 \noindent \underline{Znajdowanie losowego sąsiada poprzedniego rozwiązania} \\ \newLine
 \indent Funkcja ta powinna nam pozwalać przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie ,,najlepszego" rozwiązania, zatem funkcję tę należy uzależnić od stopnia zaawansowania procesu iteracyjnego, tak że wraz ze wzrostem iteracji zawężeniu ulegnie obszar przeszukiwania.\\ \newLine
 
-
-
-
-
-
 \noindent \underline{Funkcja kosztu} \\ \newLine
-\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamianie ,,gorszego" rozwiązania na ,,lepsze". Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine  \\ \newLine
+\indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamianie ,,gorszego" rozwiązania na ,,lepsze". Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine
 
 
 \noindent \underline{Prawdopodobieństwo zamiany P} \\ \newLine
-\indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i gorszego rozwiązania, z wcze\si niejszym lepszym. 
+\indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i ,,gorszego" rozwiązania, z wcze\si niejszym ,,lepszym". 
 
 Prawdopodobieństwo tej zamiany zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zamiany okre\si lone jest wzorem:
-$$ P = \exp\left(\frac{\Delta E}{T}\right)  $$
+$$ P = \exp\left(\frac{\Delta E}{T}\right),  $$
 gdzie:\\
-\begin{flalign}
-& \Delta E&  - funkcja\ kosztu
-\end{flalign}
-T - obecna warto\si ć temperatury.\\
+%\begin{flalign}
+%& \Delta E&  - funkcja kosztu
+%\end{flalign}
+$ \Delta E$  - funkcja kosztu, \\
+$T$ - obecna warto\si ć temperatury.\\
 
-Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemna), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym czy powinniśmy zamienić nasze ,,gorsze" rozwiązanie z ,,lepszym" powinniśmy porównać obliczone prawdopodobieństwo z wartością losową o rozkładzie równomiernym.\\ \newLine
+Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemna), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym, czy powinniśmy zamienić nasze ,,gorsze" rozwiązanie z ,,lepszym", powinniśmy porównać obliczone prawdopodobieństwo z wartością losową o rozkładzie równomiernym.\\ \newLine
 
 
 \noindent \underline{Chłodzenie temperatury} \\ \newLine
-\indent Szybkość chłodzenia temperatury nie powinna być ,,zbyt duża", aby pozwolić algorytmowi na sprawdzenie szerokiego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie gorszych (lub dużo gorszych) rozwiązań. W większości opracowań można spotkać, że ten proces okre\si la mnożnik tempa spadku temperatury ustalony w zakresie [0.8;0.99].\\ \newLine
+\indent Szybkość chłodzenia temperatury nie powinna być ,,zbyt duża", aby pozwolić algorytmowi na sprawdzenie szerokiego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie ,,gorszych" (lub ,,dużo gorszych") rozwiązań. W większości opracowań można spotkać, że ten proces okre\si la mnożnik tempa spadku temperatury ustalony w zakresie [0.8;0.99].\\ \newLine
 		
 
 Z powyższego opisu wynika, że algorytm ten zależy od czterech parametrów:
--temperatury początkowej (Tp),
--temperatury końcowej (Tk),
--wewnętrznych iteracji (It),
--chłodzenia (k).
-
-		\subsection{Kroki algorytmu}
-		
-		Algorytm ten można przedstawić schematycznie:
-
-\begin{enumerate}
-	\item Inicjalizacja Tp, Tk, it, k
-	\item Je\si li T > Tk wykonuj
-	\begin{enumerate}
-		\item xtmp wyznaczenie ,,sąsiada" rozwiązania xbest (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje)
-		\begin{enumerate}
-			\item jesli f(xbest) > f(xtmp):
-xbest = xtmp
-w przeciwnym razie
-deltaE = f(xbest) - f(x tmp)
-P = $e ^ deltaE/T$
-q = liczba losowa z p. [0,1]
-jesli p> q
-to xbest = xtmp
-a)ith razy
-II Zmniejsz temperature T = k*T
-wroc do I
-			\item Sprawdź czy rozwiązanie jest lepsze od poprzedniego (funkcja kosztu)
-			\begin{enumerate}
-				\item Jeżeli jest, zamień rozwiązania
-				\item Jeżeli nie jest, zamień rozwiązania z pewnym prawdopodobieństwem P
-			\end{enumerate}
-		\end{enumerate}
-		\item Zmniejsz temperaturę
-	\end{enumerate}
-\end{enumerate}
-	
-
+\begin{itemize}
+	\item[--] temperatury początkowej ($T_p$),
+	\item[--] temperatury końcowej ($T_k$),
+	\item[--] wewnętrznych iteracji ($It$),
+	\item[--] chłodzenia ($k$).
+\end{itemize}
 
 \subsection{Schemat blokowy}
 Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu, co można zobaczyć na poniższym rysunku.
@@ -218,7 +164,67 @@ Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki
 		\includegraphics[height=22cm, width=16cm]{pics/schematBlokowy.png}\\
 	\caption{Schemat blokowy algorytmu symulowanego wyżarzania}
 \end{figure}
+
+
+		\subsection{Kroki algorytmu}
+		
+		Algorytm ten można przedstawić schematycznie:
+
+\begin{enumerate}
+	\item Inicjalizacja $T_p$, $T_k$, $It$, $k$
+	\item T = $T_p$
+	\item $x_{best}$ = losowe rozwiązanie z dziedziny zadania
+	\item Dopóki T $>$ $T_k$:
 	
+	\begin{enumerate}
+		\item  wyznacz ,,sąsiada" rozwiązania $x_{best}$ (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje, zmienna $x_{tmp}$)
+		\begin{enumerate}
+			\item[I.] Je\si li $x_{best}$ $>$ $x_{tmp}$:
+			\begin{enumerate}
+				\item $x_{best}$ = $x_{tmp}$
+			\end{enumerate}
+			\item[II.] w przeciwnym wypadku:
+			\begin{enumerate}
+				\item $\Delta E$ = $x_{best}$ - $x_{tmp}$
+				\item $P$ = $\exp\left(\frac{\Delta E}{T}\right)$
+				\item $q$ = losowa liczba z przedziału [0, 1]
+				\item Je\si li $P$ $>$ $q$, to:
+				\begin{itemize}
+					\item[i.] $x_{best}$ = $x_{tmp}$
+				\end{itemize}
+			\end{enumerate}
+			\item Wróć do (a) $It$ razy
+		\end{enumerate}
+		\item $T$ = $k$$T$
+		\item Wróć do 4.
+	\end{enumerate}	
+\end{enumerate}
+	
+
+
+
+	
+
+\section{Narzędzia i technologie}
+W procesie tworzenia aplikacji zdecydowali\si my się na użycie kilku rozwiązań, które pozwoliły na bezpieczną i przejrzystą pracę w kolejnych jego etapach. \\
+	\subsection{Metodyka pracy}
+	\subsubsection{System kontroli wersji}
+	System kontroli wersji posiada wiele zalet, m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
+W moim projekcie skorzystałem z systemu kontroli Git, a repozytorium można znaleźć na portalu github.com. 
+	\subsubsection{Github Project Management}
+Pomimo, iż praca w pojedynkę nie wymagała ode mnie zaawansowanego zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
+	\subsubsection{Środowisko programistyczne}
+Do implementacji projektu użyłem \si rodowiska Microsoft Visual Studio Community 2017, które to zostało stworzone przez firmę Microsoft i pozwala na programowanie konsolowe oraz z graficznym interfejsem użytkownika (zarówno aplikacje desktopowe, jak i strony internetowe).  \\
+Dobra znajomo\si ć i przejrzysto\si ć tego \si rodowiska programistycznego pozwoliła mi skupić się na rozwiązywaniu problemu, omijając problem zapoznawania się z nowym narzędziem.
+	\subsubsection{Mathematica}
+	Mathematica jest programem opartym na systemie obliczeń symbolicznych oraz numerycznych. Program ten jest do\si ć popularny w\si ród naukowców ze względu na wiele zalet, jak np. wydajno\si ć czy rozpięte możliwo\si ci wizualizacji danych. Mathematica jest programem komercyjnym, dlatego stworzenie wykresów do tego projektu oparłem na licencji wydziału Matematyki Stosowanej.
+	
+	\subsection{Użyte technologie}
+	\subsubsection{C\#}
+Język programowania C\# należy do obiektowych języków programowania, którego koncepcja opiera się na tworzeniu klas, które poprzez swoją zawarto\si ć (m.in. wła\si ciwo\si ci czy metody) mogą być reprezentowane poprzez obiekty i każde operacje są wykonywane poprzez nie. W projekcie korzystam z języka C\# w wersji 7.0, która w momencie rozpoczęcia pracy była aktualna. Dobra znajomo\si ć tego języka pozwoliła mi nie zważać na problemy w znajomo\si ci składni czy funkcji i skupić się bezpo\si rednio na implementacji algorytmów, dobraniu odpowiednich parametrów dla poszczególnych funkcji testowych oraz lepszym przetestowaniu całej funkcjonalno\si ci.
+
+\subsubsection{Wolfram Language}
+Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
 
 \section{Funkcje testowe}
 Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak jest informacji o funkcji, a jedynie znane są jego warto\si ci, to przed użyciem danego algorytmu musimy dobrać parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik. W opracowaniach naukowych trudno znaleźć wytyczne co do sposobu wyznaczania odpowiednich parametrów, związane to jest z ich zależno\si cią od rozwiązywanego problemu. \\
@@ -1055,26 +1061,7 @@ Poniższy rysunek przedstawia błąd bewzględny obliczeń: \\
 
 
 
-\section{Narzędzia i technologie}
-W procesie tworzenia aplikacji zdecydowali\si my się na użycie kilku rozwiązań, które pozwoliły na bezpieczną i przejrzystą pracę w kolejnych jego etapach. \\
-	\subsection{Metodyka pracy}
-	\subsubsection{System kontroli wersji}
-	System kontroli wersji posiada wiele zalet, m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
-W moim projekcie skorzystałem z systemu kontroli Git, a repozytorium można znaleźć na portalu github.com. 
-	\subsubsection{Github Project Management}
-Pomimo, iż praca w pojedynkę nie wymagała ode mnie zaawansowanego zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
-	\subsubsection{Środowisko programistyczne}
-Do implementacji projektu użyłem \si rodowiska Microsoft Visual Studio Community 2017, które to zostało stworzone przez firmę Microsoft i pozwala na programowanie konsolowe oraz z graficznym interfejsem użytkownika (zarówno aplikacje desktopowe, jak i strony internetowe).  \\
-Dobra znajomo\si ć i przejrzysto\si ć tego \si rodowiska programistycznego pozwoliła mi skupić się na rozwiązywaniu problemu, omijając problem zapoznawania się z nowym narzędziem.
-	\subsubsection{Mathematica}
-	Mathematica jest programem opartym na systemie obliczeń symbolicznych oraz numerycznych. Program ten jest do\si ć popularny w\si ród naukowców ze względu na wiele zalet, jak np. wydajno\si ć czy rozpięte możliwo\si ci wizualizacji danych. Mathematica jest programem komercyjnym, dlatego stworzenie wykresów do tego projektu oparłem na licencji wydziału Matematyki Stosowanej.
-	
-	\subsection{Użyte technologie}
-	\subsubsection{C\#}
-Język programowania C\# należy do obiektowych języków programowania, którego koncepcja opiera się na tworzeniu klas, które poprzez swoją zawarto\si ć (m.in. wła\si ciwo\si ci czy metody) mogą być reprezentowane poprzez obiekty i każde operacje są wykonywane poprzez nie. W projekcie korzystam z języka C\# w wersji 7.0, która w momencie rozpoczęcia pracy była aktualna. Dobra znajomo\si ć tego języka pozwoliła mi nie zważać na problemy w znajomo\si ci składni czy funkcji i skupić się bezpo\si rednio na implementacji algorytmów, dobraniu odpowiednich parametrów dla poszczególnych funkcji testowych oraz lepszym przetestowaniu całej funkcjonalno\si ci.
 
-\subsubsection{Wolfram Language}
-Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
 
 \section{Podsumowanie}
 Celem tej pracy inżynierskiej było stworzenie aplikacji, która pozwoliłaby rozwiązać zadany problem przewodnictwa ciepła poprzez zastosowanie algorytmu symulowanego wyżarzania. Stworzono więc program, który poprzez prosty interfejs graficzny pozwala na użycie tego algorytmu heurystycznego do wyznaczenia minimum w kilku funkcjach testowych oraz do rozwiązania zadanego odwrotnego zadania przewodnictwa ciepła. \\
