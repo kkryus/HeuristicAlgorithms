@@ -151,8 +151,8 @@ Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż
 
 Z powyższego opisu wynika, że algorytm ten zależy od czterech parametrów:
 \begin{itemize}
-	\item[--] temperatury początkowej ($T_p$),
-	\item[--] temperatury końcowej ($T_k$),
+	\item[--] temperatury początkowej ($T_0$),
+	\item[--] temperatury końcowej ($T_{end}$),
 	\item[--] wewnętrznych iteracji ($It$),
 	\item[--] chłodzenia ($k$).
 \end{itemize}
@@ -171,21 +171,21 @@ Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki
 		Algorytm ten można przedstawić schematycznie:
 
 \begin{enumerate}
-	\item Inicjalizacja $T_p$, $T_k$, $It$, $k$
-	\item T = $T_p$
-	\item $x_{best}$ = losowe rozwiązanie z dziedziny zadania
-	\item Dopóki T $>$ $T_k$:
+	\item Inicjalizacja $T_{0}$, $T_{end}$, $It$, $k$
+	\item T = $T_{0}$
+	\item $x_{best}$ = losowe współrzędne z dziedziny zadania
+	\item Dopóki T $>$ $T_{end}$:
 	
 	\begin{enumerate}
-		\item  wyznacz ,,sąsiada" rozwiązania $x_{best}$ (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje, zmienna $x_{tmp}$)
+		\item  Wyznacz ,,sąsiada" współrzędnych $x_{best}$ (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje, zmienna $x_{tmp}$)
 		\begin{enumerate}
-			\item[I.] Je\si li $x_{best}$ $>$ $x_{tmp}$:
+			\item[I.] Je\si li f($x_{best}$) $>$ f($x_{tmp}$):
 			\begin{enumerate}
 				\item $x_{best}$ = $x_{tmp}$
 			\end{enumerate}
 			\item[II.] w przeciwnym wypadku:
 			\begin{enumerate}
-				\item $\Delta E$ = $x_{best}$ - $x_{tmp}$
+				\item $\Delta E$ = f($x_{best}$) - f($x_{tmp}$)
 				\item $P$ = $\exp\left(\frac{\Delta E}{T}\right)$
 				\item $q$ = losowa liczba z przedziału [0, 1]
 				\item Je\si li $P$ $>$ $q$, to:
@@ -199,10 +199,6 @@ Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki
 		\item Wróć do 4.
 	\end{enumerate}	
 \end{enumerate}
-	
-
-
-
 	
 
 \section{Narzędzia i technologie}
@@ -227,39 +223,26 @@ Język programowania C\# należy do obiektowych języków programowania, któreg
 Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
 
 \section{Funkcje testowe}
-Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak jest informacji o funkcji, a jedynie znane są jego warto\si ci, to przed użyciem danego algorytmu musimy dobrać parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik. W opracowaniach naukowych trudno znaleźć wytyczne co do sposobu wyznaczania odpowiednich parametrów, związane to jest z ich zależno\si cią od rozwiązywanego problemu. \\
+Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak jest informacji o funkcji, a jedynie znane są jej warto\si ci, to przed użyciem danego algorytmu musimy dobrać parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik. W opracowaniach naukowych trudno znaleźć wytyczne co do sposobu wyznaczania odpowiednich parametrów, związane to jest z ich zależno\si cią od rozwiązywanego problemu. \\
 
 
 
 
+W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ć prób, wykonano po 10 powtórzeń algorytmu dla tych samych parametrów algorytmu. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyj\si ciowych algorytmu i następnie dla nich zostały przeprowadzone próby, gdzie wykonano po 100 powtórzeń algorytmu dla tych samych, wyselekcjonowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów zostanie opisany dokładnie, a w pozostałych przypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu.
 
 
-
-
-W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ci prób wykonano po 10 powtórzeń algorytmu dla tych samych parametrów algorytmu. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyjsciowych algorytmu i następnie dla nich zostały przeprowadzone próby, gdzie wykonane po 100 powtórzeń algorytmu dla tych samych wyselekcjonowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów zostanie opisany dokładnie, a w pozostałych wypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu.
-
-
-
-
-
-
-
-
-
-
-
-
-Starając się trzymać zasad dotyczących tworzenia dobrego algorytmu heurystycznego, przyjęli\si my kilka założeń, a następnie sukcesywnie poszukiwali\si my odpowiednich warto\si ci dla parametrów by (\si redni, 10-krotne powtórzenia) wynik był jak najlepszy, starając się zawężać zakres z czasem. Kiedy (\si rednie) wyniki były już zadowalające, sprawdzali\si my jako\si ć dobranych parametrów wykonując 100 razy algorytm z takimi samymi parametrami dla tego samego problemu, uzysując w prosty sposób procentową jako\si ć algorytmu. W podsekcji "Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach" tabele przedstawią stopniowe doj\si cie do parametrów dających zadowalające wyniki (zaokrąglone do 4 miejsca po przecinku), a następnie jako\si ć tych parametrów dla danego problemu. Parametry dla innych problemów zostały zbadane w taki sam sposób i w tych sekcjach zostanie wspomniany jedynie wynik.
 
 	\subsection{Funkcja kwadratowa dwóch zmiennych}
 	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch zmiennych postaci:
-\[f(x, y) = x^2 + y^2 \] \\(x, y) nalezy do $R^2$
+\begin{alignat*}{2}
+f(x, y) = x^2 + y^2,&\qquad  (x, y) \in R^2\\
+\end{alignat*}
 
-Funkcja ta przyjmuje tylko warto\si ci nieujemne i posiada globalne minimum w punkcie (0, 0). Na potrzeby testów dziedzina tej funkcji został zawężony następująco:
-\[x_i, y_i \in [-10, 10] \] \\ 
-(x, y) nalezy do $[0,1]^2$
+Wybór tak ,,łatwej" funkcji testowej padł ze względu na to, żeby upewnić się, że algorytm został poprawnie zaimplementowany, gdyż proces wyznaczania ekstremum tej funkcji jest ,,bardzo prosty" i nie wymaga dużego nakładu obliczeń. \\
 
-Wybór tak ,,łatwej" funkcji testowej padł ze względu na to, żeby upewnić się, że algorytm został poprawnie zaimplementowany, gdyż proces wyznaczania ekstremum tej funkcji jest ,,bardzo prosty" i nie wymaga dużego nakladu obliczeń.
+Funkcja ta przyjmuje tylko warto\si ci nieujemne i posiada minimum globalne w punkcie (0, 0). Na potrzeby testów dziedzina tej funkcji została zawężona następująco:
+\[(x, y)  \in [0,1]^2 \]\\ 
+
 
 Funkcję prezentuje poniższy wykres:\\
 \begin{figure}[H]
@@ -276,9 +259,10 @@ Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania 
 \hline
  \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
  $T_0$ & 1\\ \hline 
- $T_{end}$ & 0.01 \\ \hline 
- Chłodzenie& 0.99 \\ \hline 
- Iteracje & 1 \\ \hline 
+ $T_{end}$ & 0.01 \\ \hline
+$It$ & 1 \\ \hline  
+ $k$& 0.99 \\ \hline 
+
  Skuteczno\si ć & 100\% \\ \hline 
 \end{tabularx} \\
  
@@ -287,9 +271,9 @@ Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania 
 
 \[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}] \]
 
-gdzie: \\
+\noindent gdzie: \\
 A = 10, \\
-n = ilo\si ć wymiarów \\ \newLine
+n = ilo\si ć wymiarów. \\ \newLine
 
 \begin{figure}[H]
 	\begin{center}
@@ -313,8 +297,8 @@ Po przeprowadzeniu testów zostały dobrane następujące parametry: \\
  \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
  $T_0$ & 10 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
- Chłodzenie& 0.99 \\ \hline 
- Iteracje & 600 \\ \hline 
+ $It$ & 600 \\ \hline 
+$k$& 0.99 \\ \hline 
  Skuteczno\si ć & 100\% \\ \hline 
 \end{tabularx} \\
 
@@ -329,17 +313,17 @@ Przed rozpoczęciem testów przyjęto dwa założenia:
 W pierwszym etapie została sprawdzona temperatura w zakresie (2, 4, ..., 10) oraz ilo\si ć iteracji w liczbie (100, 300, ..., 1100). \\
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, It jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
+\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, $It$ jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
 %\footnotesize Smaller note of table that describes what the table is all about.
 \renewcommand\arraystretch{1.333}
 \begin{tabular}{|c|c|c||c|c|c|} 
                   \hline
-                  \textbf{$T_0$}
-                  & \textbf{It}
-                  &\textbf{$\overline{f}_{min}$} 
-& \textbf{$T_0$}
- & \textbf{It}
- &\textbf{$\overline{f}_{min}$} \\ \hline
+                  $T_0$
+                  & $It$
+                  & $\overline{f}_{min}$ 
+& $T_0$
+ & $It$
+ & $\overline{f}_{min}$ \\ \hline
 
 10 & 1100 & 1,6194 &4 & 1100 & 1,8291 \\ \hline
 10 & 900 & 1,7176 &4 & 900 & 1,5182 \\ \hline
@@ -369,9 +353,9 @@ Powyższe wyniki nie dają zadowalających rezultatów. Można jednak zauważyć
 
 \begin{tabular}{|c|c|c|} 
                   \hline
-                   \textbf{$T_0$}
-                  & \textbf{It (*1000)}
-                  &\textbf{$\overline{f}_{min}$}\\ \hline
+                   $T_0$
+                  & $It$ (*1000)
+                  &$\overline{f}_{min}$\\ \hline
 
 
 10 & 11 & 0,7165\\ \hline 
@@ -414,20 +398,20 @@ Powyższe wyniki nie dają zadowalających rezultatów. Można jednak zauważyć
 
 \end{tabular} \\
 
-Średnia rozwiązań najlepszego wyniku w tym te\si cie wydawała się być obiecująca, jednak sprawdzenie jako\si ci takich parametrów zwróciło jako\si ć równą 34\% (przy stukrotnym uruchomieniu programu), co jest niskim wynikiem. Postanowili\si my zwiększyć znowu zakres iteracji dziesięciokrotnie, co można zobaczyć w następnej tabeli.
+Średnia rozwiązań najlepszego wyniku w tym te\si cie wydawała się być obiecująca, jednak sprawdzenie jako\si ci takich parametrów zwróciło jako\si ć równą 34\%, co jest niskim wynikiem. Postanowili\si my zwiększyć znowu zakres iteracji dziesięciokrotnie, co można zobaczyć w następnej tabeli.
 
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, It jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
+\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, $It$ jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
 %\footnotesize Smaller note of table that describes what the table is all about.
 \begin{tabular}{|c|c|c||c|c|c|} 
                   \hline
-                   \textbf{$T_0$}
-                  & \textbf{It (*1000)}
-                  &\textbf{$\overline{f}_{min}$} 
-& \textbf{$T_0$}
- & \textbf{It (*1000)}
- &\textbf{$\overline{f}_{min}$} \\ \hline
+                   $T_0$
+                  & $It$ (*1000)
+                  &$\overline{f}_{min}$ 
+& $T_0$
+ & $It$ (*1000)
+ &$\overline{f}_{min}$ \\ \hline
 10 & 100 & 0,1215 & 4 & 100 & 0,2337 \\ \hline
 10 & 90 & 0,0252 & 4 & 90 & 0,3147 \\ \hline
 10 & 80 & 0,1216 & 4 & 80 & 0,2206 \\ \hline
@@ -489,17 +473,21 @@ Jako\si ć rzędu 75-80\% wydaje się być zadowalająca, dlatego uznali\si my, 
  \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
  $T_0$ & 10 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
- Chłodzenie& 0.99 \\ \hline 
- Iteracje & 90000 \\ \hline 
+ $It$ & 90000 \\ \hline
+ $k$& 0.99 \\ \hline 
  Skuteczno\si ć & 80\% \\ \hline 
 \end{tabularx}
 
 
 	\subsection{Funkcja Rosenbrocka}
-Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
+Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną (chociaż niektóre źródła podają, że w większej ilo\si ci wymiarów może być multimodalną\footnote{Y. Shang, Y. Qiu, \textit{A Note on the Extended Rosenbrock Function} https://www.mitpressjournals.org/doi/abs/10.1162/evco.2006.14.1.119 [Dostęp: 7 listopada 2018]}).
 
-\[f(x) = \sum_{i=1}^{n-1} [100\left(x_{i+1} - x_i^2\right)^2 + \left(1- x_i\right)^2 ]\] \\
+%\[f(x) = \sum_{i=1}^{n-1} [100\left(x_{i+1} - x_i^2\right)^2 + \left(1- x_i\right)^2 ]\] \\
 
+
+\begin{alignat*}{2}
+f(x) = \sum_{i=1}^{n-1} \left[100\left(x_{i+1} - x_i^2\right)^2 + \left(1- x_i\right)^2\right],&\qquad  x_i \in R\\
+\end{alignat*}
 
 Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemne. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
 \[x_i \in [-10, 10] \] \\
@@ -523,48 +511,49 @@ Poniższa tabela przedstawia parametry, które pozwalały na uzyskanie satysfakc
  \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
  $T_0$ & 10 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
- Chłodzenie& 0.99 \\ \hline 
- Iteracje & 500 \\ \hline 
+ $k$& 0.99 \\ \hline 
+ $It$ & 500 \\ \hline 
  Skuteczno\si ć & 100\% \\ \hline 
 \end{tabularx}
 
 \section{Implementacja}
 
-Na realizację algorytmu symulowanego wyżarzania składa się implementacja kilku metod, które zostały przedstawione w roździale 2.1.2 i będą tutaj omówione i/lub zostanie przedstawiony ich kod. \\
+Algorytm symulowanego wyżarzania składa się z kilku metod, które zostały przedstawione w rozdziale 2.1.2. W rozdziale tym skupimy się na omówieniu tych metod oraz przedstawimy ich implementację w języku C\#. \\
 
 \subsection{Używane parametry i zmienne}
-Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, ustawianych jest kilka parametrów na wej\si cie, a konkretniej problem do rozwiązania i parametry samego algorytmu. W moim programie nazywane są: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{Iterations}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
+Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, należy ustawić parametry (XXX)
+ na wej\si cie, a konkretniej problem do rozwiązania i parametry samego algorytmu. W programie zostały one nazwane: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{Iterations}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
 
-\textbf{Function} jest identyfikatorem referencji do obiektu problemu. Każdy problem musi dziedziczyć po klasie abstrakcyjnej ,,TestingFunction", co zapewnia uniwersalno\si ć stosowania algorytmu symulowanego wyżarzania oraz zapewnia nasz algorytm, iż implementacja samego problemu będzie posiadać pewne cechy (jak np. jawnie okre\si loną ilo\si ć wymiarów). \\
+\textbf{Function} jest identyfikatorem referencji do obiektu reprezentującego problem. Każdy problem musi dziedziczyć po klasie abstrakcyjnej ,,TestingFunction", co zapewnia uniwersalno\si ć stosowania algorytmu symulowanego wyżarzania oraz zapewnia nasz algorytm, iż implementacja samego problemu będzie posiadać pewne cechy (jak np. jawnie okre\si loną ilo\si ć wymiarów). \\
 
-\textbf{Arguments} jest wła\si ciwo\si cią w postaci tablicy liczb zmiennoprzecinkowych, które zawierają argumenty dla obecnie najlepszego rozwiązania problemu. \\
+\textbf{Arguments} jest wła\si ciwo\si cią w postaci tablicy liczb zmiennoprzecinkowych, która reprezentuje współrzędne dla obecnie najlepszego rozwiązania problemu ($x_{best} = (x_1, x_2, ..., x_n)$). \\
 
-\textbf{Arguments2} jest również tablicą liczb zmiennoprzecinkowych, jednak przechowuje ona warto\si ci argumentów dla tymczasowego rozwiązania. Jest tego samego rozmiaru, co wła\si ciwo\si ć \textbf{Arguments}. \\
-
-\textbf{Iterations} jest liczbą wewnętrznych iteracji. Tyle razy algorytm będzie szukał sąsiadów najlepszego rozwiązania, zanim obniży temperaturę. \\
+\textbf{Arguments2} jest również tablicą liczb zmiennoprzecinkowych, jednak przechowuje ona współrzędne dla tymczasowego rozwiązania. Jest tego samego rozmiaru, co wła\si ciwo\si ć \textbf{Arguments} ($x_{tmp} = (x_1, x_2, ..., x_n)$). \\
 
 \textbf{BeginingTemperature} jest to początkowa warto\si ć temperatury, od której rozpoczyna się proces poszukiwań rozwiązania. \\ 
 
 \textbf{EndingTemperature} jest liczbą, którą obniżana temperatura (zmienna \textbf{temperature}) musi osiągnąć, by zakończyć działanie algorytmu. \\
 
-\textbf{Cooling} to liczba zmiennoprzecinkowa, w każdym globalnym kroku algorytmu zmienna \textbf{temperature} jest mnożona przez tą warto\si ć. Jest ona mniejsza od 1, więc temperatura powoli się obniża. \\
+\textbf{Iterations} jest liczbą wewnętrznych iteracji (ilo\si ć powtórzeń algorytmu bez obniżania temperatury). \\
 
-\textbf{SatisfactionSolutionValue} jest minimalną liczbą, jaką rozwiązanie musi osiągnąć, aby wynik poszukiwania rozwiązania był dla satysfakcjonujący. Jest to zmienna opcjonalna, algorytm nadal będzie działać, gdy nie poda się jej warto\si ci.\\
+\textbf{Cooling} to liczba zmiennoprzecinkowa, w każdym głównym kroku algorytmu zmienna \textbf{temperature} jest mnożona przez tą warto\si ć. Jest ona z przedziału (0, 1), więc temperatura powoli się obniża. \\
+
+\textbf{SatisfactionSolutionValue} jest liczbą, jaką rozwiązanie musi osiągnąć, aby wynik poszukiwania rozwiązania był dla nas satysfakcjonujący. Jest to zmienna opcjonalna, algorytm nadal będzie działać, gdy nie poda się jej warto\si ci. Dzięki niej, je\si li funkcjonał osiągnie warto\si ć oczekiwaną, to przestaje działać algorytm.\\
 
 W programie również używam kilku pomocnicznych zmiennych: \\
 
-\textbf{temperature} to zmienna, która przetrzymuje obecną liczbę stanowiącą temperaturę. Jest ona używana przy warunkach globalnej iteracji oraz przy funkcji prawdopodobieństwa. Wraz z postępem iteracji maleje. \\
+\textbf{temperature} to zmienna, która reprezentuje temperaturę. Jest ona używana w warunkach głównej iteracji oraz do wyznaczania funkcji prawdopodobieństwa. Wraz z postępem iteracji maleje. \\
 
-\textbf{bestSolution} to liczba zmiennoprzecinkowa, która jest obecnie najlepszym wynikiem rozwiązania. Finalnie będzie ona najlepszym rozwiązaniem całego problemu. \\
+\textbf{bestSolution} to liczba zmiennoprzecinkowa, która reprezentuje warto\si ć obecnie najlepszego rozwiązania. Finalnie będzie ona warto\si cią funkcjonału dla najlepszego rozwiązania całego problemu. \\
 
 \textbf{tmpSolution} jest tymczasowym wynikiem rozwiązania (wynikiem rozwiązania problemu dla parametrów ze zmiennej \textbf{Arguments2}). \\
 
-\textbf{counter} jest liczbą oznaczającą obecną, globalną iterację. \\
+\textbf{counter} jest liczbą oznaczającą miarę głównej iteracji. \\
 
 \subsection{Implementacja metod i algorytmu}
 
-\underline{Funkcja SetMaxCounter()} \\
-Metoda ta symuluje proces obniżania temperatury w celu obliczenia maksymalnej ilo\si ci globalnych iteracji. \\
+\underline{Metoda SetMaxCounter()} \\
+Metoda ta symuluje proces obniżania temperatury w celu obliczenia maksymalnej ilo\si ci głównych iteracji. \\
 \begin{verbatim}
 private void SetMaxCounter()
 {
@@ -578,11 +567,14 @@ private void SetMaxCounter()
 }
 \end{verbatim}
 
-\underline{Funkcja DrawArguments()} \\
-W metodzie tej losuję początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego w danym problemie. \\
+\underline{Metoda DrawArguments()} \\
+W metodzie tej losuję początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego dla danego zagadnienia. \\\
 
-\underline{Funkcja Move()} \\
-W tym kroku najpierw obliczany jest pozostały procent iteracji do ukończenia procesu. Następnie biorąc 80\% pełnej puli możliwych warto\si ci problemu (zmienna partOfTheDomain), mnożymy ją przez pozostały procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdemu argumentowi tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniego argumentu najlepszego rozwiązania (aby był to sąsiad najlepszego rozwiązania) oraz losowa liczba z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy, ale rozwiązanie powinno też już być bliskie optymalnemu. Na końcu walidujemy nowy argument do podanego zakresu. \\
+
+%
+
+\underline{Metoda Move()} \\
+W tym miejscu najpierw obliczany jest pozostały procent iteracji do ukończenia procesu (znając parametry algorytmu można wyznaczyć ilo\si ć głównych iteracji). Następnie biorąc 80\% szeroko\si ci zakresu warto\si ci ze zmiennych (zmienna partOfTheDomain), mnożymy ją przez pozostały do końca procesu procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdej składowej tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniej składowej najlepszego rozwiązania oraz losowej liczby z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy. \\
 \begin{verbatim}
 private void Move(int counter)
 {
@@ -609,14 +601,14 @@ RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
 }
 \end{verbatim}
 
-\underline{Funkcja ShouldChangeAnyway()} \\
+\underline{Metoda ShouldChangeAnyway()} \\
 Jest to prosta implementacja funkcji prawdopodobieństwa, o której mowa była w rozdziale 2.1.1. \\
 
-\underline{Funkcja CopyValues()} \\
+\underline{Metoda CopyValues()} \\
 Ze względu, iż język C\# traktuje tablicę jako obiekt, to tablica jest typem referencyjnym i konieczne jest skopiowanie warto\si ci ze zmiennej \textbf{Arguments2} do zmiennej \textbf{Arguments}. \\
 
 \underline{Implementacja algorytmu} \\
-Opisane metody są wykorzystywane w poszczególnych krokach samego algorytmu. Po obliczeniu maksymalnej ilo\si ci iteracji, algorytm losuje pierwsze rozwiązanie. Następnie w pętli i następnej zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym jeżeli zostały spełnione odpowiednie warunki. Jeżeli nowe rozwiązanie spełnia kolejny warunek, to kończy program zwracając najlepsze rozwiązanie. Jeżeli nie, wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, ,,globalnej" iteracji. Jeżeli program nie osiągnie satysfakcjonującego rozwiązania, a proces obniżania temperatury zakończy się, zwróci rozwiązanie, które udało mu się znaleźć kończąc tym samym program.
+Opisane metody są wykorzystywane w poszczególnych krokach samego algorytmu. Po obliczeniu maksymalnej ilo\si ci iteracji, algorytm losuje pierwsze rozwiązanie. Następnie w pętli i następnej zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym, jeżeli zostały spełnione odpowiednie warunki. Jeżeli nowe rozwiązanie spełnia kolejny warunek, to kończy program zwracając najlepsze rozwiązanie. Jeżeli nie, wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, głównej iteracji. Jeżeli program nie osiągnie satysfakcjonującego rozwiązania, a proces obniżania temperatury zakończy się, zwróci rozwiązanie, które udało mu się znaleźć kończąc tym samym program.
 
 \begin{verbatim}
 public double Solve()
