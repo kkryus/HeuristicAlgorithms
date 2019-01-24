@@ -101,11 +101,18 @@ W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, kt�
 
 \section{Opis algorytmu symulowanego wyżarzania}
 				Algorytm ten został stworzony wzorując się na zjawisku wyżarzania metali, które polega na nagrzaniu elementu stalowego do ustalonej temperatury początkowej, przetrzymaniu go w tej temperaturze przez ,,pewien" czas, a następnie ,,powolnym" jego schłodzeniu. Sam algorytm natomiast bazuje na metodach Monte-Carlo i w pewnym sensie może być rozważany jako algorytm iteracyjny.\\ \newLine
-Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych ,,losowych przeskoków" do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, takich jak np. problem komiwojażera. \\
+Główną istotą i zarazem zaletą tego algorytmu jest wykonywanie pewnych ,,losowych przeskoków" do sąsiednich rozwiązań, dzięki czemu jest w stanie uniknąć wpadania w lokalne minimum. Algorytm ten najczę\si ciej jest używany do rozwiązywania problemów kombinatorycznych, takich jak np. problem komiwojażera. \\ \newLine
 
-Sformułowanie zadania optymalizacyjnegoi
-Zanim przejdziemy do opisu alg  nalezy sformulowac rozwazane zadanie optymalizacyjne
-i z kartki + opis
+Zanim jednak przejdziemy do opisu samego algorytmu, powinni\si my najpierw sformułować rozważane zadanie optymalizacyjne.
+
+\subsection{Zadania optymalizacyjne}
+
+Zadania optymalizacyjne polegają na znalezieniu rozwiązania (dokładnego lub zbliżonego) pewnego problemu, zazwyczaj jednak nie jest to możliwe w jednym kroku. Rozwiązanie takiego zadania często wiąże się z pewnym procesem, którego rozwiązanie może być utrudnione np. przez limitowane zasoby mocy obliczeniowej lub inne zdefiniowane warunki. Jednym z typów zadań optymalizacyjnych jest znalezienie minimum globalnego funkcjonału, które można zaprezentować następująco: \\
+
+\begin{alignat*}{2}
+f(\overline{x}),&\qquad  x \in D \in R\\
+f -> min
+\end{alignat*}
 
 		\subsection{Opis algorytmu}
 		
@@ -832,13 +839,13 @@ Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do oblicza
 \subsubsection{Parametry algorytmu}
 Ze względu na czas oczekiwania znalezienia pojedynczego optymalnego rozwiązania problemu, ilo\si ć prób sprawdzających jako\si ć dobranych parametrów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z satysfakcjonującym wynikiem błędu odtworzenia. \\
 
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
+\begin{tabularx}{\textwidth}{ |X|X|X|X|} 
 \hline
-& \textbf{ $T_0$} &
- \textbf{ $T_{end}$} &
- \textbf{ Iteracje}&
- \textbf{ Chłodzenie}\\ \hline
-& 20 & 0.001 & 35000 & 0.99 \\ \hline 
+  $T_0$ &
+  $T_{end}$ &
+  $It$&
+  $k$\\ \hline
+20 & 0.001 & 35000 & 0.99 \\ \hline 
 \end{tabularx}
 
 \subsection{Rezultaty}
