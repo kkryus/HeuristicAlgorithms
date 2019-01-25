@@ -655,70 +655,60 @@ ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
 
 \section{Zastosowanie algorytmu w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
 Posiadając gotowy model matematyczny tradycyjnego problemu przewodnictwa ciepła możliwe jest zasymulowanie tego procesu i otrzymanie serii pomiarów temperatur. Obliczone pomiary temperatur można użyć do rozwiązania problemu odwrotnego. 
-\subsection{Bezpo\si redni problem}
-\subsubsection{Opis}
 
-Bezpo\si redni problem można opisać za pomocą następującego równania różniczkowego cząstkowego:
+
+Zanim przejdziemy do określenia zadania odwrotnego przewodnictwa ciepła, w pierwszej kolejności zdefiniujemy zadanie bezpośrednie (proste).
+
+\subsection{Zadanie bezpo\si rednie}
+Niech dane będzie równanie Fouriera:
 
 \begin{alignat*}{2}
-c\rho \frac{\partial u}{\partial t}&= \lambda \frac{\partial u^2}{\partial x},&\qquad  x \in [0, a], t \in [0, T]\\
+c\rho \frac{\partial u}{\partial t}&= \lambda \frac{\partial^2 u}{\partial x^2},&\qquad  x \in [0, a], t \in [0, T]\\
 \end{alignat*}
 
-przy warunku początkowym postaci:
+
+z zadanym warunkiem początkowym:
+
 \begin{alignat*}{2}
 u(x, 0) = f(x),&\qquad  x \in [0, a]\\
 \end{alignat*}
 
-oraz warunków brzegowych pierwszego rodzaju, wyrażonymi:
+
+oraz z zadanymi warunkami brzegowymi I rodzaju:
+
 \begin{alignat*}{2}
 u(0,t) = g(t),&\qquad  u(a, t) = h(t), &\qquad t \in [0, T]\\
 \end{alignat*}
 
-Chcąc otrzymać pomiary temperatury w poszczególnych punktach, obliczamy pochodną:
+
+Do rozwiązania zadania bezpośredniego użyjemy metody różnic skończonych (schemat różnicowy).
+Rozważając równanie przewodnictwa ciepła na siatce:
 
 \begin{alignat*}{2}
-c_i \rho _i \frac{ u^{j+1}_i - u^j_i}{ \Delta \tau}&= \lambda \frac{ u^j_{i+1} - 2u^j_i+u^j-1_i}{\Delta h^2}\\
+\Delta = \{ x_i; x_i = a + ih, h = \frac{a}{n},  i=0, ..., n\}\\
 \end{alignat*}
 
-Wykonując kolejne przekształcenia otrzymujemy:
+oraz dla kolejnych chwil czasu:
+\begin{alignat*}{2}
+tj = j \Delta \tau\\
+\end{alignat*}
+mamy:
+
+\begin{alignat*}{2}
+c_i \rho _i \frac{ u^{j+1}_i - u^j_i}{ \Delta \tau}&= \lambda \frac{ u^j_{i+1} - 2u^j_i+u^j_{i-1}}{\Delta h^2}\\
+\end{alignat*}
+
+Przekształcając otrzymujemy:
 
 \begin{alignat*}{2}
  u^{j+1}_i&= \frac{\lambda \Delta \tau}{c_i \rho _i} \left( \frac{u^j_{i+1} - 2u^j_i+u^j-1_i}{\Delta h^2} \right) + u^j_i\\
 \end{alignat*}
 
-Przy założeniu, że powyższe równanie spełnia warunek stabilno\si ci:
-\begin{alignat*}{2}
-\frac{\Delta \tau}{\Delta h^2} < \frac{1}{2}\\
-\end{alignat*}
+Jest to schemat różniczkowy dla rozważanego zadania.
 
-%\[ c\rho \frac{\partial u}{\partial t}= \lambda \frac{\partial u}{\partial x},  x \in [0, a]\]
+\subsection{Implementacja metody różnic skończonych}
 
-\subsubsection{Parametry}
-Proces obliczania rozkładu temperatur wymaga podania kilku parametrów, które zostaną teraz wyja\si nione. \\
-Delegaty oznaczone $f$, $g$ i $h$ są opisem warunków brzegowych, odpowiednio rozkładem temperatury w czasie $t_0$ oraz rozkładem temperatur na początku i końcu procesu zależnym od czasu. W projekcie funkcje te przyjmują następującą postać:
-
-\[ f(x) = 0.5 x^2 + 0.5 \] 
-\[ g(t) = t + 0.5 \] 
-\[ h(t) = t + 1 \] 
-\noindent gdzie: \\
-$ x \in [0, a] $, \\
-$ t \in [0, T] $, \\
-$ a, T = 1$. \\
-
-Liczby $nx$ i $nt$ są maksymalną liczbą węzłów, na którą dzielimy odpowiednie osie rozkładu temperatur (odpowiednio $x$ i $t$). W projekcie przyjmują one następujące warto\si ci: 
-\[ nx = 15 \]
-\[nt = 480 \]
-
-Pozostałe parametry wynikają z równania przewodnictwa ciepła: \\
-$c$ - ciepło wła\si ciwe,\\
-$rho$ - gęsto\si ć,\\
-$lambda$ - współczynnik przewodno\si ci ciepła.\\
-
-\noindent  gdzie: \\
-$ c, rho, lambda = 1 $
-
-\subsubsection{Obliczanie rozkładu temperatur}
-Następujący fragment kodu przedstawia proces obliczania rozkładu temperatur.
+Do rozważanego zadania bezpośredniego służy metoda Solve, której kod został przedstawiony poniżej:
 
 \begin{verbatim}
 public double[][] Solve()
@@ -764,6 +754,47 @@ public double[][] Solve()
     return temp;
 }   
 \end{verbatim}
+
+\subsection{Sformułowanie zadania odwrotnego}
+
+Rozważane przez nas zadanie odwrotne polega na tym, że nie znamy funkcji $h(t)$ opisującej warunek brzegowy $u(a, t) = h(t)$.
+W zamian za to znamy wartości funkcjonału $uP(x_s)$ pobrane w punktach pomiarowych $x_s \in (0, a)$
+oznaczone brakującym w ,,pobliżu" brzegu $a$. Wartości te mogą oznaczać np. pomiary temperatury.
+Zakładając że funkcja h(t) jest postaci:
+\begin{alignat*}{2}
+h(t) = pt^2 +qt  + s\\
+\end{alignat*}
+gdzie: \\
+$p$, $q$, $s$ są szukanymi parametrami. \\
+
+Dla wybranych wartości $p$, $q$, $s$ rozwiązujemy zadanie bezpośrednie i w ten sposób odtworzymy wartości funkcji $u$ w punktach pomiarowych $\overline u (x_s)$. \\
+
+
+Rozważane zadanie odwrotne sprowadza się do rozwiązania zadania optymalizacyjnego, polegającego na minimalizacji funkcjonału:
+\begin{alignat*}{2}
+F(p, q, s) = \sum_{i=1}^M\prime (u_i P (x_s) - \overline u_i (x_s))?\\
+\end{alignat*}
+
+Minimalizując funkcjonał F wyznaczamy optymalne wartości $p$, $q$, $s$  otrzymując warunek brzegowy, a tym samym rozwiązujemy zadanie odwrotne.
+Do minimalizacji funkcjonału F(p, q, s) wykorzystamy algorytm wyżarzania. \\ \newLine
+
+Przykład numeryczny\\
+
+Rozważmy zadanie dla $c$ = $\rho$ = $\lambda$ = 1, $a$ = 1, $T$= 1 z zadanym warunkiem początkowym:
+
+\begin{alignat*}{2}
+u(x, 0) = \frac{1}{2} x^2\\
+\end{alignat*}
+
+oraz zadanym warunkiem brzegowym
+\begin{alignat*}{2}
+u(0, t) = t + 0.5\\
+\end{alignat*}
+
+
+Brak informacji o funkcji opisującej warunek brzegowy na brzegu $x = a$ rekompensują dane pomiarowe temperatury w punkcie $x_s$ = 0.8 z krokiem $\Delta t$ = 0.1.
+
+Stądże wiemy, że rozwiązaniem dokładnym tak postawionego zadania jest funkcja $h(t) = t+1$ oraz $u(x, t) = \frac{1}{2}x^2 +t$.
 
 
 \subsection{Problem odwrotny}
