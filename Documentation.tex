@@ -235,7 +235,7 @@ Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak 
 
 
 
-W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ć prób, wykonano po 10 powtórzeń algorytmu dla tych samych parametrów algorytmu. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyj\si ciowych algorytmu i następnie dla nich zostały przeprowadzone próby, gdzie wykonano po 100 powtórzeń algorytmu dla tych samych, wyselekcjonowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów zostanie opisany dokładnie, a w pozostałych przypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu.
+W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ć prób, wykonano po 10 powtórzeń algorytmu dla tych samych parametrów algorytmu. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyj\si ciowych algorytmu i następnie dla nich zostały przeprowadzone próby, gdzie wykonano po 100 powtórzeń algorytmu dla tych samych, wyselekcjonowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów zostanie opisany dokładnie, a w pozostałych przypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu (wraz z ilo\si cią głównych iteracji oznaczoną $It_m$).
 
 
 
@@ -269,7 +269,7 @@ Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania 
  $T_{end}$ & 0.01 \\ \hline
 $It$ & 1 \\ \hline  
  $k$& 0.99 \\ \hline 
-
+$It_m$ & 459 \\ \hline
  Skuteczno\si ć & 100\% \\ \hline 
 \end{tabularx} \\
  
@@ -302,11 +302,12 @@ Po przeprowadzeniu testów zostały dobrane następujące parametry: \\
 \begin{tabularx}{\textwidth}{ |X|X|} 
 \hline
  \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
- $T_0$ & 10 \\ \hline 
+ $T_0$ & 4 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
  $It$ & 600 \\ \hline 
 $k$& 0.99 \\ \hline 
- Skuteczno\si ć & 100\% \\ \hline 
+$It_m$ & 597 \\ \hline
+ Skuteczno\si ć & 99\% \\ \hline 
 \end{tabularx} \\
 
 \subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach}
@@ -482,6 +483,7 @@ Jako\si ć rzędu 75-80\% wydaje się być zadowalająca, dlatego uznali\si my, 
  $T_{end}$ & 0.01 \\ \hline 
  $It$ & 90000 \\ \hline
  $k$& 0.99 \\ \hline 
+$It_m$ & 688 \\ \hline
  Skuteczno\si ć & 80\% \\ \hline 
 \end{tabularx}
 
@@ -515,12 +517,13 @@ Poniższa tabela przedstawia parametry, które pozwalały na uzyskanie satysfakc
 
 \begin{tabularx}{\textwidth}{ |X|X|} 
 \hline
- \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
- $T_0$ & 10 \\ \hline 
+ \textbf{Parametr} & \textbf{ Warto\si ć}\\ \hline
+ $T_0$ & 6 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
- $k$& 0.99 \\ \hline 
  $It$ & 500 \\ \hline 
- Skuteczno\si ć & 100\% \\ \hline 
+ $k$& 0.99 \\ \hline 
+$It_m$ & 637 \\ \hline
+ Skuteczno\si ć & 99\% \\ \hline 
 \end{tabularx}
 
 \section{Implementacja}
@@ -576,9 +579,6 @@ private void SetMaxCounter()
 
 \underline{Metoda DrawArguments()} \\
 W metodzie tej losuję początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego dla danego zagadnienia. \\\
-
-
-%
 
 \underline{Metoda Move()} \\
 W tym miejscu najpierw obliczany jest pozostały procent iteracji do ukończenia procesu (znając parametry algorytmu można wyznaczyć ilo\si ć głównych iteracji). Następnie biorąc 80\% szeroko\si ci zakresu warto\si ci ze zmiennych (zmienna partOfTheDomain), mnożymy ją przez pozostały do końca procesu procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdej składowej tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniej składowej najlepszego rozwiązania oraz losowej liczby z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy. \\
@@ -870,14 +870,16 @@ Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do oblicza
 \subsubsection{Parametry algorytmu}
 Ze względu na czas oczekiwania znalezienia pojedynczego optymalnego rozwiązania problemu, ilo\si ć prób sprawdzających jako\si ć dobranych parametrów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z satysfakcjonującym wynikiem błędu odtworzenia. \\
 
-\begin{tabularx}{\textwidth}{ |X|X|X|X|} 
+\begin{tabularx}{\textwidth}{ |X|X|} 
 \hline
-  $T_0$ &
-  $T_{end}$ &
-  $It$&
-  $k$\\ \hline
-20 & 0.001 & 35000 & 0.99 \\ \hline 
+ \textbf{Parametr} & \textbf{ Warto\si ć}\\ \hline
+ $T_0$ & 20 \\ \hline 
+ $T_{end}$ & 0.001 \\ \hline 
+ $It$ & 35000 \\ \hline 
+ $k$& 0.99 \\ \hline 
+$It_m$ & 757 \\ \hline
 \end{tabularx}
+
 
 \subsection{Rezultaty}
 
@@ -1125,25 +1127,32 @@ Tutaj będą jeszcze wnioski\\
 \bibitem{5} H. Abiyev, M. Tunay, \textit{Optimization of High-Dimensional Functions through Hypercube Evaluation}, Dostępny w Internecie:https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4538776/
 [dostęp: 13 listopada 2018]
 
+\bibitem{6} K. Żydzik, T. Rak,  \textit{C\# 6.0 i MVC 5. Tworzenie nowoczesnych portali internetowych}, Wyd. Helion, 2015, ISBN 
+978-83-283-0864-0
+
+\bibitem{7} J. Albahari, B. Albahari, \textit{C\# 7.0 in a Nutshell: The Definitive Reference}, Wyd. O'Reilly Media, 2017, ISBN 9781491987643
+
 
 %wstep i opis problemu[?]
-\bibitem{6} F. Rothlauf, \textit{Optimization Problems}, [w:] \textit{Design of Modern Heuristics: Principles and Application}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 7-44, ISBN 978-3-540-72961-7
+\bibitem{8} F. Rothlauf, \textit{Optimization Problems}, [w:] \textit{Design of Modern Heuristics: Principles and Application}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 7-44, ISBN 978-3-540-72961-7
 Dostępny w Internecie: https://pdfs.semanticscholar.org/b333/0f96d1a937fc2c63b3294729cfea30826134.pdf
 [dostęp: 27 listopada 2018]
 
 %wstep i opis problemu
-\bibitem{7} R. Martí, G. Reinelt, \textit{Heuristic Methods}, [w:] \textit{The Linear Ordering Problem, Exact and Heuristic Methods in Combinatorial Optimization}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 17-40, ISBN 978-3-642-16728-7
+\bibitem{9} R. Martí, G. Reinelt, \textit{Heuristic Methods}, [w:] \textit{The Linear Ordering Problem, Exact and Heuristic Methods in Combinatorial Optimization}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 17-40, ISBN 978-3-642-16728-7
 
 %problemy odwrotne/1 rozdzial
-\bibitem{8} http://prac.im.pwr.edu.pl/$\sim$plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
+\bibitem{10} http://prac.im.pwr.edu.pl/$\sim$plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
 [dostęp: 10 grudnia 2018]
 
-\bibitem{9} https://www.math.unl.edu/$\sim$scohn1/8423/wellposed.pdf
+\bibitem{11} https://www.math.unl.edu/$\sim$scohn1/8423/wellposed.pdf
  [dostęp: 10 grudnia 2018]
 
-\bibitem{10}E. Hetmaniok, A. Zielonka, D. Słota, \textit{Zastosowanie algorytmu selekcji klonalnej do odtworzenia warunku brzegowego trzeciego rodzaju}, [w:] ,,Zeszyty naukowe Politechniki Śląskiej", 2012 nr 2/1874
+\bibitem{12}E. Hetmaniok, A. Zielonka, D. Słota, \textit{Zastosowanie algorytmu selekcji klonalnej do odtworzenia warunku brzegowego trzeciego rodzaju}, [w:] ,,Zeszyty naukowe Politechniki Śląskiej", 2012 nr 2/1874
 
-\bibitem{11} E. Hetmaniok, D. Słota, A. Zielonka, \textit{Application of the Ant Colony Optimization Algorithm for Reconstruction of the Thermal Conductivity Coefficient}, [w:] \textit{Swarm and Evolutionary Computation}, wyd. Springer-Verlag Berlin Heidelberg,  2012,  s. 240-248, ISBN 978-3-642-29352-8
+\bibitem{13} E. Hetmaniok, D. Słota, A. Zielonka, \textit{Application of the Ant Colony Optimization Algorithm for Reconstruction of the Thermal Conductivity Coefficient}, [w:] \textit{Swarm and Evolutionary Computation}, wyd. Springer-Verlag Berlin Heidelberg, 2012,  s. 240-248, ISBN 978-3-642-29352-8
+
+\bibitem{14} R. Grzymkowski, A. Zielonka, \textit{Zastosowania teorii falek w zagadnieniach brzegowych}, Wyd. Pracownia Komputerowa Jacka Skalmierskiego, 2004, s. 86-89, ISBN 9788389105639
 
 
 \end{thebibliography}
