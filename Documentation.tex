@@ -90,13 +90,13 @@ Problemy odwrotne niestety są często źle postawione. Problemy, aby być zagad
 	\item rozwiązanie zależy od danych oraz parametrów (np. małe zmiany w funkcjach wej\si cia powodują małe zmiany w rozwiązaniu). \\
 \end{enumerate}
 
-Jednym z tego typów problemów (problemów odwrotnych) są odwrotne zagadnienia przewodnictwa ciepła. Przy posiadaniu niekompletnego opisu modelu matematycznego oraz funkcji opisującej rozkład temperatury w wybranych punktach (zazwyczaj pomiarowych), zadanie polega na rekonstrukcji brakujących parametrów modelu. 
+Przykładem tego typu problemów są odwrotne zagadnienia przewodnictwa ciepła. Przy niepełnym opisie modelu matematycznego, ale znając warto\si ci funkcji w wybranych punktach (zazwyczaj pomiarowych), rozwiązanie zadania odwrotnego polega na rekonstrukcji brakujących parametrów modelu. 
 
 \subsection{Cel}
 
 W pracy opisany i zaimplementowany zostanie algorytm symulowanego wyżarzania. Dla wybranych funkcji testowych zostały dobrane jego parametry, a finalnie zostanie on wykorzystany do rozwiązania odwrotnego zadania przewodnictwa ciepła.
 
-W tym celu została stworzona w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie minimum globalnego funkcjonału, sprawdzona najpierw dla wybranych funkcji testowych, a następnie wykorzystana do odtworzenia brakujących parametrów modelu matematycznego przykładowego odwrotnego zadania przewodnictwa ciepła, przy podanym rozkładzie temperatur w wybranym punkcie pomiarowym.
+W tym celu została stworzona, w miarę możliwo\si ci uniwersalna aplikacja, która pozwala na znalezienie minimum globalnego funkcjonału, sprawdzona najpierw dla wybranych funkcji testowych, a następnie wykorzystana do odtworzenia brakujących parametrów opisujących model matematyczny przykładowego odwrotnego zadania przewodnictwa ciepła, przy zadanych warto\si ciach temperatury w wybranym punkcie pomiarowym.
 
 
 \section{Opis algorytmu symulowanego wyżarzania}
@@ -107,21 +107,30 @@ Zanim jednak przejdziemy do opisu samego algorytmu, powinni\si my najpierw sform
 
 \subsection{Zadania optymalizacyjne}
 
-Zadania optymalizacyjne polegają na znalezieniu rozwiązania (dokładnego lub zbliżonego) pewnego problemu, zazwyczaj jednak nie jest to możliwe w jednym kroku. Rozwiązanie takiego zadania często wiąże się z pewnym procesem, którego rozwiązanie może być utrudnione np. przez limitowane zasoby mocy obliczeniowej lub inne zdefiniowane warunki. Jednym z typów zadań optymalizacyjnych jest znalezienie minimum globalnego funkcjonału, które można zaprezentować następująco: \\
-
+W dalszych rozważaniach skupimy się na wyznaczeniu minimum funkcji $f$ okre\si lonej w ${\rm I\!R}^n$.
 \begin{alignat*}{2}
-f(\overline{x}),&\qquad  x \in D \in R\\
-f -> min
+f(x) \rightarrow {\rm I\!R}, 
 \end{alignat*}
+
+\noindent gdzie: $x = (x_1, x_2, ..., x_n) \in D \subset R^n$ \\
+
+Bez straty ogólno\si ci możemy założyć, że:\\
+$D = [a_1, b_1] \times [ a_2, b_2] \times ... \times [a_n, b_n]$ \\
+
+Wówczas zadanie minimalizacji funkcji $f$ oznaczymy:
+\begin{alignat*}{2}
+f(x) \rightarrow min. \\
+\end{alignat*}
+
 
 		\subsection{Opis algorytmu}
 		
 \noindent \underline{Początkowa konfiguracja} \\ \newLine
-\indent W tym kroku powinniśmy zainicjalizować temperaturę początkową pewną zadaną wartością oraz znaleźć początkowe, w tym wypadku losowe, rozwiązanie problemu. 
+\indent W tym kroku powinniśmy zainicjalizować temperaturę początkową (pewną zadaną warto\si ć) oraz znaleźć początkowe, w tym wypadku losowo położone, rozwiązanie problemu. 
 \\ \newLine
 
 \noindent \underline{Temperatura} \\ \newLine
-\indent  Wraz z upływem czasu (kolejne iteracje) ulega zmianie i jest czynnikiem wpływającym na prawdopodobieństwo zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego te prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
+\indent  Wraz z upływem czasu (kolejne iteracje) ulega zmianie i jest czynnikiem wpływającym na prawdopodobieństwo zamiany ,,gorszego" rozwiązania na ,,lepsze". Zatem zakres temperatury powinien być taki, aby na początku działania algorytmu dawał dużą możliwość zamian, a wraz z postępem procesu iteracyjnego prawdopodobieństwo zamiany było bliskie zeru.\\ \newLine
 
 \noindent \underline{Końcowa temperatura} \\ \newLine
 \indent Temperatura osiągając taki poziom stanowi, iż proces wyżarzania się zakończył i rozwiązanie zostało znalezione.
@@ -131,7 +140,7 @@ Wartość ta powinna być na tyle mała, żeby jej ,,niewielka" zmiana nie miał
 Proces iteracyjny bez zmiany temperatury wykonuje się okre\si loną (ustaloną jako parametr algorytmu) ilo\si ć razy. \\ \newLine
 
 \noindent \underline{Znajdowanie losowego sąsiada poprzedniego rozwiązania} \\ \newLine
-\indent Funkcja ta powinna nam pozwalać przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie ,,najlepszego" rozwiązania, zatem funkcję tę należy uzależnić od stopnia zaawansowania procesu iteracyjnego, tak że wraz ze wzrostem iteracji zawężeniu ulegnie obszar przeszukiwania.\\ \newLine
+\indent Etap ten ma pozwolić przejrzeć jak najszerszy zakres rozwiązań, a jednocze\si nie pozwolić na przeszukiwanie coraz to bliższych sąsiadów obecnie ,,najlepszego" rozwiązania, zatem proces ten należy uzależnić od stopnia zaawansowania procesu iteracyjnego, tak że wraz ze wzrostem iteracji zawężeniu ulegnie zakres obszaru przeszukiwania.\\ \newLine
 
 \noindent \underline{Funkcja kosztu} \\ \newLine
 \indent Poprzez funkcję kosztu rozumiemy różnicę pomiędzy obecnie najlepszym rozwiązaniem, a nowym. Funkcja ta ma dodatkowe zastosowanie przy decydowaniu o zamianie ,,gorszego" rozwiązania na ,,lepsze". Przy poszukiwaniu globalnego minimum warto\si ć większa jest gorszym rozwiązaniem, dzięki czemu wynikiem tej funkcji jest zawsze liczba ujemna (przy decydowaniu o zamianie). \\ \newLine
@@ -141,28 +150,27 @@ Proces iteracyjny bez zmiany temperatury wykonuje się okre\si loną (ustaloną 
 \indent Prawdopodobieństwo jest wykorzystywane przy decyzji zamiany nowego i ,,gorszego" rozwiązania, z wcze\si niejszym ,,lepszym". 
 
 Prawdopodobieństwo tej zamiany zależy od funkcji kosztu oraz obecnej temperatury. Prawdopodobieństwo zamiany okre\si lone jest wzorem:
-$$ P = \exp\left(\frac{\Delta E}{T}\right),  $$
-gdzie:\\
-$ \Delta E$  - funkcja kosztu, \\
-$T$ - obecna warto\si ć temperatury.\\
+$$ P = \exp\left(\frac{\Delta E}{T}\right),  $$ \\
 
-Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż jest zawsze ujemna), natomiast wyższa warto\si ć temperatury zwiększa to prawdopodobieństwo. Decydując o tym, czy powinniśmy zamienić nasze ,,gorsze" rozwiązanie z ,,lepszym", powinniśmy porównać obliczone prawdopodobieństwo z wartością losową o rozkładzie równomiernym.\\ \newLine
+gdzie: $ \Delta E$  - funkcja kosztu, $T$ - obecna warto\si ć temperatury.\\
+
+Prawdopodobieństwo to wraz ze spadkiem warto\si ci funkcji kosztu maleje (gdyż funkcja ta jest zawsze ujemna), natomiast wyższa warto\si ć temperatury je zwiększa. Decydując o tym, czy powinniśmy zamienić nasze ,,gorsze" rozwiązanie z ,,lepszym", powinniśmy porównać obliczone prawdopodobieństwo z wartością losową z przedziału [0, 1] o rozkładzie równomiernym.\\ \newLine
 
 
 \noindent \underline{Chłodzenie temperatury} \\ \newLine
-\indent Szybkość chłodzenia temperatury nie powinna być ,,zbyt duża", aby pozwolić algorytmowi na sprawdzenie szerokiego zakresu możliwych rozwiązań, a jednocześnie niezbyt wolna, gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie ,,gorszych" (lub ,,dużo gorszych") rozwiązań. W większości opracowań można spotkać, że ten proces okre\si la mnożnik tempa spadku temperatury ustalony w zakresie [0.8;0.99].\\ \newLine
+\indent Szybkość chłodzenia temperatury nie powinna być ,,zbyt duża", aby pozwolić algorytmowi na sprawdzenie szerokiego zakresu możliwych rozwiązań, a jednocześnie ,,niezbyt wolna", gdyż może to spowodować zbyt wolny spadek prawdopodobieństwa i zbyt częste akceptowanie ,,gorszych" (lub ,,dużo gorszych") rozwiązań. W większości opracowań można spotkać, że ten proces okre\si la mnożnik tempa spadku temperatury ustalony w zakresie [0.8;0.99].\\ \newLine
 		
 
 Z powyższego opisu wynika, że algorytm ten zależy od czterech parametrów:
 \begin{itemize}
 	\item[--] temperatury początkowej ($T_0$),
 	\item[--] temperatury końcowej ($T_{end}$),
-	\item[--] wewnętrznych iteracji ($It$),
-	\item[--] chłodzenia ($k$).
+	\item[--] liczby wewnętrznych iteracji ($It$),
+	\item[--] parametru chłodzenia ($k$).
 \end{itemize}
 
 \subsection{Schemat blokowy}
-Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu, co można zobaczyć na poniższym rysunku.
+Na rysunku 1 zamieszczony jest schemat blokowy reprezentujący poszczególne kroki i scenariusze w procesie poszukiwania rozwiązania zadanego problemu.
 
 \begin{figure}[H]
 		\includegraphics[height=22cm, width=16cm]{pics/blockDiagram.png}\\
@@ -172,35 +180,36 @@ Przygotowali\si my również schemat blokowy reprezentujący poszczególne kroki
 
 		\subsection{Kroki algorytmu}
 		
-		Algorytm ten można przedstawić schematycznie:
+		Algorytm symulowanego wyżarzania można przedstawić schematycznie:
 
 \begin{enumerate}
-	\item Inicjalizacja $T_{0}$, $T_{end}$, $It$, $k$
-	\item T = $T_{0}$
-	\item $x_{best}$ = losowe współrzędne z dziedziny zadania
-	\item Dopóki T $>$ $T_{end}$:
+	\item[I] Inicjalizacja: $T_{0}$, $T_{end}$, $It$, $k$
+	\item[1.] T = $T_{0}$
+	\item[2.] $x_{best}$ = losowe współrzędne z dziedziny zadania
+	\item[II] Zasadnicza czę\si ć algorytmu:
+	\item[3.] Dopóki T $>$ $T_{end}$:
 	
 	\begin{enumerate}
-		\item  Wyznacz ,,sąsiada" współrzędnych $x_{best}$ (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje, zmienna $x_{tmp}$)
+		\item  Wyznacz ,,sąsiada" $x_{tmp}$ punktu $x_{best}$ (wraz z liczbą iteracji szeroko\si ć zakresu wyznaczania ,,sąsiada" maleje)
 		\begin{enumerate}
-			\item[I.] Je\si li f($x_{best}$) $>$ f($x_{tmp}$):
+			\item[(a.a)] Je\si li f($x_{best}$) $>$ f($x_{tmp}$):
 			\begin{enumerate}
-				\item $x_{best}$ = $x_{tmp}$
+				\item[A)] $x_{best}$ = $x_{tmp}$
 			\end{enumerate}
-			\item[II.] w przeciwnym wypadku:
+			\item[(a.b)] w przeciwnym wypadku:
 			\begin{enumerate}
-				\item $\Delta E$ = f($x_{best}$) - f($x_{tmp}$)
-				\item $P$ = $\exp\left(\frac{\Delta E}{T}\right)$
-				\item $q$ = losowa liczba z przedziału [0, 1]
-				\item Je\si li $P$ $>$ $q$, to:
+				{\setlength\itemindent{5pt} \item[A)]  $\Delta E$ = f($x_{best}$) - f($x_{tmp}$)}
+				{\setlength\itemindent{5pt} \item[B)] $P$ = $\exp\left(\frac{\Delta E}{T}\right)$}
+				{\setlength\itemindent{5pt} \item[C)] $q$ = losowa liczba z przedziału [0, 1]}
+				{\setlength\itemindent{5pt} \item[D)] Je\si li $P$ $>$ $q$, to:}
 				\begin{itemize}
-					\item[i.] $x_{best}$ = $x_{tmp}$
+					\item[] $x_{best}$ = $x_{tmp}$
 				\end{itemize}
 			\end{enumerate}
-			\item Wróć do (a) $It$ razy
+			\item[(a.c)] Wróć do (a) $It$ razy
 		\end{enumerate}
-		\item $T$ = $k$$T$
-		\item Wróć do 4.
+		\item Schłodzenie: $T$ = $k$$T$
+		\item Powrót do 3.
 	\end{enumerate}	
 \end{enumerate}
 	
@@ -212,7 +221,7 @@ W procesie tworzenia aplikacji zdecydowali\si my się na użycie kilku rozwiąza
 	System kontroli wersji posiada wiele zalet, m.in.: bezpieczeństwo, możliwo\si ć pracy w kilku miejscach/urządzeniach nad tym samym problemem, łatwą możliwo\si ć przywrócenia poprzedniej wersji, czy wreszcie, inspekcję jako\si ci i poprawno\si ci kodu. \\
 W moim projekcie skorzystałem z systemu kontroli Git, a repozytorium można znaleźć na portalu github.com. 
 	\subsubsection{Github Project Management}
-Pomimo, iż praca w pojedynkę nie wymagała ode mnie zaawansowanego zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
+Pomimo, iż praca realizowana przez jedną osobę nie wymagała ode mnie zaawansowanego zarządzania projektem i konieczno\si ci organizacji pracy, zdecydowałem się na użycie narzędzia pozwalającego na taką pracę. Podzielenie projektu na mniejsze zadania pozwoliło mi wydzielić poszczególne i odrębne sektory pracy, widzieć postępujący progres i łatwo odnaleźć się w aktualnie wykonywanym zadaniu. W tym celu skorzystałem z Github Project Management, który pozwala na proste zarządzanie zadaniami.
 	\subsubsection{Środowisko programistyczne}
 Do implementacji projektu użyłem \si rodowiska Microsoft Visual Studio Community 2017, które to zostało stworzone przez firmę Microsoft i pozwala na programowanie konsolowe oraz z graficznym interfejsem użytkownika (zarówno aplikacje desktopowe, jak i strony internetowe).  \\
 Dobra znajomo\si ć i przejrzysto\si ć tego \si rodowiska programistycznego pozwoliła mi skupić się na rozwiązywaniu problemu, omijając problem zapoznawania się z nowym narzędziem.
@@ -229,36 +238,34 @@ Język programowania C\# należy do obiektowych języków programowania, któreg
 Język ten służy głównie do programowania obliczeń matematycznych i programowania funkcjonalnego w programie Mathematica. Język ten, wraz z oprogramowaniem Mathematica, pozwalają m.in. na: operacje na macierzach, rozwiązywanie równań różniczkowych czy prezentowanie danych za pomocą wykresów. Z tej ostatniej funkcjonalno\si ci skorzystałem tworząc wykresy funkcji testowych.
 
 \section{Funkcje testowe}
-Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak jest informacji o funkcji, a jedynie znane są jej warto\si ci, to przed użyciem danego algorytmu musimy dobrać parametry algorytmu w taki sposób, by wynik był dostatecznie dokładny, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik. W opracowaniach naukowych trudno znaleźć wytyczne co do sposobu wyznaczania odpowiednich parametrów, związane to jest z ich zależno\si cią od rozwiązywanego problemu. \\
+Pomimo, iż algorytmy heurystyczne są dobrym wyborem wszędzie tam, gdzie brak jest dodatkowych informacji o optymalizowanej funkcji, a jedynie znane są jej warto\si ci, to przed użyciem danego algorytmu musimy dobrać parametry algorytmu w taki sposób, by proces optymalizacji prowadził do uzyskania dostatecznie dokładnych wyników, a algorytm nie wykonywał niepotrzebnie obliczeń, zwłaszcza gdy większa dokładno\si ć nie jest nam potrzebna lub nie będzie stanowić większej różnicy w stosunku do już znalezionego wyniku. Dodatkową trudno\si ć stanowi ilo\si ć parametrów oraz to, iż każdy z nich może wpływać w inny sposób na złożono\si ć obliczeniową oraz wynik. W opracowaniach naukowych trudno znaleźć wytyczne co do sposobu wyznaczania odpowiednich parametrów, związane to jest z ich zależno\si cią od rozwiązywanego problemu. \\
 
 
-
-
-W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ć prób, wykonano po 10 powtórzeń algorytmu dla tych samych parametrów algorytmu. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyj\si ciowych algorytmu i następnie dla nich zostały przeprowadzone próby, gdzie wykonano po 100 powtórzeń algorytmu dla tych samych, wyselekcjonowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów zostanie opisany dokładnie, a w pozostałych przypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu (wraz z ilo\si cią głównych iteracji oznaczoną $It_m$).
+W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu każdego z parametrów i że względu na dużą ilo\si ć prób, wykonano po 10 powtórzeń algorytmu dla tych samych jego parametrów. W ten sposób uzyskali\si my ,,obiecujące" zestawy parametrów wyj\si ciowych i następnie już dla nich zostały przeprowadzone kolejne próby, gdzie wykonano po 100 powtórzeń algorytmu dla tych samych, doprecyzowanych parametrów. W przypadku funkcji testowej Rastrigina w $R^5$ proces wyznaczania parametrów został opisany dokładnie, a w pozostałych przypadkach zostały zamieszczone wyselekcjonowane parametry algorytmu (wraz z ilo\si cią głównych iteracji oznaczoną symbolem $It_m$). Ze względu na chronologię, funkcje testowe zostaną przedstawione od najłatwiejszych, do bardziej wymagających.
 
 
 
 	\subsection{Funkcja kwadratowa dwóch zmiennych}
 	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch zmiennych postaci:
 \begin{alignat*}{2}
-f(x, y) = x^2 + y^2,&\qquad  (x, y) \in R^2\\
+f(x, y) = x^2 + y^2,&\qquad  (x, y) \in R^2.\\
 \end{alignat*}
 
-Wybór tak ,,łatwej" funkcji testowej padł ze względu na to, żeby upewnić się, że algorytm został poprawnie zaimplementowany, gdyż proces wyznaczania ekstremum tej funkcji jest ,,bardzo prosty" i nie wymaga dużego nakładu obliczeń. \\
+Wybór tak ,,łatwej" funkcji testowej padł ze względu na to, żeby upewnić się czy algorytm został poprawnie zaimplementowany, gdyż proces wyznaczania ekstremum tej funkcji jest ,,bardzo prosty" i nie wymaga dużego nakładu obliczeń. \\
 
-Funkcja ta przyjmuje tylko warto\si ci nieujemne i posiada minimum globalne w punkcie (0, 0). Na potrzeby testów dziedzina tej funkcji została zawężona następująco:
-\[(x, y)  \in [0,1]^2 \]\\ 
+Funkcja ta przyjmuje tylko warto\si ci nieujemne i posiada minimum globalne w punkcie (0, 0). Na potrzeby testów dziedzina tej funkcji została zawężona:
+\[(x, y)  \in [-10,10]^2 \]\\ 
 
 
-Funkcję prezentuje poniższy wykres:\\
+Funkcję $f(x, y)$ prezentuje poniższy rysunek:\\
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[height=7cm]{pics/quadraticFunction1.png}\\
 	\end{center}
-	\caption{Funkcja kwadratowa dwóch parametrów}
+	\caption{Funkcja kwadratowa dwóch zmiennych}
 \end{figure}
 
-	\subsubsection{Parametry dobrane dla funkcji kwadratowej dwóch parametrów}
+	\subsubsection{Parametry dobrane dla funkcji kwadratowej dwóch zmiennych}
 Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania z satysfakcjonującą jako\si cią:\\
 
 \begin{tabularx}{\textwidth}{ |X|X|} 
@@ -273,13 +280,11 @@ $It_m$ & 459 \\ \hline
 \end{tabularx} \\
  
 	\subsection{Funkcja Rastrigina}
-	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną (dla n=2, została przedstawiona na rysunku 2). Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Przyjmuje ona następującą postać:
+	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną (jej wykres dla n=2, została przedstawiona na rysunku 2). Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Funkcja Rastrigina okre\si lona jest wzorem:
 
-\[f(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}] \]
+\[Rn(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}], \] \\
 
-\noindent gdzie: \\
-A = 10, \\
-n = ilo\si ć wymiarów. \\ \newLine
+\noindent gdzie: $n$ = ilo\si ć wymiarów, $x$ =$ (x_1, ..., x_n)$, A = 10, $x_i \in [-5.12, 5.12]$. \\
 
 \begin{figure}[H]
 	\begin{center}
@@ -288,15 +293,12 @@ n = ilo\si ć wymiarów. \\ \newLine
 	\caption{Funkcja Rastrigina o 2 wymiarach}
 \end{figure}
 
-Warto\si ci tej funkcji są nieujemne. Zakres warto\si ci dla tej funkcji znajdziemy w przedziale:
-\[x_i \in [-5.12, 5.12] \] \\
-
-Posiada ona następujące globalne minimum:
+Warto\si ci tej funkcji są nieujemne. Posiada ona następujące globalne minimum:
 \[ f(0,...,0) = 0 \] \\
 
 
 	\subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 3 wymiarach}
-Po przeprowadzeniu testów zostały dobrane następujące parametry: \\
+Po przeprowadzeniu testów zostały wyselekcjonowane następujące parametry, które prowadzą do uzyskania satysfakcjonujących rezultatów: \\
 
 \begin{tabularx}{\textwidth}{ |X|X|} 
 \hline
@@ -312,15 +314,15 @@ $It_m$ & 597 \\ \hline
 \subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach}
 
 Przed rozpoczęciem testów przyjęto dwa założenia:
-\begin{enumerate}
-	\item Końcowa temperatura została ustawiona na stałą warto\si ć równą 0.01,
-	\item Stopień chłodzenia temperatury został ustawiony na 0.99.
-\end{enumerate}
+\begin{itemize}
+	\item końcowa temperatura została ustawiona na stałą warto\si ć równą 0.01,
+	\item stopień chłodzenia temperatury został ustawiony na 0.99.
+\end{itemize}
 
-W pierwszym etapie została sprawdzona temperatura w zakresie (2, 4, ..., 10) oraz ilo\si ć iteracji w liczbie (100, 300, ..., 1100). \\
+W pierwszym etapie została sprawdzona temperatura dla warto\si ci $ T_0 \in \{2, 4, ..., 10\}$ oraz liczbie wewnętrznych iteracji $It \in \{100, 300, ..., 1100\}$. \\
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, $It$ jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
+\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, $It$ jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów uzyskaną w 10 próbach}
 %\footnotesize Smaller note of table that describes what the table is all about.
 \renewcommand\arraystretch{1.333}
 \begin{tabular}{|c|c|c||c|c|c|} 
@@ -332,80 +334,58 @@ W pierwszym etapie została sprawdzona temperatura w zakresie (2, 4, ..., 10) or
  & $It$
  & $\overline{f}_{min}$ \\ \hline
 
-10 & 1100 & 1,6194 &4 & 1100 & 1,8291 \\ \hline
-10 & 900 & 1,7176 &4 & 900 & 1,5182 \\ \hline
-10 & 700 & 1,4182&4 & 700 & 2,3089 \\ \hline
-10 & 500 & 1,8106&4 & 500 & 2,2251 \\ \hline
-10 & 300 & 1,8099 &4 & 300 & 2,5146 \\ \hline 
-10 & 100 & 2,8057&4 & 100 & 3,2157 \\ \Xhline{3\arrayrulewidth}
+10 & 1100 & 1,6194 &6 & 1100 & 1,3214 \\ \hline 
+10 & 900 & 1,7176 &6 & 900 & 1,3201 \\ \hline 
+10 & 700 & 1,4182&6 & 700 & 1,8174 \\ \hline 
+10 & 500 & 1,8106&6 & 500 & 1,5151 \\ \hline 
+10 & 300 & 1,8099 &6 & 300 & 2,0083 \\ \hline 
+10 & 100 & 2,8057&6 & 100 & 3,0047 \\ \Xhline{3\arrayrulewidth}
 
-8 & 1100 & 1,4151 &2 & 1100 & 1,8087 \\ \hline 
-8 & 900 & 1,5191 &2 & 900 & 2,2128 \\ \hline 
-8 & 700 & 1,6145 &2 & 700 & 1,9127 \\ \hline
-8 & 500 & 1,6169 &2 & 500 & 1,5137 \\ \hline 
-8 & 300 & 2,4199 &2 & 300 & 2,3170 \\ \hline 
-8 & 100 & 3,2014 &2 & 100 & 3,0159 \\ \Xhline{3\arrayrulewidth}
+8 & 1100 & 1,4151 &4 & 1100 & 1,8291 \\ \hline
+8 & 900 & 1,5191 & 4 & 900 & 1,5182 \\ \hline
+8 & 700 & 1,6145 &4 & 700 & 2,3089 \\ \hline
+8 & 500 & 1,6169 &4 & 500 & 2,2251 \\ \hline
+8 & 300 & 2,4199 &4 & 300 & 2,5146 \\ \hline 
+8 & 100 & 3,2014 &4 & 100 & 3,2157 \\ \hline 
 
-6 & 1100 & 1,3214 \\ \hline 
-6 & 900 & 1,3201 \\ \hline 
-6 & 700 & 1,8174 \\ \hline 
-6 & 500 & 1,5151 \\ \hline 
-6 & 300 & 2,0083 \\ \hline 
-6 & 100 & 3,0047 \\ \hline 
+
 \end{tabular}
 \end{table}
 
-Powyższe wyniki nie dają zadowalających rezultatów. Można jednak zauważyć, iż w tym momencie badań temperatura nie ma aż takiego znaczenia, a większa ilo\si ć iteracji zdaje się dawać lepsze rezultaty. Zgodnie z założeniem, iż temperatura nie powinna być zbyt wysoka, postanowili\si my dalej sprawdzać ten sam zakres temperatur i zwiększyć ilo\si ć iteracji około stukrotnie, co prezentuje następna tabela.
+Wyniki uzyskane dla powyższych zestawów parametrów nie dają zadowalających rezultatów. Można jednak zauważyć, iż w tym momencie badań temperatura nie ma aż takiego znaczenia, a większa ilo\si ć iteracji ,,zdaje się dawać lepsze" rezultaty. Zgodnie z założeniem, iż temperatura nie powinna być zbyt wysoka, postanowili\si my dalej sprawdzać ten sam zakres temperatur i zwiększyć ilo\si ć iteracji około stukrotnie, co prezentuje następna tabela.
 
-
-\begin{tabular}{|c|c|c|} 
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Wyniki testów parametrów dla podanych zakresów, gdzie $T_0$ jest temperaturą początkową, $It$ jest ilo\si cią iteracji, a $\overline{f}_{min}$ \si rednią rozwiązań dla podanych parametrów}
+%\footnotesize Smaller note of table that describes what the table is all about.
+\begin{tabular}{|c|c|c||c|c|c|} 
                   \hline
-                   $T_0$
-                  & $It$ (*1000)
-                  &$\overline{f}_{min}$\\ \hline
+                  $T_0$
+                  & $It (\times 1000)$
+                  & $\overline{f}_{min}$ 
+& $T_0$
+ & $It (\times 1000)$
+ & $\overline{f}_{min}$ \\ \hline
 
 
-10 & 11 & 0,7165\\ \hline 
-10 & 9 & 0,8208 \\ \hline 
-10 & 7 & 1,3270 \\ \hline 
-10 & 5 & 0,8244 \\ \hline 
-10 & 3 & 1,5143 \\ \hline 
-10 & 1 & 1,3252 \\ \Xhline{3\arrayrulewidth}
+10 & 11 & 0,7165&6 & 11 & 0,9273 \\ \hline 
+10 & 9 & 0,8208 &6 & 9 & 0,7189 \\ \hline 
+10 & 7 & 1,3270 &6 & 7 & 0,7157 \\ \hline 
+10 & 5 & 0,8244 &6 & 5 & 1,3202 \\ \hline  
+10 & 3 & 1,5143 &6 & 3 & 1,3194 \\ \hline 
+10 & 1 & 1,3252 &6 & 1 & 1,3147 \\ \Xhline{3\arrayrulewidth}
 
-8 & 11 & 0,8120 \\ \hline 
-8 & 9 & 1,0224 \\ \hline 
-8 & 7 & 1,0155 \\ \hline 
-8 & 5 & 1,3222 \\ \hline 
-8 & 3 & 1,2153 \\ \hline 
-8 & 1 & 1,6182 \\ \Xhline{3\arrayrulewidth}
+8 & 11 & 0,8120 &4 & 11 & 1,1203 \\ \hline 
+8 & 9 & 1,0224 &4 & 9 & 0,9278 \\ \hline 
+8 & 7 & 1,0155 &4 & 7 & 1,3136 \\ \hline 
+8 & 5 & 1,3222 &4 & 5 & 0,9184 \\ \hline
+8 & 3 & 1,2153 &4 & 3 & 1,0177 \\ \hline 
+8 & 1 & 1,6182 &4 & 1 & 1,5184 \\ \hline
 
+\end{tabular} 
+\end{table}
 
-6 & 11 & 0,9273 \\ \hline 
-6 & 9 & 0,7189 \\ \hline 
-6 & 7 & 0,7157 \\ \hline 
-6 & 5 & 1,3202 \\ \hline 
-6 & 3 & 1,3194 \\ \hline 
-6 & 1 & 1,3147 \\ \Xhline{3\arrayrulewidth}
-
-
-4 & 11 & 1,1203 \\ \hline 
-4 & 9 & 0,9278 \\ \hline 
-4 & 7 & 1,3136 \\ \hline 
-4 & 5 & 0,9184 \\ \hline 
-4 & 3 & 1,0177 \\ \hline 
-4 & 1 & 1,5184 \\ \Xhline{3\arrayrulewidth}
-
-2 & 11 & 0,5162 \\ \hline 
-2 & 9 & 1,1158 \\ \hline 
-2 & 7 & 1,3152 \\ \hline 
-2 & 5 & 0,9171 \\ \hline 
-2 & 3 & 1,3114 \\ \hline 
-2 & 1 & 1,4161 \\ \Xhline{3\arrayrulewidth}
-
-
-\end{tabular} \\
-
-Średnia rozwiązań najlepszego wyniku w tym te\si cie wydawała się być obiecująca, jednak sprawdzenie jako\si ci takich parametrów zwróciło jako\si ć równą 34\%, co jest niskim wynikiem. Postanowili\si my zwiększyć znowu zakres iteracji dziesięciokrotnie, co można zobaczyć w następnej tabeli.
+Średnia rozwiązań najlepszego wyniku w tym te\si cie wydawała się być obiecująca, jednak sprawdzenie jako\si ci takich parametrów zwróciło jako\si ć równą 34\%, co nie jest satysfakcjonujące. Postanowili\si my zwiększyć ponownie zakres iteracji dziesięciokrotnie, co można zobaczyć w następnej tabeli (tabela nr XXX (bez ,,nr")).
 
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
@@ -460,7 +440,7 @@ Otrzymane wyniki sugerują, iż najlepsze wyniki dla podanych zakresów można o
 
 \begin{tabularx}{\textwidth}{|X|X|X|} 
                   \hline
- \textbf{ $T_0$} & \textbf{Iteracje (*1000)}& \textbf{ Jako\si ć [\%]}\\ \hline
+ $T_0$ & $It (\times 1000)$& Jako\si ć [\%]\\ \hline
 10 & 10 & 29 \\ \hline
 10 & 20 & 42 \\ \hline
 10 & 30 & 45 \\ \hline 
@@ -488,16 +468,14 @@ $It_m$ & 688 \\ \hline
 
 
 	\subsection{Funkcja Rosenbrocka}
-Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną (chociaż niektóre źródła podają, że w większej ilo\si ci wymiarów może być multimodalną\footnote{Y. Shang, Y. Qiu, \textit{A Note on the Extended Rosenbrock Function} https://www.mitpressjournals.org/doi/abs/10.1162/evco.2006.14.1.119 [Dostęp: 7 listopada 2018]}).
-
-%\[f(x) = \sum_{i=1}^{n-1} [100\left(x_{i+1} - x_i^2\right)^2 + \left(1- x_i\right)^2 ]\] \\
+Kolejnym, już ostatnim przykładem funkcji testowej jest funkcja Rosenbrocka. Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
 
 
 \begin{alignat*}{2}
 f(x) = \sum_{i=1}^{n-1} \left[100\left(x_{i+1} - x_i^2\right)^2 + \left(1- x_i\right)^2\right],&\qquad  x_i \in R\\
 \end{alignat*}
 
-Funkcja ta również przyjmuje wyłącznie warto\si ci nieujemne. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
+Funkcja ta jest ,,bardzo płaska" w pobliżu ekstrema, dlatego jest nieliniowym przykładem funkcji testowych. Funkcja ta przyjmuje wyłącznie warto\si ci nieujemne. Na potrzeby projektu warto\si ci argumentów dla tej funkcji zostały zawężone do poniższego zakresu:
 \[x_i \in [-10, 10] \] \\
 
 Posiada ona następujące globalne minimum:
@@ -527,11 +505,10 @@ $It_m$ & 637 \\ \hline
 
 \section{Implementacja}
 
-Algorytm symulowanego wyżarzania składa się z kilku metod, które zostały przedstawione w rozdziale 2.1.2. W rozdziale tym skupimy się na omówieniu tych metod oraz przedstawimy ich implementację w języku C\#. \\
+Implementacja algorytmu symulowanego wyżarzania składa się z kilku metod, które realizują opisany w rozdziale 2.4 jego przebieg. W rozdziale tym skupimy się na omówieniu tych metod oraz przedstawimy ich implementację w języku C\#. \\
 
 \subsection{Używane parametry i zmienne}
-Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, należy ustawić parametry (XXX)
- na wej\si cie, a konkretniej problem do rozwiązania i parametry samego algorytmu. W programie zostały one nazwane: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{Iterations}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
+Wraz z zainicjalizowaniem obiektu symulowanego wyżarzania, należy ustawić parametry inicjalizujące go, a konkretniej: $f$ - optymalizowaną funkcję, $T_0$ - temperaturę początkową, $T_{end}$ - temperaturę końcową, $It$ - ilo\si ć wewnętrznych iteracji, $k$ - parametr chłodzący. W programie zostały one nazwane: \textbf{Function}, \textbf{Arguments}, \textbf{Arguments2}, \textbf{BeginingTemperature}, \textbf{EndingTemperature}, \textbf{Iterations}, \textbf{Cooling}, \textbf{SatisfactionSolutionValue}. \\
 
 \textbf{Function} jest identyfikatorem referencji do obiektu reprezentującego problem. Każdy problem musi dziedziczyć po klasie abstrakcyjnej ,,TestingFunction", co zapewnia uniwersalno\si ć stosowania algorytmu symulowanego wyżarzania oraz zapewnia nasz algorytm, iż implementacja samego problemu będzie posiadać pewne cechy (jak np. jawnie okre\si loną ilo\si ć wymiarów). \\
 
@@ -559,7 +536,7 @@ W programie również używam kilku pomocnicznych zmiennych: \\
 
 \textbf{counter} jest liczbą oznaczającą miarę głównej iteracji. \\
 
-\subsection{Implementacja metod i algorytmu}
+\subsection{Implementacja}
 
 \underline{Metoda SetMaxCounter()} \\
 Metoda ta symuluje proces obniżania temperatury w celu obliczenia maksymalnej ilo\si ci głównych iteracji. \\
@@ -577,10 +554,10 @@ private void SetMaxCounter()
 \end{verbatim}
 
 \underline{Metoda DrawArguments()} \\
-W metodzie tej losuję początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego dla danego zagadnienia. \\\
+W metodzie tej losowane są początkowe argumenty (wła\si ciwo\si ć \textbf{Arguments}) z przedziału zadanego dla danego zagadnienia. \\\
 
 \underline{Metoda Move()} \\
-W tym miejscu najpierw obliczany jest pozostały procent iteracji do ukończenia procesu (znając parametry algorytmu można wyznaczyć ilo\si ć głównych iteracji). Następnie biorąc 80\% szeroko\si ci zakresu warto\si ci ze zmiennych (zmienna partOfTheDomain), mnożymy ją przez pozostały do końca procesu procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdej składowej tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniej składowej najlepszego rozwiązania oraz losowej liczby z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy. \\
+W tym miejscu najpierw obliczany jest pozostały procent iteracji do ukończenia procesu (znając parametry algorytmu można wyznaczyć ilo\si ć głównych iteracji). Następnie biorąc 80\% szeroko\si ci zakresu warto\si ci ze zmiennych (zmienna partOfTheDomain), mnożymy ją przez ilo\si ć pozostały do końca procesu procent iteracji (i przypisujemy do zmiennej value). Dalej, w pętli, każdej składowej tymczasowego rozwiązania (wła\si ciwo\si ć \textbf{Arguments2}), przypisywana jest suma odpowiedniej składowej najlepszego rozwiązania oraz losowej liczby z przedziału [-value, value]. Wraz z postępem iteracji zakres ten jest coraz węższy. \\
 \begin{verbatim}
 private void Move(int counter)
 {
@@ -608,13 +585,13 @@ RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
 \end{verbatim}
 
 \underline{Metoda ShouldChangeAnyway()} \\
-Jest to prosta implementacja funkcji prawdopodobieństwa, o której mowa była w rozdziale 2.1.1. \\
+Jest to prosta implementacja funkcji prawdopodobieństwa, o której mowa była w rozdziale 2.2. \\
 
 \underline{Metoda CopyValues()} \\
 Ze względu, iż język C\# traktuje tablicę jako obiekt, to tablica jest typem referencyjnym i konieczne jest skopiowanie warto\si ci ze zmiennej \textbf{Arguments2} do zmiennej \textbf{Arguments}. \\
 
 \underline{Implementacja algorytmu} \\
-Opisane metody są wykorzystywane w poszczególnych krokach samego algorytmu. Po obliczeniu maksymalnej ilo\si ci iteracji, algorytm losuje pierwsze rozwiązanie. Następnie w pętli i następnej zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym, jeżeli zostały spełnione odpowiednie warunki. Jeżeli nowe rozwiązanie spełnia kolejny warunek, to kończy program zwracając najlepsze rozwiązanie. Jeżeli nie, wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, głównej iteracji. Jeżeli program nie osiągnie satysfakcjonującego rozwiązania, a proces obniżania temperatury zakończy się, zwróci rozwiązanie, które udało mu się znaleźć kończąc tym samym program.
+Opisane metody są wykorzystywane w poszczególnych krokach samego algorytmu. Po obliczeniu maksymalnej ilo\si ci iteracji, algorytm losuje pierwsze rozwiązanie. Następnie w zagnieżdzonej pętli, szuka sąsiada obecnego najlepszego rozwiązania. Zamienia nowe rozwiązanie ze starym, jeżeli zostały spełnione odpowiednie warunki. Jeżeli nowe rozwiązanie spełnia kolejny warunek, to kończy program zwracając najlepsze rozwiązanie. W przeciwnym razie algorytm wychodzi z zagnieżdzonej pętli, zmniejsza zmienną odpowiedzialną za temperaturę i jest to koniec kroków w jednej pełnej, głównej iteracji. Jeżeli program nie osiągnie satysfakcjonującego rozwiązania, a proces obniżania temperatury zakończy się, zwróci rozwiązanie, które udało mu się znaleźć kończąc tym samym program.
 
 \begin{verbatim}
 public double Solve()
@@ -652,17 +629,15 @@ ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
 }
 \end{verbatim}
 
-\section{Zastosowanie algorytmu w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
-Posiadając gotowy model matematyczny tradycyjnego problemu przewodnictwa ciepła możliwe jest zasymulowanie tego procesu i otrzymanie serii pomiarów temperatur. Obliczone pomiary temperatur można użyć do rozwiązania problemu odwrotnego. 
-
+\section[Odwrotne zagadnienie przewodnictwa ciepła]{Zastosowanie algorytmu w rozwiązywaniu odwrotnego zagadnienia przewodnictwa ciepła}
 
 Zanim przejdziemy do określenia zadania odwrotnego przewodnictwa ciepła, w pierwszej kolejności zdefiniujemy zadanie bezpośrednie (proste).
 
 \subsection{Zadanie bezpo\si rednie}
-Niech dane będzie równanie Fouriera:
+Niech dane będzie równanie przewodnictwa ciepła postaci:
 
 \begin{alignat*}{2}
-c\rho \frac{\partial u}{\partial t}&= \lambda \frac{\partial^2 u}{\partial x^2},&\qquad  x \in [0, a], t \in [0, T]\\
+c\rho \frac{\partial u}{\partial t}&= \lambda \frac{\partial^2 u}{\partial x^2},&\qquad  x \in [0, a], t \in [0, T].\\
 \end{alignat*}
 
 
@@ -680,34 +655,34 @@ u(0,t) = g(t),&\qquad  u(a, t) = h(t), &\qquad t \in [0, T]\\
 \end{alignat*}
 
 
-Do rozwiązania zadania bezpośredniego użyjemy metody różnic skończonych (schemat różnicowy).
-Rozważając równanie przewodnictwa ciepła na siatce:
+Do rozwiązania zadania bezpośredniego zastosujemy metodę różnic skończonych (schemat jawny).
+Rozważamy równanie przewodnictwa ciepła na siatce:
 
 \begin{alignat*}{2}
 \Delta = \{ x_i; x_i = a + ih, h = \frac{a}{n},  i=0, ..., n\}\\
 \end{alignat*}
 
-oraz dla kolejnych chwil czasu:
+oraz w kolejnych chwilach czasu:
 \begin{alignat*}{2}
-tj = j \Delta \tau\\
+t_j = j \Delta \tau, &\qquad gdzie \Delta \tau = \frac{T}{m}\\
 \end{alignat*}
-mamy:
+Stosując ilorazy różnicowe, równanie przewodnictwa ciepła przyjmuje dyskretną postać:
 
 \begin{alignat*}{2}
 c_i \rho _i \frac{ u^{j+1}_i - u^j_i}{ \Delta \tau}&= \lambda \frac{ u^j_{i+1} - 2u^j_i+u^j_{i-1}}{\Delta h^2}\\
 \end{alignat*}
 
-Przekształcając otrzymujemy:
+Przekształcając powyższy wzór otrzymujemy:
 
 \begin{alignat*}{2}
- u^{j+1}_i&= \frac{\lambda \Delta \tau}{c_i \rho _i} \left( \frac{u^j_{i+1} - 2u^j_i+u^j-1_i}{\Delta h^2} \right) + u^j_i\\
+ u^{j+1}_i&= \frac{\lambda \Delta \tau}{c_i \rho _i} \left( \frac{u^j_{i+1} - 2u^j_i+u^j-1_i}{\Delta h^2} \right) + u^j_i, i=1, ..., n-1, j =0, ..., m-1.\\
 \end{alignat*}
 
-Jest to schemat różniczkowy dla rozważanego zadania.
+Jest to schemat różnicowy dla rozważanego zadania przewodnictwa ciepła, który pozwala wyznaczyć przybliżone warto\si ci funkcji $u(x_i, t_j)$ w punktach siatki w wybranych chwilach czasu $t_j$.
 
 \subsection{Implementacja metody różnic skończonych}
 
-Do rozważanego zadania bezpośredniego służy metoda Solve, której kod został przedstawiony poniżej:
+Do rozwiązania zadania bezpośredniego służy metoda Solve, której kod został przedstawiony poniżej:
 
 \begin{verbatim}
 public double[][] Solve()
@@ -757,27 +732,27 @@ public double[][] Solve()
 \subsection{Sformułowanie zadania odwrotnego}
 
 Rozważane przez nas zadanie odwrotne polega na tym, że nie znamy funkcji $h(t)$ opisującej warunek brzegowy $u(a, t) = h(t)$.
-W zamian za to znamy wartości funkcjonału $uP(x_s)$ pobrane w punktach pomiarowych $x_s \in (0, a)$
-oznaczone brakującym w ,,pobliżu" brzegu $a$. Wartości te mogą oznaczać np. pomiary temperatury.
-Zakładając że funkcja h(t) jest postaci:
+W zamian za to znamy wartości funkcji $u$ (oznaczone $u^P_j(x_s)$) ,,pobrane" w punkcie pomiarowym $x_s \in (0, a)$
+położonym w ,,pobliżu" brzegu $a$ w pewnych chwilach czasu $t_j, j = 1, ... n_t$. Wartości te mogą oznaczać np. pomiar temperatury.
+Zakładamy, że funkcja $h(t)$ jest postaci: \\
 \begin{alignat*}{2}
-h(t) = pt^2 +qt  + s\\
+h(t) = pt^2 +qt  + s
 \end{alignat*}
-gdzie: \\
-$p$, $q$, $s$ są szukanymi parametrami. \\
+gdzie: $p$, $q$, $s$ są szukanymi parametrami. \\
 
-Dla wybranych wartości $p$, $q$, $s$ rozwiązujemy zadanie bezpośrednie i w ten sposób odtworzymy wartości funkcji $u$ w punktach pomiarowych $\overline u (x_s)$. \\
+Dla wybranych wartości $p$, $q$, $s$ rozwiązujemy zadanie bezpośrednie (okre\si lone w rozdziale 6.3.1) i w ten sposób odtworzymy wartości funkcji $u$ w punkcie pomiarowym $\overline u (x_s)$. \\
 
 
 Rozważane zadanie odwrotne sprowadza się do rozwiązania zadania optymalizacyjnego, polegającego na minimalizacji funkcjonału:
 \begin{alignat*}{2}
-F(p, q, s) = \sum_{i=1}^M\prime (u_i P (x_s) - \overline u_i (x_s))?\\
+F(p, q, s) = \sum_{j=1}^M\prime \left(u^P_j (x_s) - \overline u_j (x_s)\right)^2.\\
 \end{alignat*}
 
-Minimalizując funkcjonał F wyznaczamy optymalne wartości $p$, $q$, $s$  otrzymując warunek brzegowy, a tym samym rozwiązujemy zadanie odwrotne.
-Do minimalizacji funkcjonału F(p, q, s) wykorzystamy algorytm wyżarzania. \\ \newLine
+Minimalizując funkcjonał $F$ wyznaczamy szukane wartości $p$, $q$, $s$, a tym samym otrzymujemy funkcję opisującą warunek brzegowy, co jest rozwiązaniem zadania odwrotnego.
+Do minimalizacji funkcjonału $F(p, q, s)$ wykorzystamy algorytm symulowanego wyżarzania. \\ \newLine
 
-Przykład numeryczny\\
+
+\subsubsection{Przykład numeryczny}
 
 Rozważmy zadanie dla $c$ = $\rho$ = $\lambda$ = 1, $a$ = 1, $T$= 1 z zadanym warunkiem początkowym:
 
@@ -787,62 +762,61 @@ u(x, 0) = \frac{1}{2} x^2\\
 
 oraz zadanym warunkiem brzegowym
 \begin{alignat*}{2}
-u(0, t) = t + 0.5\\
+u(0, t) = t\\
 \end{alignat*}
 
 
-Brak informacji o funkcji opisującej warunek brzegowy na brzegu $x = a$ rekompensują dane pomiarowe temperatury w punkcie $x_s$ = 0.8 z krokiem $\Delta t$ = 0.1.
+Brak informacji o funkcji opisującej warunek brzegowy na brzegu $x = 1$ rekompensują dane pomiarowe temperatury w punkcie $x_s$ = 0.8 z krokiem $\Delta t$ = 0.1.
 
-Stądże wiemy, że rozwiązaniem dokładnym tak postawionego zadania jest funkcja $h(t) = t+1$ oraz $u(x, t) = \frac{1}{2}x^2 +t$.
+Skadinąd wiemy, że rozwiązaniem dokładnym tak postawionego zadania jest funkcja $h(t) = t+1$ oraz $u(x, t) = \frac{1}{2}x^2 +t$.
 
+%\subsection{Problem odwrotny}
+%Posiadając rozkład temperatur, pobrali\si my 10 jej pomiarów w 80 \% maksymalnej ilo\si węzłów w równych odstępach czasu. Następująca tabela przedstawia temperatury wykorzystywane w obliczeniach:
 
-\subsection{Problem odwrotny}
-Posiadając rozkład temperatur, pobrali\si my 10 jej pomiarów w 80 \% maksymalnej ilo\si węzłów w równych odstępach czasu. Następująca tabela przedstawia temperatury wykorzystywane w obliczeniach:
+%\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+%\hline
+%& \textbf{ $t_i$} \\ \hline
+%& 0,82\\ \hline 
+%&0,92\\ \hline 
+%&1,02\\ \hline 
+%&1,12\\ \hline 
+%&1,22\\ \hline 
+%&1,32\\ \hline 
+%&1,42\\ \hline 
+%&1,52\\ \hline 
+%&1,62\\ \hline 
+%&1,72 \\ \hline 
+%\end{tabularx}\\
 
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
-\hline
-& \textbf{ $t_i$} \\ \hline
-& 0,82\\ \hline 
-&0,92\\ \hline 
-&1,02\\ \hline 
-&1,12\\ \hline 
-&1,22\\ \hline 
-&1,32\\ \hline 
-&1,42\\ \hline 
-&1,52\\ \hline 
-&1,62\\ \hline 
-&1,72 \\ \hline 
-\end{tabularx}\\
+%Posiadając model problemu tradycyjnego oraz obliczone pomiary temperatur, zadanie polegało na odtworzeniu jednego z warunków granicznych ($h$) za pomocą równania kwadratowego:
 
-Posiadając model problemu tradycyjnego oraz obliczone pomiary temperatur, zadanie polegało na odtworzeniu jednego z warunków granicznych ($h$) za pomocą równania kwadratowego:
+%\[\overline{h}(t) = p^2 t + qt + s \]
 
-\[\overline{h}(t) = p^2 t + qt + s \]
+%w taki sposób, by obliczony na nowo rozkład temperatur przy pomocy nowej funkcji i pobrany zestaw danych jak najbardziej przypominał oryginalny. By odtworzona funkcja była równa pierwotnej, parametry powinny przyjąć następujące warto\si ci:
+%\[ p = 0\]
+%\[ q = 1\]
+%\[ s = 1\]
 
-w taki sposób, by obliczony na nowo rozkład temperatur przy pomocy nowej funkcji i pobrany zestaw danych jak najbardziej przypominał oryginalny. By odtworzona funkcja była równa pierwotnej, parametry powinny przyjąć następujące warto\si ci:
-\[ p = 0\]
-\[ q = 1\]
-\[ s = 1\]
+%\subsection{Wykorzystanie algorytmu heurystycznego}
+%Do odnalezienia parametrów równania kwadratowego został użyty algorytm symulowanego wyżarzania. Algorytm w procesie iteracyjnym sprawdzał jakie warto\si ci $p$, $q$ i $s$ pozwalały na uzyskanie jak najmniejszego błędu odtworzenia (liczonego jako sumę warto\si ci bewzględnej różnic odpowiednich pomiarów temperatur), co przedstawia poniższy wzór:
 
-\subsection{Wykorzystanie algorytmu heurystycznego}
-Do odnalezienia parametrów równania kwadratowego został użyty algorytm symulowanego wyżarzania. Algorytm w procesie iteracyjnym sprawdzał jakie warto\si ci $p$, $q$ i $s$ pozwalały na uzyskanie jak najmniejszego błędu odtworzenia (liczonego jako sumę warto\si ci bewzględnej różnic odpowiednich pomiarów temperatur), co przedstawia poniższy wzór:
+%$$ \sum_{i=1}^{n} \left| x_i - z_i \right| $$
 
-$$ \sum_{i=1}^{n} \left| x_i - z_i \right| $$
+%gdzie: \\
+%$ x_i $ - oryginalny i-ty pomiar  \\
+%$ z_i$  - odtworzony i-ty pomiar  \\
+%$ n $ - liczba pomiarów. \\
 
-gdzie: \\
-$ x_i $ - oryginalny i-ty pomiar  \\
-$ z_i$  - odtworzony i-ty pomiar  \\
-$ n $ - liczba pomiarów. \\
+%Poszukiwania parametrów zostały ograniczone do następującego przedziału:
 
-Poszukiwania parametrów zostały ograniczone do następującego przedziału:
-
-\[ p, q, s \in [-10, 10] \]
+%\[ p, q, s \in [-10, 10] \]
 
 \subsubsection{Implementacja rozwiązania problemu odwrotnego}
 
-Klasa odpowiadająca za problem odwrotny posiada metodę Solve(), która zwraca błąd odtworzenia funkcji. Funkcja ta przyjmuje dowolną ilo\si ć parametrów (ze względu na uniwersalno\si ć metody Solve() w problemach), gdzie tutaj pierwsze trzy argumenty są parametrami funkcji kwadratowej. W implementacji tej metody jest używanych kilka zmiennych/metod, które oznaczają:\\
+Klasa odpowiadająca za rozwiązanie problemu odwrotnego posiada metodę Solve(), która zwraca błąd odtworzenia funkcji (warto\si ć funkcjonału $F(p, q, s)$). Metoda ta przyjmuje dowolną ilo\si ć parametrów (ze względu na uniwersalno\si ć metody Solve() w przypadku innych rozwiązywanych problemów), gdzie tutaj akurat pierwsze trzy argumenty są parametrami szukanej funkcji kwadratowej. W implementacji tej metody jest używanych kilka zmiennych lub metod, które oznaczają:\\
 
-\noindent $GetInverseProblemTemperatureMeasurements()$, pomocnicza metoda, która zwraca odpowiednie pomiary temperatur dla odtworzonego problemu tradycyjnego (z funkcją $\overline{h}$ jako odtworzona funkcja kwadratowa), \\
-\noindent $Measurements$ - oryginalny zestaw pomiarów. \\
+\noindent $GetTemperatureMeasurements()$, pomocnicza metoda, która zwraca odpowiednie pomiary temperatur w punkcie pomiarowym (z funkcją $\overline{h}$ jako odtworzona funkcja kwadratowa), \\
+\noindent $Measurements$ - dane pomiarowe. \\
 
 Implementacja metody Solve() ma następującą postać:
 
@@ -855,10 +829,10 @@ public override double Solve(params double[] values)
 
     double sum = 0;
 
-    double[] tmpMeasurements = GetInverseProblemTemperatureMeasurements();
+    double[] tmpMeasurements = GetTemperatureMeasurements();
     for (int i = 0; i < Measurements.Length; i++)
     {
-        sum += Math.Abs(Measurements[i] - tmpMeasurements[i]);
+        sum += Math.Pow(Measurements[i] - tmpMeasurements[i], 2);
     }
     return sum;
 }
@@ -867,13 +841,13 @@ public override double Solve(params double[] values)
 Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do obliczania jak ,,najniższej" warto\si ci błędu odtworzenia i to wła\si nie algorytm przekazuje warto\si ci parametrów metodzie Solve().
 
 \subsubsection{Parametry algorytmu}
-Ze względu na czas oczekiwania znalezienia pojedynczego optymalnego rozwiązania problemu, ilo\si ć prób sprawdzających jako\si ć dobranych parametrów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z satysfakcjonującym wynikiem błędu odtworzenia. \\
+Ze względu na czas obliczeń zadania odwrotnego, ilo\si ć prób sprawdzających jako\si ć otrzymanych rezultatów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z ,,satysfakcjonującym" wynikiem błędu odtworzenia. \\
 
 \begin{tabularx}{\textwidth}{ |X|X|} 
 \hline
  \textbf{Parametr} & \textbf{ Warto\si ć}\\ \hline
  $T_0$ & 20 \\ \hline 
- $T_{end}$ & 0.001 \\ \hline 
+ $T_{end}$ & 0.01 \\ \hline 
  $It$ & 35000 \\ \hline 
  $k$& 0.99 \\ \hline 
 $It_m$ & 757 \\ \hline
@@ -882,27 +856,31 @@ $It_m$ & 757 \\ \hline
 
 \subsection{Rezultaty}
 
-Oprócz prób odtworzenia funkcji granicznej dla dokładnych pomiarów, zostały również podjęte próby jej odtworzenia dla pomiarów, które posiadają kolejno 1, 2 i 5\% zakres błędu. Każda warto\si ć temperatury została obliczona w następujący sposób dla poszczególnych pomiarów:
-
-\[ t_{ip} = rand\left(t_{i} - \left(\frac{t_{i} p}{100}\right), t_{i} +\left (\frac{t_{i} p}{100}\right)\right) \]
-
-gdzie:\\
-$p$ - warto\si ć procentu zakresu błędu,\\
-$t_i$ - oryginalny i-ty pomiar,\\
-$t_{ip}$ - i-ty pomiar z p-procentowym zakresem błędu,\\
-$rand$ - funkcja losująca liczbę z zakresu (od, do).
+Oprócz prób rozwiązania zadania odwrotnego z danymi dokładnymi, zostały również podjęte próby dla danych zakłóconych błędem 1, 2 i 5\%. Na potrzeby tych zadań temperatury pomiarowe zostały zakłócone losowym błędem o rozkładzie równomiernym.
 
 
-\subsubsection{Dokładne pomiary temperatur}
+ %Każda warto\si ć temperatury została obliczona w następujący sposób dla poszczególnych pomiarów:
 
-Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów (liczby zaokrąglono do 4 miejsca po przecinku) przy niezmienionych pomiarach temperatur. \\
+%\[ t_{ip} = rand\left(t_{i} - \left(\frac{t_{i} p}{100}\right), t_{i} +\left (\frac{t_{i} p}{100}\right)\right) \]
 
+%gdzie:\\
+%$p$ - warto\si ć procentu zakresu błędu,\\
+%$t_i$ - oryginalny i-ty pomiar,\\
+%$t_{ip}$ - i-ty pomiar z p-procentowym zakresem błędu,\\
+%$rand$ - funkcja losująca liczbę z zakresu (od, do).
+
+
+%\subsubsection{Dokładne pomiary temperatur}
+
+Tabela (XXX, tutaj będzie numer) przedstawia wyniki uzyskane dla podanych powyżej parametrów (liczby zaokrąglono do 4 miejsca po przecinku) dla danych niezakłóconych. \\
+
+Tabela: Zestawienie wyników dla danych dokładnych (niezakłóconych) \\
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
 & \textbf{Błąd} &
- \textbf{P} &
- \textbf{Q} &
- \textbf{S}\\ \hline
+ \textbf{p} &
+ \textbf{q} &
+ \textbf{s}\\ \hline
 & 6,9416 * $10^{-4}$ & -0,0012 & 1,0015 & 0,9996 \\ \hline 
 & 9,4350 * $10^{-4}$  & 0,0028  & 0,9971  & 1,0006 \\ \hline 
 & 6,1092 * $10^{-4}$  & -0,0013 & 1,0015 & 0,9996 \\ \hline 
@@ -914,51 +892,58 @@ Następna tabela przedstawia wyniki osiągniete przy pomocy podanych parametrów
 %f = 0.12636545557 t^2 + 0.89758728094 t + 1.01513765916
 %f = -0.00048605428 t^2 + 1.00065381003 t + 0.9998353925
 
-Różnicę pomiędzy pierwotną funkcją graniczną, a odtworzoną (poprzez u\si rednienie parametrów $p$, $q$ i $s$) została również przedstawiona na wykresie (żółty kolor oznacza oryginał, niebieska odtworzoną, niebieska posiada większą grubo\si ć w celu zauważenia nachodzenia na siebie linii).
+gdzie Nr w tabeli oznacza numer próby odtwarzanego zadania odwrotnego (wykonano je 5 razy). \\
+
+
+Różnicę pomiędzy funkcją dokładną, a opisującą odtworzony warunek brzegowy została przedstawiona na rysunku (żółty kolor oznacza funkcję dokładną, niebieska odtworzoną).
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/0reconstruction.png}\\
-	\caption{Porównanie początkowej funkcji granicznej z odtworzoną}
+	\caption{Porównanie dokładnej (linia żółta) i odtworzonej (linia niebieska) funkcji $h(t)$ opisującej warunek brzegowy}
 \end{center}
 \end{figure}
 
-Przygotowano również wykres pokazujący błąd bezwzględny obliczeń, co przedstawia poniższy rysunek: \\
+Przygotowano również wykres przedstawiający błąd względny uzyskanych rezultatów, co przedstawia rysunek 6. \\
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/0abs.png}\\
-	\caption{Błąd bezwzględny obliczeń}\
+	\caption{Błąd względny odtwarzanej funkcji $h(t)$ dla danych niezakłóconych błędem}
 \end{center}
 \end{figure}
 
-\subsubsection{1\% błąd pomiarowy temperatur}
+%\subsubsection{1\% błąd pomiarowy temperatur}
 
-Pomiary wykorzystywane przy obliczeniach z 1\% zakresem błędu pomiarowego wyglądają następująco: \\
+%Pomiary wykorzystywane przy obliczeniach z 1\% zakresem błędu pomiarowego wyglądają następująco: \\
 
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
-\hline
-& \textbf{ $t_i$} \\ \hline
-&0,8254\\ \hline 
-&0,9273\\ \hline 
-&1,0230\\ \hline 
-&1,1173\\ \hline 
-&1,2246\\ \hline 
-&1,3169\\ \hline 
-&1,4207\\ \hline 
-&1,5227\\ \hline 
-&1,6239\\ \hline 
-&1,7363\\ \hline 
-\end{tabularx}\\
+%\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+%\hline
+%& \textbf{ $t_i$} \\ \hline
+%&0,8254\\ \hline 
+%&0,9273\\ \hline 
+%&1,0230\\ \hline 
+%&1,1173\\ \hline 
+%&1,2246\\ \hline 
+%&1,3169\\ \hline 
+%&1,4207\\ \hline 
+%&1,5227\\ \hline 
+%&1,6239\\ \hline 
+%&1,7363\\ \hline 
+%\end{tabularx}\\
 
-Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezultaty (zaokrąglone do 4 miejsca po przecinku): \\
+%Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezultaty (zaokrąglone do 4 miejsca po przecinku): \\
 
+W tabeli (XXX) zostały przedstawione wyniki uzyskane dla wybranych parametrów algorytmu (liczby zaokrąglono do 4 miejsca po przecinku) dla danych zakłóconych błędem 1\%. \\
+
+
+Tabela: Zestawienie wyników dla danych zakłóconych błędem 1\% \\
 \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
 & \textbf{Błąd} &
- \textbf{P} &
- \textbf{Q} &
- \textbf{S}\\ \hline
+ \textbf{p} &
+ \textbf{q} &
+ \textbf{s}\\ \hline
 & 2,7209 * $10^{-2}$ & 0,1190 & 0,8952 & 1,0189 \\ \hline 
 & 2,3787 * $10^{-2}$ & 0,1152 & 0,9157 & 1,0140 \\ \hline 
 & 2,7362 * $10^{-2}$ & 0,1500 & 0,8860 & 1,0063 \\ \hline 
@@ -966,52 +951,55 @@ Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezul
 & 2,3617 * $10^{-2}$ & 0,1304 & 0,9021 & 1,0187 \\ \hline 
 \end{tabularx} \\
 
-Różnica pomiędzy oryginalną funkcją, a uzyskaną (poprzez u\si rednienie parametrów) została przedstawiona na wykresie: \\
+Porównanie funkcji dokładnej i odtwarzanej dla danych zakłóconych błędem 1\% została przedstawiona na rysunku 7. \\
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/1reconstruction.png}\\
-	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 1 \% zakresem błędu pomiarów)}
+	\caption{Porównanie dokładnej (linia żółta) i odtworzonej (linia niebieska) funkcji $h(t)$ dla danych zakłóconych błędem 1\% opisującej warunek brzegowy}
 \end{center}
 \end{figure}
 
-Następujący rysunek przedstawia błąd bezwzględny obliczeń: \\
+Błąd względny tego odtworzenia ilustruje rysunek 8. \\
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/1abs.png}\\
-	\caption{Błąd bezwzględny obliczeń}
+	\caption{Błąd względny odtwarzanej funkcji $h(t)$ dla danych zakłóconych błędem 1\%}
 \end{center}
 \end{figure}
 
 
 
-\subsubsection{2\% błąd pomiarowy temperatur}
+%\subsubsection{2\% błąd pomiarowy temperatur}
 
-Przy obliczaniu parametrów odtwarzanej funkcji przy 2\% zakresie błędu pomiarowego wykorzystano następujące pomiary temperatur: \\
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
-\hline
-& \textbf{ $t_i$} \\ \hline
-&0,8327\\ \hline 
-&0,9225\\ \hline 
-&1,0161\\ \hline 
-&1,1337\\ \hline 
-&1,2405\\ \hline 
-&1,3304\\ \hline 
-&1,4376\\ \hline 
-&1,5097\\ \hline 
-&1,6126\\ \hline 
-&1,6993\\ \hline 
-\end{tabularx}\\ \newLine
+%Przy obliczaniu parametrów odtwarzanej funkcji przy 2\% zakresie błędu pomiarowego wykorzystano następujące pomiary temperatur: \\
+%\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+%\hline
+%& \textbf{ $t_i$} \\ \hline
+%&0,8327\\ \hline 
+%&0,9225\\ \hline 
+%&1,0161\\ \hline 
+%&1,1337\\ \hline 
+%&1,2405\\ \hline 
+%&1,3304\\ \hline 
+%&1,4376\\ \hline 
+%&1,5097\\ \hline 
+%&1,6126\\ \hline 
+%&1,6993\\ \hline 
+%\end{tabularx}\\ \newLine
 
-Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrągleniu do 4 miejsca po przecinku): \\
+%Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrągleniu do 4 miejsca po przecinku): \\
 
+Wyniki prób odtworzenia parametrów funkcji granicznej dla danych zakłóconych błędem 2\% zostały przedstawione poniżej: \\
+
+Tabela: Zestawienie wyników dla danych zakłóconych błędem 2\% \\
 \noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
 & \textbf{Błąd} &
- \textbf{P} &
- \textbf{Q} &
- \textbf{S}\\ \hline
+ \textbf{p} &
+ \textbf{q} &
+ \textbf{s}\\ \hline
 & 6,8528 * $10^{-2}$  & -0,3642 & 1,2993  & 0,9513 \\ \hline 
 & 6,5422 * $10^{-2}$  & -0,2570 & 1,1971  & 0,9992 \\ \hline 
 & 5,8742 * $10^{-2}$  & -0,2352 & 1,1853  & 0,9895 \\ \hline 
@@ -1019,52 +1007,55 @@ Obliczone parametry wraz z błędem prezentują się następująco (przy zaokrą
 & 6,0850 * $10^{-2}$  & -0,1995 & 1,1643  & 0,9801 \\ \hline 
 \end{tabularx} \\
 
-Różnicę pomiędzy funkcjami pierwotną i obliczoną (poprzez u\si rednienie parametrów) przedstawia poniższy wykres: \\
+Różnicę pomiędzy funkcjami dokładną i odtworzoną przedstawia poniższy wykres: \\
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/2reconstruction.png}\\
-	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 2 \% zakresem błędu pomiarów)}
+	\caption{Porównanie dokładnej (linia żółta) i odtworzonej (linia niebieska) funkcji $h(t)$ dla danych zakłóconych błędem 2\% opisującej warunek brzegowy}
 \end{center}
 \end{figure}
 
-Błąd bezwzględny obliczeń został przedstawiony poniżej: \\
+Rysunek 10 prezentuje błąd względny odtworzenia funkcji granicznej z danymi zakłóconymi błędem 2\%. \\
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/2abs.png}\\
-	\caption{Błąd bezwzględny obliczeń}
+	\caption{Błąd względny odtwarzanej funkcji $h(t)$ dla danych zakłóconych błędem 2\%}
 \end{center}
 \end{figure}
 
 
 
-\subsubsection{5\% błąd pomiarowy temperatur}
+%\subsubsection{5\% błąd pomiarowy temperatur}
 
-Pomiary wykorzystywane przy obliczeniach z 5\% zakresem błędu pomiarowego wyglądają następująco: \\
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
-\hline
-& \textbf{ $t_i$} \\ \hline
-&0,8051\\ \hline 
-&0,9300\\ \hline 
-&1,0515\\ \hline 
-&1,1398\\ \hline 
-&1,2139\\ \hline 
-&1,2906\\ \hline 
-&1,3880\\ \hline 
-&1,5877\\ \hline 
-&1,6267\\ \hline 
-&1,7959\\ \hline 
-\end{tabularx}\\
+%Pomiary wykorzystywane przy obliczeniach z 5\% zakresem błędu pomiarowego wyglądają następująco: \\
+%\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|} 
+%\hline
+%& \textbf{ $t_i$} \\ \hline
+%&0,8051\\ \hline 
+%&0,9300\\ \hline 
+%&1,0515\\ \hline 
+%&1,1398\\ \hline 
+%&1,2139\\ \hline 
+%&1,2906\\ \hline 
+%&1,3880\\ \hline 
+%&1,5877\\ \hline 
+%&1,6267\\ \hline 
+%&1,7959\\ \hline 
+%\end{tabularx}\\
 
-Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb do 4 miejsca po przecinku): \\
+%Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb do 4 miejsca po przecinku): \\
 
+Otrzymane rezultaty parametrów odtworzonej funkcji $h(t)$, przy danych pomiarowych zakłóconych błędem 5\%, zostały przedstawione w tabeli (XXX). \\\
+
+Tabela: Zestawienie wyników dla danych zakłóconych błędem 5\% \\
 \noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
 \hline
 & \textbf{Błąd} &
- \textbf{P} &
- \textbf{Q} &
- \textbf{S}\\ \hline
+ \textbf{p} &
+ \textbf{q} &
+ \textbf{s}\\ \hline
 & 0,2031 & 0,8678 & 0,2034 & 1,1597 \\ \hline 
 & 0,2049 & 0,6563 & 0,4295 & 1,0985 \\ \hline 
 & 0,2030 & 0,7652 & 0,3167 & 1,1265 \\ \hline 
@@ -1072,84 +1063,75 @@ Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb 
 & 0,2041 & 0,7516 & 0,3426 & 1,1119 \\ \hline 
 \end{tabularx}\\
 
-Wykresy obu funkcji zostały przedstawione poniżej: \\
+Rysunek 11 przedstawia porównanie funkcji dokładnej oraz odtworzonej z danymi zakłóconymi błędem 5\%.
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/5reconstruction.png}\\
-	\caption{Porównanie początkowej funkcji granicznej z odtworzoną (z 5 \% zakresem błędu pomiarów)}
+	\caption{Porównanie dokładnej (linia żółta) i odtworzonej (linia niebieska) funkcji $h(t)$ dla danych zakłóconych błędem 5\% opisującej warunek brzegowy}
 \end{center}
 \end{figure}
 
-Poniższy rysunek przedstawia błąd bewzględny obliczeń: \\
+Poniższy rysunek ilustruje błąd względny otrzymanych wyników:
 
 \begin{figure}[H]
 \begin{center}
 		\includegraphics[height=7cm, width=10cm]{pics/5abs.png}\\
-	\caption{Błąd bezwzględny obliczeń}
+	\caption{Błąd względny odtwarzanej funkcji $h(t)$ dla danych zakłóconych błędem 5\%}
 \end{center}
 \end{figure}
 
 
 
-
-
 \section{Podsumowanie}
-Celem tej pracy inżynierskiej było stworzenie aplikacji, która pozwoliłaby rozwiązać zadany problem przewodnictwa ciepła poprzez zastosowanie algorytmu symulowanego wyżarzania. Stworzono więc program, który poprzez prosty interfejs graficzny pozwala na użycie tego algorytmu heurystycznego do wyznaczenia minimum w kilku funkcjach testowych oraz do rozwiązania zadanego odwrotnego zadania przewodnictwa ciepła. \\
+Celem tej pracy inżynierskiej było stworzenie aplikacji, która pozwoliłaby rozwiązać zadany problem przewodnictwa ciepła poprzez zastosowanie algorytmu symulowanego wyżarzania. Stworzono więc program, który poprzez prosty interfejs graficzny pozwala na użycie tego algorytmu heurystycznego do wyznaczenia minimum dla kilku funkcji testowych oraz do rozwiązania odwrotnego zadania przewodnictwa ciepła okre\si lonego w rozdziale 6.3.1. \\
 
-Realizacja założeń projektu wymagała przeprowadzenia badań w kwestii odpowiedniego doboru parametrów dla poszczególnych problemów i ich jako\si ci oraz przetestowania i zoptymalizowania samego działania algorytmu symulowanego wyżarzania. Dobrane parametry dla poszczególnych problemów pozwalają na stosunkowo szybkie i poprawne znalezienie optymalnego rozwiązania danego problemu, a wyniki przeprowadzonych testów rozwiązania odwrotnego zadania przewodnictwa ciepła na zbliżone odtworzenie jednego z brakujących parametrów modelu matematycznego. \\
-
---\\
-Tutaj będą jeszcze wnioski\\
---\\
-%
-%Napisać o tym, że implementacja algorytmu spowodowała trudno\si ci, ważne są detale, coś o wynikach.
-%
+Realizacja założeń projektu wymagała przeprowadzenia badań w kwestii odpowiedniego doboru parametrów dla poszczególnych problemów i ich jako\si ci oraz przetestowania i zoptymalizowania samego działania algorytmu symulowanego wyżarzania. Dobrane parametry dla poszczególnych problemów pozwalają na stosunkowo szybkie i poprawne znalezienie optymalnego rozwiązania zadanego problemu, a wyniki przeprowadzonych testów rozwiązania odwrotnego zadania przewodnictwa ciepła \si wiadczą, że zaproponowana metoda jest wła\si ciwym narzędziem do rozwiązywania tego typu zadań. \\
 
 \begin{thebibliography}{12}
 
-% sym
-\bibitem{0} http://iswiki.if.uj.edu.pl/iswiki/images/2/20/AiSD\_22.\_Symulowane \_wy\%C5\%BCarzanie\_\%28problem\_komiwoja\%C5\%BCera\%29.pdf [dostęp: 20 sierpnia 2018]
-
-\bibitem{1} M. Duque-Anth, \textit{Constructing efficient simulated annealing algorithms}, [w:] ,,Discrete Applied Mathematics", 1997 nr 77/2, s. 139-159 Dostępny w Internecie: https://www.sciencedirect.com/science/article/pii/S0166218X96001321
+\bibitem{0} M. Duque-Anth, \textit{Constructing efficient simulated annealing algorithms}, [w:] ,,Discrete Applied Mathematics", 1997 nr 77/2, s. 139-159 Dostępny w Internecie: https://www.sciencedirect.com/science/article/pii/S0166218X96001321
 [dostęp 20 sierpnia 2018]
 
-\bibitem{2} http://wikizmsi.zut.edu.pl/uploads/archive/5/5e/20140303092223!OzWSI\_I\_S1\_W1.pdf
+\bibitem{1} H. Abiyev, M. Tunay, \textit{Optimization of High-Dimensional Functions through Hypercube Evaluation}, Dostępny w Internecie:https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4538776/
+[dostęp: 13 listopada 2018]
+
+% sym
+\bibitem{2} http://iswiki.if.uj.edu.pl/iswiki/images/2/20/AiSD\_22.\_Symulowane \_wy\%C5\%BCarzanie\_\%28problem\_komiwoja\%C5\%BCera\%29.pdf [dostęp: 20 sierpnia 2018]
+
+\bibitem{3}E. Hetmaniok, A. Zielonka, D. Słota, \textit{Zastosowanie algorytmu selekcji klonalnej do odtworzenia warunku brzegowego trzeciego rodzaju}, [w:] ,,Zeszyty naukowe Politechniki Śląskiej", 2012 nr 2/1874
+
+\bibitem{4} E. Hetmaniok, D. Słota, A. Zielonka, \textit{Application of the Ant Colony Optimization Algorithm for Reconstruction of the Thermal Conductivity Coefficient}, [w:] \textit{Swarm and Evolutionary Computation}, wyd. Springer-Verlag Berlin Heidelberg, 2012,  s. 240-248, ISBN 978-3-642-29352-8
+
+\bibitem{5} http://wikizmsi.zut.edu.pl/uploads/archive/5/5e/20140303092223!OzWSI\_I\_S1\_W1.pdf
 [dostęp: 25 sierpnia 2018]
 
-\bibitem{3} http://www.wikizmsi.zut.edu.pl/uploads/e/eb/OzWSI\_I\_S1\_c1.pdf
+\bibitem{6} http://www.wikizmsi.zut.edu.pl/uploads/e/eb/OzWSI\_I\_S1\_c1.pdf
 [dostęp: 25 sierpnia 2018]
 
 %funkcje testowe
-\bibitem{4} https://en.wikipedia.org/wiki/Test\_functions\_for\_optimization\#Test\_functions\_for\_single-objective\_optimization [dostęp: 30 października 2018]
+\bibitem{7} https://en.wikipedia.org/wiki/Test\_functions\_for\_optimization\#Test\_functions\_for\_single-objective\_optimization [dostęp: 30 października 2018]
 
-\bibitem{5} H. Abiyev, M. Tunay, \textit{Optimization of High-Dimensional Functions through Hypercube Evaluation}, Dostępny w Internecie:https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4538776/
-[dostęp: 13 listopada 2018]
 
-\bibitem{6} K. Żydzik, T. Rak,  \textit{C\# 6.0 i MVC 5. Tworzenie nowoczesnych portali internetowych}, Wyd. Helion, 2015, ISBN 
+\bibitem{8} K. Żydzik, T. Rak,  \textit{C\# 6.0 i MVC 5. Tworzenie nowoczesnych portali internetowych}, Wyd. Helion, 2015, ISBN 
 978-83-283-0864-0
 
-\bibitem{7} J. Albahari, B. Albahari, \textit{C\# 7.0 in a Nutshell: The Definitive Reference}, Wyd. O'Reilly Media, 2017, ISBN 9781491987643
-
+\bibitem{9} J. Albahari, B. Albahari, \textit{C\# 7.0 in a Nutshell: The Definitive Reference}, Wyd. O'Reilly Media, 2017, ISBN 9781491987643
 
 %wstep i opis problemu[?]
-\bibitem{8} F. Rothlauf, \textit{Optimization Problems}, [w:] \textit{Design of Modern Heuristics: Principles and Application}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 7-44, ISBN 978-3-540-72961-7
+\bibitem{10} F. Rothlauf, \textit{Optimization Problems}, [w:] \textit{Design of Modern Heuristics: Principles and Application}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 7-44, ISBN 978-3-540-72961-7
 Dostępny w Internecie: https://pdfs.semanticscholar.org/b333/0f96d1a937fc2c63b3294729cfea30826134.pdf
 [dostęp: 27 listopada 2018]
 
 %wstep i opis problemu
-\bibitem{9} R. Martí, G. Reinelt, \textit{Heuristic Methods}, [w:] \textit{The Linear Ordering Problem, Exact and Heuristic Methods in Combinatorial Optimization}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 17-40, ISBN 978-3-642-16728-7
+\bibitem{11} R. Martí, G. Reinelt, \textit{Heuristic Methods}, [w:] \textit{The Linear Ordering Problem, Exact and Heuristic Methods in Combinatorial Optimization}, wyd. Springer-Verlag Berlin Heidelberg, 2011, s. 17-40, ISBN 978-3-642-16728-7
 
 %problemy odwrotne/1 rozdzial
-\bibitem{10} http://prac.im.pwr.edu.pl/$\sim$plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
+\bibitem{12} http://prac.im.pwr.edu.pl/$\sim$plociniczak/lib/exe/fetch.php?media=odwrotne.pdf
 [dostęp: 10 grudnia 2018]
 
-\bibitem{11} https://www.math.unl.edu/$\sim$scohn1/8423/wellposed.pdf
+\bibitem{13} https://www.math.unl.edu/$\sim$scohn1/8423/wellposed.pdf
  [dostęp: 10 grudnia 2018]
-
-\bibitem{12}E. Hetmaniok, A. Zielonka, D. Słota, \textit{Zastosowanie algorytmu selekcji klonalnej do odtworzenia warunku brzegowego trzeciego rodzaju}, [w:] ,,Zeszyty naukowe Politechniki Śląskiej", 2012 nr 2/1874
-
-\bibitem{13} E. Hetmaniok, D. Słota, A. Zielonka, \textit{Application of the Ant Colony Optimization Algorithm for Reconstruction of the Thermal Conductivity Coefficient}, [w:] \textit{Swarm and Evolutionary Computation}, wyd. Springer-Verlag Berlin Heidelberg, 2012,  s. 240-248, ISBN 978-3-642-29352-8
 
 \bibitem{14} R. Grzymkowski, A. Zielonka, \textit{Zastosowania teorii falek w zagadnieniach brzegowych}, Wyd. Pracownia Komputerowa Jacka Skalmierskiego, 2004, s. 86-89, ISBN 9788389105639
 

@@ -87,10 +87,10 @@ namespace HeuristicAlgorithms.Functions
 
             double sum = 0;
 
-            double[] tmpMeasurements = GetInverseProblemTemperatureMeasurements();
+            double[] tmpMeasurements = GetTemperatureMeasurements();
             for (int i = 0; i < Measurements.Length; i++)
             {
-                sum += Math.Abs(Measurements[i] - tmpMeasurements[i]);
+                sum += Math.Pow(Measurements[i] - tmpMeasurements[i], 2);
             }
             return sum;
         }
@@ -162,7 +162,7 @@ namespace HeuristicAlgorithms.Functions
             return result;
         }
 
-        private double[] GetInverseProblemTemperatureMeasurements()
+        private double[] GetTemperatureMeasurements()
         {
             var temp = InverseProblem.Solve();
             double[] result = new double[ResultSize];

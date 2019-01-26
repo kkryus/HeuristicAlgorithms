@@ -292,13 +292,6 @@ namespace HeuristicAlgorithms
 
         #endregion
 
-
-        // 3 scenariusze:
-        //1. niska temp(100-500, co 100 -> 5), niska ilosc iteracji(100-500, -> 5) -> slaby wynik -> 5*5 = 25
-        //2. wieksza ilosc temp (1k-10k, co 2k -> 5), wieksza ilosc iteracji (1k-10k, co 2k) -> 5*5 = 25, wieksza temp nie daje az takich efektow, dlatego iteracje mocno zwiekszam
-        //3. najlepsiejsza temp zostaje, iteracje 10k - 100k
-
-
         #region Utilities Methods
         //500-5000?
         //drop = 500?
@@ -356,8 +349,8 @@ namespace HeuristicAlgorithms
         //7
         public int[] GetIterationsArray()
         {
-            int arraySize = 5;
-            int beginingValue = 50000;
+            int arraySize = 10;
+            int beginingValue = 10000;
             int riseValue = 10000;
             int[] iterationsArray = new int[arraySize];
             for (int i = 0; i < arraySize; i++)
