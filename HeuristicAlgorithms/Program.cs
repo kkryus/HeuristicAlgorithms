@@ -62,16 +62,16 @@ namespace HeuristicAlgorithms
 
 
             SimulatedAnnealingAlgorithm simulatedAnnealing;
-            //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments, 1, 0.01, 1, 0.99, 0.01);
+            simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments, 0.5, 0.01, 1, 0.99, 0.01);
             //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4, 0.01, 600, 0.99, 0.01);
             //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 6, 0.01, 500, 0.99, 0.01);
-            UtilitiesMethods tmp = new UtilitiesMethods();
+            /*UtilitiesMethods tmp = new UtilitiesMethods();
             DirectProblem faisnd = new DirectProblem(tmp.f, tmp.g, tmp.h, 1, 1, 15, 480, 1, 1, 1);
             InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction0 = new InverseHeatConductionProblemFunction(faisnd, 0);
             simulatedAnnealing = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction0, 3, 20, 0.01, 35000, 0.99, 0.001);//*/
             //SimulatedAnnealingAlgorithm simulatedAnnealinga0 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction0, 3, 20, 0.001, 35000, 0.99, 0.001);
-            simulatedAnnealing.Solve();
-            /*List<double> lists = new List<double>();
+           // simulatedAnnealing.Solve();
+            List<double> lists = new List<double>();
 
             for (int i = 0; i < 100; i++)
             {
@@ -80,7 +80,7 @@ namespace HeuristicAlgorithms
             }
 
 
-            lists = lists.OrderBy(x => x).ToList();*/
+            lists = lists.OrderBy(x => x).ToList();//*/
             ;
             //Application.Run(new MainView());
             /*#region 1%

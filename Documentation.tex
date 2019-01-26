@@ -248,14 +248,13 @@ W pierwszej kolejno\si ci został przeprowadzony test dla szerokiego zakresu ka�
 	\subsection{Funkcja kwadratowa dwóch zmiennych}
 	Jako pierwszą funkcję do testów przyjęli\si my funkcję kwadratową dwóch zmiennych postaci:
 \begin{alignat*}{2}
-f(x, y) = x^2 + y^2,&\qquad  (x, y) \in R^2.\\
+f(x, y) = x^2 + y^2,&\qquad  (x, y) \in R^2.
 \end{alignat*}
 
 Wybór tak ,,łatwej" funkcji testowej padł ze względu na to, żeby upewnić się czy algorytm został poprawnie zaimplementowany, gdyż proces wyznaczania ekstremum tej funkcji jest ,,bardzo prosty" i nie wymaga dużego nakładu obliczeń. \\
 
 Funkcja ta przyjmuje tylko warto\si ci nieujemne i posiada minimum globalne w punkcie (0, 0). Na potrzeby testów dziedzina tej funkcji została zawężona:
-\[(x, y)  \in [-10,10]^2 \]\\ 
-
+\[(x, y)  \in [-10,10]^2 \]
 
 Funkcję $f(x, y)$ prezentuje poniższy rysunek:\\
 \begin{figure}[H]
@@ -267,24 +266,29 @@ Funkcję $f(x, y)$ prezentuje poniższy rysunek:\\
 
 	\subsubsection{Parametry dobrane dla funkcji kwadratowej dwóch zmiennych}
 Poniższa tabela przedstawia parametry pozwalające na znalezienie rozwiązania z satysfakcjonującą jako\si cią:\\
-
-\begin{tabularx}{\textwidth}{ |X|X|} 
-\hline
- \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
- $T_0$ & 1\\ \hline 
+\clearpage
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestaw wyselekcjonowanych parametrów dających satysfakcjonujące wyniki dla funkcji kwadratowej dwóch zmiennych}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|} 
+                  \hline
+                   \textbf{Parametr} & \textbf{ Warto\si ć} \\ \hline
+ $T_0$ & 0.5\\ \hline 
  $T_{end}$ & 0.01 \\ \hline
 $It$ & 1 \\ \hline  
  $k$& 0.99 \\ \hline 
-$It_m$ & 459 \\ \hline
+$It_m$ & 390 \\ \hline
  Skuteczno\si ć & 100\% \\ \hline 
-\end{tabularx} \\
- 
+\end{tabular}
+\end{table}
+
 	\subsection{Funkcja Rastrigina}
 	Funkcja Rastrigina jest funkcją ciągłą, skalowalną i multimodalną (jej wykres dla n=2, została przedstawiona na rysunku 2). Dzięki posiadaniu wielu minimum lokalnych, funkcja ta jest często stosowana w testowaniu algorytmów optymalizacyjnych. Funkcja Rastrigina okre\si lona jest wzorem:
 
-\[Rn(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}], \] \\
+\[Rn(x) = An + \sum_{i=1}^{n} [x_i^2 - A \cos{\left(2 \pi x_i\right)}], \]
 
-\noindent gdzie: $n$ = ilo\si ć wymiarów, $x$ =$ (x_1, ..., x_n)$, A = 10, $x_i \in [-5.12, 5.12]$. \\
+\noindent gdzie: $n$ = ilo\si ć wymiarów, $x$ =$ (x_1, ..., x_n)$, A = 10, $x_i \in [-5.12, 5.12]$.
 
 \begin{figure}[H]
 	\begin{center}
@@ -294,22 +298,26 @@ $It_m$ & 459 \\ \hline
 \end{figure}
 
 Warto\si ci tej funkcji są nieujemne. Posiada ona następujące globalne minimum:
-\[ f(0,...,0) = 0 \] \\
-
+\[ f(0,...,0) = 0 \] 
 
 	\subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 3 wymiarach}
-Po przeprowadzeniu testów zostały wyselekcjonowane następujące parametry, które prowadzą do uzyskania satysfakcjonujących rezultatów: \\
+Po przeprowadzeniu testów zostały wyselekcjonowane następujące parametry, które prowadzą do uzyskania satysfakcjonujących rezultatów:
 
-\begin{tabularx}{\textwidth}{ |X|X|} 
-\hline
- \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestaw wyselekcjonowanych parametrów dających satysfakcjonujące wyniki dla funkcji testowej Rastrigina dla n = 3}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|} 
+                  \hline
+                   \textbf{Parametr} & \textbf{ Warto\si ć} \\ \hline
  $T_0$ & 4 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
  $It$ & 600 \\ \hline 
 $k$& 0.99 \\ \hline 
 $It_m$ & 597 \\ \hline
  Skuteczno\si ć & 99\% \\ \hline 
-\end{tabularx} \\
+\end{tabular}
+\end{table}
 
 \subsubsection{Dobieranie parametrów dla funkcji Rastrigina o 5 wymiarach}
 
@@ -321,7 +329,7 @@ Przed rozpoczęciem testów przyjęto dwa założenia:
 
 W pierwszym etapie została sprawdzona temperatura dla warto\si ci $ T_0 \in \{2, 4, ..., 10\}$ oraz liczbie wewnętrznych iteracji $It \in \{100, 300, ..., 1100\}$. \\
 
-\clearpage
+
 
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
@@ -358,7 +366,7 @@ W pierwszym etapie została sprawdzona temperatura dla warto\si ci $ T_0 \in \{2
 
 Wyniki uzyskane dla powyższych zestawów parametrów nie dają zadowalających rezultatów. Można jednak zauważyć, iż w tym momencie badań temperatura nie ma aż takiego znaczenia, a większa ilo\si ć iteracji ,,zdaje się dawać lepsze" rezultaty. Zgodnie z założeniem, iż temperatura nie powinna być zbyt wysoka, postanowili\si my dalej sprawdzać ten sam zakres temperatur i zwiększyć ilo\si ć iteracji około stukrotnie, co prezentuje następna tabela.
 
-\clearpage
+
 
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
@@ -492,7 +500,12 @@ Wyniki uzyskane dla powyższych zestawów parametrów nie dają zadowalających 
 
 Otrzymane wyniki sugerują, iż najlepsze wyniki dla podanych zakresów można otrzymać przy temperaturze równej 10 i bardzo wysokich ilo\si ciach iteracji. W następnym kroku sprawdzili\si my jako\si ć rozwiązań dla temperatury równej 10 i iteracji w zakresie przedstawionej w tabeli. \\
 
-\begin{tabularx}{\textwidth}{|X|X|X|} 
+\clearpage
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Rezultaty testów jako\si ci zadanych parametrów dla próby znalezienia minima globalnego dla funkcji Rastrigina dla n = 5}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|c|} 
                   \hline
  $T_0$ & $It (\times 1000)$& Jako\si ć [\%]\\ \hline
 10 & 10 & 29 \\ \hline
@@ -505,21 +518,27 @@ Otrzymane wyniki sugerują, iż najlepsze wyniki dla podanych zakresów można o
 10 & 80 & 74 \\ \hline 
 10 & 90 &  80\\ \hline 
 10 & 100 & 81 \\ \hline 
-\end{tabularx} \\
+\end{tabular}
+\end{table}
 
-Jako\si ć rzędu 75-80\% wydaje się być zadowalająca, dlatego uznali\si my, że proces poszukiwania parametrów dla algorytmu symulowanego wyżarzania dla tego problemu został zakończony. Kolejna tabela przedstawia ostatecznie wybrane parametry dla tego problemu. \\
 
-\begin{tabularx}{\textwidth}{ |X|X|} 
-\hline
- \textbf{ Parametr} & \textbf{ Warto\si ć}\\ \hline
+Jako\si ć rzędu 75-80\% wydaje się być zadowalająca, dlatego uznali\si my, że proces poszukiwania parametrów dla algorytmu symulowanego wyżarzania dla tego problemu został zakończony. Tabela 8 przedstawia ostatecznie wybrane parametry dla tego problemu.
+\clearpage
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestaw wyselekcjonowanych parametrów dających satysfakcjonujące wyniki dla funkcji testowej Rastrigina dla n = 5}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|} 
+                  \hline
+                   \textbf{Parametr} & \textbf{ Warto\si ć} \\ \hline
  $T_0$ & 10 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
  $It$ & 90000 \\ \hline
  $k$& 0.99 \\ \hline 
 $It_m$ & 688 \\ \hline
  Skuteczno\si ć & 80\% \\ \hline 
-\end{tabularx}
-
+\end{tabular}
+\end{table}
 
 	\subsection{Funkcja Rosenbrocka}
 Kolejnym, już ostatnim przykładem funkcji testowej jest funkcja Rosenbrocka. Funkcja ta jest funkcją ciągłą, skalowalną i jednomodalną.
@@ -546,16 +565,21 @@ Poniższy wykres prezentuje jej wygląd w zadanym zakresie:\\
 	\subsubsection{Parametry dobrane dla funkcji Rosenbrocka o 3 wymiarach}
 Poniższa tabela przedstawia parametry, które pozwalały na uzyskanie satysfakcjonującego rozwiązania z dostatecznie ,,dużą" pewno\si cią ich otrzymania: \\
 
-\begin{tabularx}{\textwidth}{ |X|X|} 
-\hline
- \textbf{Parametr} & \textbf{ Warto\si ć}\\ \hline
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestaw wyselekcjonowanych parametrów dających satysfakcjonujące wyniki dla funkcji testowej Rosenbrocka dla n = 3}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|} 
+                  \hline
+                   \textbf{Parametr} & \textbf{ Warto\si ć} \\ \hline
  $T_0$ & 6 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
  $It$ & 500 \\ \hline 
  $k$& 0.99 \\ \hline 
 $It_m$ & 637 \\ \hline
  Skuteczno\si ć & 99\% \\ \hline 
-\end{tabularx}
+\end{tabular}
+\end{table}
 
 \section{Implementacja}
 
@@ -694,20 +718,17 @@ Niech dane będzie równanie przewodnictwa ciepła postaci:
 c\rho \frac{\partial u}{\partial t}&= \lambda \frac{\partial^2 u}{\partial x^2},&\qquad  x \in [0, a], t \in [0, T].\\
 \end{alignat*}
 
-
 z zadanym warunkiem początkowym:
 
 \begin{alignat*}{2}
 u(x, 0) = f(x),&\qquad  x \in [0, a]\\
 \end{alignat*}
 
-
 oraz z zadanymi warunkami brzegowymi I rodzaju:
 
 \begin{alignat*}{2}
 u(0,t) = g(t),&\qquad  u(a, t) = h(t), &\qquad t \in [0, T]\\
 \end{alignat*}
-
 
 Do rozwiązania zadania bezpośredniego zastosujemy metodę różnic skończonych (schemat jawny).
 Rozważamy równanie przewodnictwa ciepła na siatce:
@@ -897,15 +918,20 @@ Metoda ta jest wykorzystywana przez algorytm symulowanego wyżarzania do oblicza
 \subsubsection{Parametry algorytmu}
 Ze względu na czas obliczeń zadania odwrotnego, ilo\si ć prób sprawdzających jako\si ć otrzymanych rezultatów została ograniczona do 5. Poniższa tabela przedstawia dobrane argumenty, które pozwalają na rozwiązanie problemu z ,,satysfakcjonującym" wynikiem błędu odtworzenia. \\
 
-\begin{tabularx}{\textwidth}{ |X|X|} 
-\hline
- \textbf{Parametr} & \textbf{ Warto\si ć}\\ \hline
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestaw wyselekcjonowanych parametrów dających satysfakcjonujące rezultaty zadanego przykładu numerycznego}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|} 
+                  \hline
+                   \textbf{Parametr} & \textbf{ Warto\si ć} \\ \hline
  $T_0$ & 20 \\ \hline 
  $T_{end}$ & 0.01 \\ \hline 
  $It$ & 35000 \\ \hline 
  $k$& 0.99 \\ \hline 
 $It_m$ & 757 \\ \hline
-\end{tabularx}
+\end{tabular}
+\end{table}
 
 
 \subsection{Rezultaty}
@@ -926,30 +952,32 @@ Oprócz prób rozwiązania zadania odwrotnego z danymi dokładnymi, zostały ró
 
 %\subsubsection{Dokładne pomiary temperatur}
 
-Tabela (XXX, tutaj będzie numer) przedstawia wyniki uzyskane dla podanych powyżej parametrów (liczby zaokrąglono do 4 miejsca po przecinku) dla danych niezakłóconych. \\
+Tabela 11 przedstawia wyniki uzyskane dla podanych powyżej parametrów (liczby zaokrąglono do 4 miejsca po przecinku) dla danych niezakłóconych. \\
 
-Tabela: Zestawienie wyników dla danych dokładnych (niezakłóconych) \\
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
-\hline
-& \textbf{Błąd} &
- \textbf{p} &
- \textbf{q} &
- \textbf{s}\\ \hline
-& 6,9416 * $10^{-4}$ & -0,0012 & 1,0015 & 0,9996 \\ \hline 
-& 9,4350 * $10^{-4}$  & 0,0028  & 0,9971  & 1,0006 \\ \hline 
-& 6,1092 * $10^{-4}$  & -0,0013 & 1,0015 & 0,9996 \\ \hline 
-& 5,3948 * $10^{-4}$  & -0,0001 & 1,0005 & 0,9998 \\ \hline 
-& 8,7191 * $10^{-4}$  & -0,0026 & 1,0026  & 0,9995 \\ \hline 
-\end{tabularx} \\
 %f = 0.77081279536 t^2 + 0.30699515969 t + 1.12485497268
 %f = -0.24177239639 t^2 + 1.19268820119 t + 0.98276740318
 %f = 0.12636545557 t^2 + 0.89758728094 t + 1.01513765916
 %f = -0.00048605428 t^2 + 1.00065381003 t + 0.9998353925
 
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestawienie wyników dla danych dokładnych (niezakłóconych)}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|>{\rownum}c|c|c|c|c|} 
+                  \hline
+& \textbf{Błąd} &\textbf{p} & \textbf{q} & \textbf{s}\\ \hline
+& 6,9416 * $10^{-4}$ & -0,0012 & 1,0015 & 0,9996 \\ \hline 
+& 9,4350 * $10^{-4}$  & 0,0028  & 0,9971  & 1,0006 \\ \hline 
+& 6,1092 * $10^{-4}$  & -0,0013 & 1,0015 & 0,9996 \\ \hline 
+& 5,3948 * $10^{-4}$  & -0,0001 & 1,0005 & 0,9998 \\ \hline 
+& 8,7191 * $10^{-4}$  & -0,0026 & 1,0026  & 0,9995 \\ \hline 
+\end{tabular}
+\end{table}
+
 gdzie Nr w tabeli oznacza numer próby odtwarzanego zadania odwrotnego (wykonano je 5 razy). \\
 
 
-Różnicę pomiędzy funkcją dokładną, a opisującą odtworzony warunek brzegowy została przedstawiona na rysunku (żółty kolor oznacza funkcję dokładną, niebieska odtworzoną).
+Różnica pomiędzy funkcją dokładną, a opisującą odtworzony warunek brzegowy została przedstawiona na rysunku 5 (żółty kolor oznacza funkcję dokładną, niebieska odtworzoną).
 
 \begin{figure}[H]
 \begin{center}
@@ -988,22 +1016,22 @@ Przygotowano również wykres przedstawiający błąd względny uzyskanych rezul
 
 %Przeprowadzenie procesu odtwarzania funkcji granicznej dało następujące rezultaty (zaokrąglone do 4 miejsca po przecinku): \\
 
-W tabeli (XXX) zostały przedstawione wyniki uzyskane dla wybranych parametrów algorytmu (liczby zaokrąglono do 4 miejsca po przecinku) dla danych zakłóconych błędem 1\%. \\
+W tabeli 12 zostały przedstawione wyniki uzyskane dla wybranych parametrów algorytmu (liczby zaokrąglono do 4 miejsca po przecinku) dla danych zakłóconych błędem 1\%. \\
 
-
-Tabela: Zestawienie wyników dla danych zakłóconych błędem 1\% \\
-\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
-\hline
-& \textbf{Błąd} &
- \textbf{p} &
- \textbf{q} &
- \textbf{s}\\ \hline
-& 2,7209 * $10^{-2}$ & 0,1190 & 0,8952 & 1,0189 \\ \hline 
-& 2,3787 * $10^{-2}$ & 0,1152 & 0,9157 & 1,0140 \\ \hline 
-& 2,7362 * $10^{-2}$ & 0,1500 & 0,8860 & 1,0063 \\ \hline 
-& 2,3056 * $10^{-2}$ & 0,1173 & 0,8890 & 1,0178 \\ \hline 
-& 2,3617 * $10^{-2}$ & 0,1304 & 0,9021 & 1,0187 \\ \hline 
-\end{tabularx} \\
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestawienie wyników dla danych zakłóconych błędem 1\%}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|c|c|c|} 
+                  \hline
+\textbf{Nr.}& \textbf{Błąd} &\textbf{p} & \textbf{q} & \textbf{s}\\ \hline
+1& 2,7209 * $10^{-2}$ & 0,1190 & 0,8952 & 1,0189 \\ \hline 
+2& 2,3787 * $10^{-2}$ & 0,1152 & 0,9157 & 1,0140 \\ \hline 
+3& 2,7362 * $10^{-2}$ & 0,1500 & 0,8860 & 1,0063 \\ \hline 
+4& 2,3056 * $10^{-2}$ & 0,1173 & 0,8890 & 1,0178 \\ \hline 
+5& 2,3617 * $10^{-2}$ & 0,1304 & 0,9021 & 1,0187 \\ \hline 
+\end{tabular}
+\end{table}
 
 Porównanie funkcji dokładnej i odtwarzanej dla danych zakłóconych błędem 1\% została przedstawiona na rysunku 7. \\
 
@@ -1047,19 +1075,20 @@ Błąd względny tego odtworzenia ilustruje rysunek 8. \\
 
 Wyniki prób odtworzenia parametrów funkcji granicznej dla danych zakłóconych błędem 2\% zostały przedstawione poniżej: \\
 
-Tabela: Zestawienie wyników dla danych zakłóconych błędem 2\% \\
-\noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
-\hline
-& \textbf{Błąd} &
- \textbf{p} &
- \textbf{q} &
- \textbf{s}\\ \hline
-& 6,8528 * $10^{-2}$  & -0,3642 & 1,2993  & 0,9513 \\ \hline 
-& 6,5422 * $10^{-2}$  & -0,2570 & 1,1971  & 0,9992 \\ \hline 
-& 5,8742 * $10^{-2}$  & -0,2352 & 1,1853  & 0,9895 \\ \hline 
-& 6,0410 * $10^{-2}$  & -0,1531 & 1,1175  & 0,9937 \\ \hline 
-& 6,0850 * $10^{-2}$  & -0,1995 & 1,1643  & 0,9801 \\ \hline 
-\end{tabularx} \\
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestawienie wyników dla danych zakłóconych błędem 2\%}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|c|c|c|} 
+                  \hline
+\textbf{Nr.}& \textbf{Błąd} &\textbf{p} & \textbf{q} & \textbf{s}\\ \hline
+1& 6,8528 * $10^{-2}$  & -0,3642 & 1,2993  & 0,9513 \\ \hline 
+2& 6,5422 * $10^{-2}$  & -0,2570 & 1,1971  & 0,9992 \\ \hline 
+3& 5,8742 * $10^{-2}$  & -0,2352 & 1,1853  & 0,9895 \\ \hline 
+4& 6,0410 * $10^{-2}$  & -0,1531 & 1,1175  & 0,9937 \\ \hline 
+5& 6,0850 * $10^{-2}$  & -0,1995 & 1,1643  & 0,9801 \\ \hline 
+\end{tabular}
+\end{table}
 
 Różnicę pomiędzy funkcjami dokładną i odtworzoną przedstawia poniższy wykres: \\
 
@@ -1101,21 +1130,22 @@ Rysunek 10 prezentuje błąd względny odtworzenia funkcji granicznej z danymi z
 
 %Wykorzystanie algorytmu dało następujące rezultaty (przy zaokrągleniu liczb do 4 miejsca po przecinku): \\
 
-Otrzymane rezultaty parametrów odtworzonej funkcji $h(t)$, przy danych pomiarowych zakłóconych błędem 5\%, zostały przedstawione w tabeli (XXX). \\\
+Otrzymane rezultaty parametrów odtworzonej funkcji $h(t)$, przy danych pomiarowych zakłóconych błędem 5\%, zostały przedstawione w tabeli 14. \\\
 
-Tabela: Zestawienie wyników dla danych zakłóconych błędem 5\% \\
-\noindent \begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|X|} 
-\hline
-& \textbf{Błąd} &
- \textbf{p} &
- \textbf{q} &
- \textbf{s}\\ \hline
-& 0,2031 & 0,8678 & 0,2034 & 1,1597 \\ \hline 
-& 0,2049 & 0,6563 & 0,4295 & 1,0985 \\ \hline 
-& 0,2030 & 0,7652 & 0,3167 & 1,1265 \\ \hline 
-& 0,2060 & 0,8133 & 0,2428 & 1,1277 \\ \hline 
-& 0,2041 & 0,7516 & 0,3426 & 1,1119 \\ \hline 
-\end{tabularx}\\
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Zestawienie wyników dla danych zakłóconych błędem 5\%}
+\renewcommand\arraystretch{1.333}
+\begin{tabular}{|c|c|c|c|c|} 
+                  \hline
+\textbf{Nr.}& \textbf{Błąd} &\textbf{p} & \textbf{q} & \textbf{s}\\ \hline
+1& 0,2031 & 0,8678 & 0,2034 & 1,1597 \\ \hline 
+2& 0,2049 & 0,6563 & 0,4295 & 1,0985 \\ \hline 
+3& 0,2030 & 0,7652 & 0,3167 & 1,1265 \\ \hline 
+4& 0,2060 & 0,8133 & 0,2428 & 1,1277 \\ \hline 
+5& 0,2041 & 0,7516 & 0,3426 & 1,1119 \\ \hline 
+\end{tabular}
+\end{table}
 
 Rysunek 11 przedstawia porównanie funkcji dokładnej oraz odtworzonej z danymi zakłóconymi błędem 5\%.
 
