@@ -39,13 +39,12 @@
             this.EndingTemperatureInputTextBox = new System.Windows.Forms.NumericUpDown();
             this.CoolingInputTextBox = new System.Windows.Forms.NumericUpDown();
             this.IterationsInputTextBox = new System.Windows.Forms.NumericUpDown();
-            this.SatisfactionSolutionValueInputTextBox = new System.Windows.Forms.NumericUpDown();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.SatisfactionSolutionValueInputTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.BeginingTemperatureInputTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EndingTemperatureInputTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CoolingInputTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IterationsInputTextBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SatisfactionSolutionValueInputTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,7 +62,7 @@
             // 
             this.beginingTemperatureLabel.AutoSize = true;
             this.beginingTemperatureLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.beginingTemperatureLabel.Location = new System.Drawing.Point(25, 53);
+            this.beginingTemperatureLabel.Location = new System.Drawing.Point(22, 39);
             this.beginingTemperatureLabel.Name = "beginingTemperatureLabel";
             this.beginingTemperatureLabel.Size = new System.Drawing.Size(166, 20);
             this.beginingTemperatureLabel.TabIndex = 1;
@@ -73,7 +72,7 @@
             // 
             this.endingTemperatureLabel.AutoSize = true;
             this.endingTemperatureLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.endingTemperatureLabel.Location = new System.Drawing.Point(25, 88);
+            this.endingTemperatureLabel.Location = new System.Drawing.Point(22, 74);
             this.endingTemperatureLabel.Name = "endingTemperatureLabel";
             this.endingTemperatureLabel.Size = new System.Drawing.Size(154, 20);
             this.endingTemperatureLabel.TabIndex = 2;
@@ -83,7 +82,7 @@
             // 
             this.coolingLabel.AutoSize = true;
             this.coolingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.coolingLabel.Location = new System.Drawing.Point(25, 123);
+            this.coolingLabel.Location = new System.Drawing.Point(22, 109);
             this.coolingLabel.Name = "coolingLabel";
             this.coolingLabel.Size = new System.Drawing.Size(62, 20);
             this.coolingLabel.TabIndex = 3;
@@ -93,7 +92,7 @@
             // 
             this.iterationsLabel.AutoSize = true;
             this.iterationsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.iterationsLabel.Location = new System.Drawing.Point(25, 158);
+            this.iterationsLabel.Location = new System.Drawing.Point(22, 144);
             this.iterationsLabel.Name = "iterationsLabel";
             this.iterationsLabel.Size = new System.Drawing.Size(76, 20);
             this.iterationsLabel.TabIndex = 4;
@@ -103,7 +102,7 @@
             // 
             this.satisfactionSolutionValueLabel.AutoSize = true;
             this.satisfactionSolutionValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.satisfactionSolutionValueLabel.Location = new System.Drawing.Point(25, 193);
+            this.satisfactionSolutionValueLabel.Location = new System.Drawing.Point(22, 179);
             this.satisfactionSolutionValueLabel.Name = "satisfactionSolutionValueLabel";
             this.satisfactionSolutionValueLabel.Size = new System.Drawing.Size(200, 20);
             this.satisfactionSolutionValueLabel.TabIndex = 5;
@@ -113,7 +112,7 @@
             // 
             this.BeginingTemperatureInputTextBox.DecimalPlaces = 5;
             this.BeginingTemperatureInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BeginingTemperatureInputTextBox.Location = new System.Drawing.Point(251, 47);
+            this.BeginingTemperatureInputTextBox.Location = new System.Drawing.Point(248, 33);
             this.BeginingTemperatureInputTextBox.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -132,7 +131,7 @@
             0,
             0,
             327680});
-            this.BeginingTemperatureInputTextBox.ValueChanged += new System.EventHandler(this.BeginingTemperatureInputTextBox_ValueChanged);
+            this.BeginingTemperatureInputTextBox.ValueChanged += new System.EventHandler(this.TemperatureInputTextBox_ValueChanged);
             // 
             // EndingTemperatureInputTextBox
             // 
@@ -143,7 +142,7 @@
             0,
             0,
             196608});
-            this.EndingTemperatureInputTextBox.Location = new System.Drawing.Point(251, 83);
+            this.EndingTemperatureInputTextBox.Location = new System.Drawing.Point(248, 69);
             this.EndingTemperatureInputTextBox.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -162,7 +161,7 @@
             0,
             0,
             327680});
-            this.EndingTemperatureInputTextBox.ValueChanged += new System.EventHandler(this.EndingTemperatureInputTextBox_ValueChanged);
+            this.EndingTemperatureInputTextBox.ValueChanged += new System.EventHandler(this.TemperatureInputTextBox_ValueChanged);
             // 
             // CoolingInputTextBox
             // 
@@ -173,7 +172,7 @@
             0,
             0,
             131072});
-            this.CoolingInputTextBox.Location = new System.Drawing.Point(251, 119);
+            this.CoolingInputTextBox.Location = new System.Drawing.Point(248, 105);
             this.CoolingInputTextBox.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -192,12 +191,11 @@
             0,
             0,
             327680});
-            this.CoolingInputTextBox.ValueChanged += new System.EventHandler(this.CoolingInputTextBox_ValueChanged);
             // 
             // IterationsInputTextBox
             // 
             this.IterationsInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.IterationsInputTextBox.Location = new System.Drawing.Point(251, 155);
+            this.IterationsInputTextBox.Location = new System.Drawing.Point(248, 141);
             this.IterationsInputTextBox.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -216,31 +214,21 @@
             0,
             0,
             0});
-            this.IterationsInputTextBox.ValueChanged += new System.EventHandler(this.IterationsInputTextBox_ValueChanged);
-            // 
-            // SatisfactionSolutionValueInputTextBox
-            // 
-            this.SatisfactionSolutionValueInputTextBox.DecimalPlaces = 5;
-            this.SatisfactionSolutionValueInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SatisfactionSolutionValueInputTextBox.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.SatisfactionSolutionValueInputTextBox.Location = new System.Drawing.Point(251, 191);
-            this.SatisfactionSolutionValueInputTextBox.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.SatisfactionSolutionValueInputTextBox.Name = "SatisfactionSolutionValueInputTextBox";
-            this.SatisfactionSolutionValueInputTextBox.Size = new System.Drawing.Size(132, 26);
-            this.SatisfactionSolutionValueInputTextBox.TabIndex = 10;
-            this.SatisfactionSolutionValueInputTextBox.ValueChanged += new System.EventHandler(this.SatisfactionSolutionValueInputTextBox_ValueChanged);
             // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            // 
+            // SatisfactionSolutionValueInputTextBox
+            // 
+            this.SatisfactionSolutionValueInputTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.SatisfactionSolutionValueInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.SatisfactionSolutionValueInputTextBox.Location = new System.Drawing.Point(248, 176);
+            this.SatisfactionSolutionValueInputTextBox.Name = "SatisfactionSolutionValueInputTextBox";
+            this.SatisfactionSolutionValueInputTextBox.Size = new System.Drawing.Size(132, 26);
+            this.SatisfactionSolutionValueInputTextBox.TabIndex = 11;
+            this.SatisfactionSolutionValueInputTextBox.TextChanged += new System.EventHandler(this.SatisfactionSolutionValueInputTextBox_TextChanged);
+            this.SatisfactionSolutionValueInputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SatisfactionSolutionValueInputTextBox_KeyPress);
             // 
             // SAAlgorithmParameters
             // 
@@ -257,12 +245,11 @@
             this.Controls.Add(this.beginingTemperatureLabel);
             this.Controls.Add(this.parametersLabel);
             this.Name = "SAAlgorithmParameters";
-            this.Size = new System.Drawing.Size(415, 236);
+            this.Size = new System.Drawing.Size(387, 215);
             ((System.ComponentModel.ISupportInitialize)(this.BeginingTemperatureInputTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EndingTemperatureInputTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CoolingInputTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IterationsInputTextBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SatisfactionSolutionValueInputTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -281,7 +268,7 @@
         private System.Windows.Forms.NumericUpDown EndingTemperatureInputTextBox;
         private System.Windows.Forms.NumericUpDown CoolingInputTextBox;
         private System.Windows.Forms.NumericUpDown IterationsInputTextBox;
-        private System.Windows.Forms.NumericUpDown SatisfactionSolutionValueInputTextBox;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.TextBox SatisfactionSolutionValueInputTextBox;
     }
 }

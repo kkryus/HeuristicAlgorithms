@@ -1,86 +1,143 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HeuristicAlgorithms.Utilities;
+using HeuristicAlgorithms.Models.CustomControlUtilitiesClasses;
+using System.Text.RegularExpressions;
 
 namespace HeuristicAlgorithms.Views
 {
     public partial class SAAlgorithmParameters : UserControl
     {
-        #region Fields
-        private double beginingTemperatureValue;
-        private double endingTemperatureValue;
-        private double coolingValue;
-        private int iterationsValue;
-        private double satisfactionSolutionValue;
+        #region Properties
+        #region Parameters
+        public double BeginingTemperatureValue
+        {
+            get
+            {
+                return (double)BeginingTemperatureInputTextBox.Value;
+            }
+            set
+            {
+                BeginingTemperatureInputTextBox.Value = (decimal)value;
+            }
+        }
+        public double EndingTemperatureValue
+        {
+            get
+            {
+                return (double)EndingTemperatureInputTextBox.Value;
+            }
+            set
+            {
+                EndingTemperatureInputTextBox.Value = (decimal)value;
+            }
+        }
+        public double CoolingValue
+        {
+            get
+            {
+                return (double)CoolingInputTextBox.Value;
+            }
+            set
+            {
+                CoolingInputTextBox.Value = (decimal)value;
+            }
+        }
+        public int IterationsValue
+        {
+            get
+            {
+                return (int)IterationsInputTextBox.Value;
+            }
+            set
+            {
+                IterationsInputTextBox.Value = value;
+            }
+        }
+        public string SatisfactionSolutionValue
+        {
+            get
+            {
+                return SatisfactionSolutionValueInputTextBox.Text;
+            }
+            set
+            {
+                SatisfactionSolutionValueInputTextBox.Text = value;
+            }
+        }
         #endregion
 
         public ViewErrorController ErrorController { get; set; }
+        #endregion
 
         public SAAlgorithmParameters()
         {
             InitializeComponent();
             ErrorController = new ViewErrorController(errorProvider);
-            ReadAllInputs();
         }
+
+        public bool SetParameters(SASolverParametersModel parameters)
+        {
+            BeginingTemperatureValue = parameters.BeginingTemperature;
+            EndingTemperatureValue = parameters.EndingTemperature;
+            IterationsValue = parameters.Iterations;
+            CoolingValue = parameters.Cooling;
+            return true;
+        }
+
+        public SASolverParametersModel GetParameters()
+        {
+            if(Double.TryParse(SatisfactionSolutionValue, out double satisfactionSolution))
+            {
+                return new SASolverParametersModel(BeginingTemperatureValue, EndingTemperatureValue, IterationsValue, CoolingValue, satisfactionSolution);
+            }
+            return new SASolverParametersModel(BeginingTemperatureValue, EndingTemperatureValue, IterationsValue, CoolingValue);
+        }
+
 
         #region Events
 
-        private void BeginingTemperatureInputTextBox_ValueChanged(object sender, EventArgs e)
+        private void TemperatureInputTextBox_ValueChanged(object sender, EventArgs e)
         {
-            double value = (double)(sender as NumericUpDown).Value;
-            beginingTemperatureValue = value;
-            ValidateTemperature();
+            ValidateTemperatures();
         }
 
-        private void EndingTemperatureInputTextBox_ValueChanged(object sender, EventArgs e)
+        private void SatisfactionSolutionValueInputTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            double value = (double)(sender as NumericUpDown).Value;
-            endingTemperatureValue = value;
-            ValidateTemperature();
+            Regex regex = new Regex(@"^[0-9]+$");
+            if (!(regex.Match("" + e.KeyChar).Success) && (e.KeyChar != ',') && (e.KeyChar != '-') && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if (e.KeyChar == ',' && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one minus
+            if (e.KeyChar == '-' && ((sender as TextBox).Text.IndexOf('-') > -1))
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == '-' && SatisfactionSolutionValueInputTextBox.SelectionStart != 0)
+            {
+                e.Handled = true;
+            }
         }
 
-        private void CoolingInputTextBox_ValueChanged(object sender, EventArgs e)
+        private void SatisfactionSolutionValueInputTextBox_TextChanged(object sender, EventArgs e)
         {
-            double value = (double)(sender as NumericUpDown).Value;
-            coolingValue = value;
-            ValidateCooling();
-        }
-
-        private void IterationsInputTextBox_ValueChanged(object sender, EventArgs e)
-        {
-            int value = (int)(sender as NumericUpDown).Value;
-            iterationsValue = value;
-            ValidateIterations();
-        }
-
-        private void SatisfactionSolutionValueInputTextBox_ValueChanged(object sender, EventArgs e)
-        {
-            double value = (double)(sender as NumericUpDown).Value;
-            satisfactionSolutionValue = value;
             ValidateSatisfactionSolutionValue();
         }
+
+
         #endregion
 
 
         #region Private Methods
-        /// <summary>
-        /// Writes all input values to private fields
-        /// </summary>
-        private void ReadAllInputs()
-        {
-            beginingTemperatureValue = (double)BeginingTemperatureInputTextBox.Value;
-            endingTemperatureValue = (double)EndingTemperatureInputTextBox.Value;
-            coolingValue = (double)CoolingInputTextBox.Value;
-            iterationsValue = (int)IterationsInputTextBox.Value;
-            satisfactionSolutionValue = (double)SatisfactionSolutionValueInputTextBox.Value;
-        }
 
         /// <summary>
         /// Sets or clears errors depending on parameter to temperature text boxes
@@ -105,66 +162,41 @@ namespace HeuristicAlgorithms.Views
         /// <summary>
         /// Validates begining and ending temperatures.
         /// </summary>
-        private void ValidateTemperature()
+        private void ValidateTemperatures()
         {
-            SetTemperaturesError(endingTemperatureValue >= beginingTemperatureValue);
-            if (beginingTemperatureValue <= 0)
-            {
-                ErrorController.SetError(BeginingTemperatureInputTextBox, Resources.TooLowTemperature);
-            }
-            if (endingTemperatureValue <= 0)
-            {
-                ErrorController.SetError(EndingTemperatureInputTextBox, Resources.TooLowTemperature);
-            }          
+            SetTemperaturesError(EndingTemperatureValue > BeginingTemperatureValue);
         }
 
-        /// <summary>
-        /// Validates cooling factor.
-        /// </summary>
-        private void ValidateCooling()
-        {
-            if (coolingValue <= 0)
-            {
-                ErrorController.SetError(CoolingInputTextBox, Resources.TooLowCooling);
-            }
-            else if (coolingValue >= 1)
-            {
-                ErrorController.SetError(CoolingInputTextBox, Resources.TooHighCooling);
-            }
-        }
-
-        /// <summary>
-        /// Validates iterations.
-        /// </summary>
-        private void ValidateIterations()
-        {
-            if (iterationsValue <= 0)
-            {
-                ErrorController.SetError(IterationsInputTextBox, Resources.TooFewIterations);
-            }
-            else if (iterationsValue >= 1000000)
-            {
-                ErrorController.SetError(IterationsInputTextBox, Resources.TooMuchIterations);
-            }
-        }
-        
         /// <summary>
         /// Validates satisfaction solution value
         /// </summary>
         private void ValidateSatisfactionSolutionValue()
         {
-            if (satisfactionSolutionValue < 0)
+            try
             {
-                ErrorController.SetError(SatisfactionSolutionValueInputTextBox, Resources.BeginingLowerThanEndingTemperature);
+                Double.TryParse(SatisfactionSolutionValue, out double value);
+                if (value > 10000000000000)
+                {
+                    ErrorController.SetError(SatisfactionSolutionValueInputTextBox, Resources.TooHighSatisfactionSolutionValue);
+                }
+                else if (value < -10000000000000)
+                {
+                    ErrorController.SetError(SatisfactionSolutionValueInputTextBox, Resources.TooLowSatisfactionSolutionValue);
+                }
+                else
+                {
+                    ErrorController.ClearError(SatisfactionSolutionValueInputTextBox);
+                }
             }
-            else if (satisfactionSolutionValue > 10000)
+            catch (Exception ex)
             {
-                ErrorController.SetError(SatisfactionSolutionValueInputTextBox, Resources.BeginingLowerThanEndingTemperature);
+                MessageBox.Show("Failed to parse satisfaction solution value", "Information");
             }
         }
 
         #endregion
-        
+
         #endregion
+
     }
 }

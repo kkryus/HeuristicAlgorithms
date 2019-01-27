@@ -1,6 +1,6 @@
 ﻿namespace HeuristicAlgorithms.Views.CustomControls
 {
-    partial class RegularProblemControl
+    partial class ProblemControl
     {
         /// <summary> 
         /// Required designer variable.

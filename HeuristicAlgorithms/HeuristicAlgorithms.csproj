@@ -45,6 +45,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\IAlgorithm.cs" />
@@ -52,14 +53,21 @@
     <Compile Include="Functions\InverseHeatConductionProblemFunction.cs" />
     <Compile Include="Functions\DirectProblem.cs" />
     <Compile Include="Functions\RosenbrockFunction.cs" />
-    <Compile Include="Models\CustomControlUtilitiesClasses\RegularProblemHandler.cs" />
+    <Compile Include="Models\CustomControlUtilitiesClasses\ProblemHandler.cs" />
+    <Compile Include="Models\CustomControlUtilitiesClasses\SASolverParametersModel.cs" />
     <Compile Include="Utilities\ViewErrorController.cs" />
-    <Compile Include="Models\CustomControlUtilitiesClasses\RegularProblem.cs" />
-    <Compile Include="Views\CustomControls\RegularProblemControl.cs">
+    <Compile Include="Models\CustomControlUtilitiesClasses\Problem.cs" />
+    <Compile Include="Views\CustomControls\ProcessHandler.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\CustomControls\RegularProblemControl.Designer.cs">
-      <DependentUpon>RegularProblemControl.cs</DependentUpon>
+    <Compile Include="Views\CustomControls\ProcessHandler.Designer.cs">
+      <DependentUpon>ProcessHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProblemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomControls\ProblemControl.Designer.cs">
+      <DependentUpon>ProblemControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.cs">
       <SubType>Form</SubType>
@@ -68,7 +76,6 @@
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AnnealingTestingModel.cs" />
-    <Compile Include="Models\FireflyModel.cs" />
     <Compile Include="Functions\CircleFunction.cs" />
     <Compile Include="Functions\TestingFunction.cs" />
     <Compile Include="Functions\RastriginFunction.cs" />
@@ -100,8 +107,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\CustomControls\RegularProblemControl.resx">
-      <DependentUpon>RegularProblemControl.cs</DependentUpon>
+    <EmbeddedResource Include="Views\CustomControls\ProcessHandler.resx">
+      <DependentUpon>ProcessHandler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CustomControls\ProblemControl.resx">
+      <DependentUpon>ProblemControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>

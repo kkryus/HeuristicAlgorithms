@@ -70,7 +70,6 @@ namespace HeuristicAlgorithms.Functions
         public int ResultSize { get; set; }
 
         public double p, q, s;
-        public int iterator;
 
         private int everyXMeasurement = 48;
 
@@ -94,34 +93,6 @@ namespace HeuristicAlgorithms.Functions
             }
             return sum;
         }
-
-
-        /* public override double Solve(params double[] values)
-        {
-            this.p = values[0];
-            this.q = values[1];
-            this.s = values[2];
-            
-            double sum = 0;
-            double[] measurements = GetDirectProblemTemperatureMeasurements(everyXMeasurement);
-            InverseProblem.h = GetSecondThing2;
-            double[] tmpMeasurements = GetProblemTemperatureMeasurements(this.InverseProblem, everyXMeasurement);
-            for (int i = 0; i < measurements.Length; i++)
-            {
-                this.iterator = i;
-                double firstPart = DirectProblem.T * measurements[i] * (i*DirectProblem.tau);
-               
-                //double secondPart = GetSecondThing(i, values) * measurements[i] * InverseProblem.tau;
-                double secondPart = GetSecondThing(values[0], values[1], values[2], i) * measurements[i] * (i*DirectProblem.tau);
-                double together = firstPart - secondPart;
-                sum += Math.Pow(together, 2);
-            }
-            if(sum < 0.001)
-            {
-                ;
-            }
-            return sum;
-        }*/
 
         private double GetSecondThing2(double t)
         {

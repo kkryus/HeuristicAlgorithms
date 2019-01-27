@@ -5,28 +5,35 @@ using HeuristicAlgorithms.Utilities;
 
 namespace HeuristicAlgorithms.Views.CustomControls
 {
-    public partial class RegularProblemControl : UserControl
+    public partial class ProblemControl : UserControl
     {
-        public RegularProblem SelectedProblem { get; private set; }
+        public event Action<Problem> ProblemChanged;
+        public Problem SelectedProblem { get; private set; }
         public int Dimensions { get; private set; }
 
         public ViewErrorController ErrorController { get; set; }
 
-        public RegularProblemControl()
+        public ProblemControl()
         {
             InitializeComponent();
 
-            ProblemDropDownList.DataSource = RegularProblemHandler.Instance.RegularProblems;
-            ProblemDropDownList.ValueMember = "Problem";
+            ProblemDropDownList.DataSource = ProblemHandler.Instance.Problems;
+            ProblemDropDownList.ValueMember = "ProblemName";
             ErrorController = new ViewErrorController(errorProvider);
+        }
+
+        public Problem GetProblem()
+        {
+            return new Problem(SelectedProblem.ProblemName, false, Dimensions, null);
         }
 
         private void ProblemDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedProblem = (sender as ComboBox).SelectedItem as RegularProblem;
+            SelectedProblem = (sender as ComboBox).SelectedItem as Problem;
             DimensionsLabel.Enabled = SelectedProblem.HasDimensions;
             DimensionsInputTextBox.Enabled = SelectedProblem.HasDimensions;
             DimensionsInputTextBox.Value = SelectedProblem.DefaultDimensions;
+            ProblemChanged?.Invoke(SelectedProblem);
         }
 
         private void DimensionsInputTextBox_ValueChanged(object sender, EventArgs e)
@@ -41,6 +48,7 @@ namespace HeuristicAlgorithms.Views.CustomControls
                 ErrorController.SetError(DimensionsInputTextBox, Resources.TooManyDimensions);
             }
             Dimensions = dimensions;
+            ProblemChanged?.Invoke(ProblemHandler.Instance.GetSuggestedProblemWithParameters(SelectedProblem.ProblemName, Dimensions));
         }
     }
 }

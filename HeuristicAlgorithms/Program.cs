@@ -15,6 +15,7 @@ namespace HeuristicAlgorithms
     {
         static void Main(string[] args)
         {
+            Application.Run(new MainView());
             /*SimulatedAnnealingAlgorithm simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), 5);
             //var cooling = simulatedAnnealing.GetCoolingArray();
             var temp = simulatedAnnealing.GetBeginingTemperatureArray();
@@ -31,37 +32,37 @@ namespace HeuristicAlgorithms
 
 
             //lists = lists.OrderBy(x => x).ToList();//*/
-           /* ;
-            // }
+            /* ;
+             // }
 
-            //for (int i = 0; i < temp.Length; i++)
-            //for (int i = 0; i < 2; i++)
-            //{
-                for (int j = 0; j < iterations.Length; j++)
-                //for (int j = 0; j < 2; j++)
-                {
-                    lista.Add(simulatedAnnealing.Solve2(0.1, 0.01, iterations[j], 0.99));
-                }
-            //}
-            lista = lista.OrderByDescending(x => x.iterations).ToList();
-            string fileName = "f7Table.txt";
+             //for (int i = 0; i < temp.Length; i++)
+             //for (int i = 0; i < 2; i++)
+             //{
+                 for (int j = 0; j < iterations.Length; j++)
+                 //for (int j = 0; j < 2; j++)
+                 {
+                     lista.Add(simulatedAnnealing.Solve2(0.1, 0.01, iterations[j], 0.99));
+                 }
+             //}
+             lista = lista.OrderByDescending(x => x.iterations).ToList();
+             string fileName = "f7Table.txt";
 
-            File.AppendAllText(@"d:\" + fileName, @"\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
-              \hline
-              & \textbf{ T0}
-              & \textbf{ Iteracje}
-              &\textbf{ Rozwiązanie}\\ \hline");
-            for (int i = 0; i < lista.Count; i++)
-            {
-                File.AppendAllText(@"d:\" + fileName,
-                    String.Format("& {0} & {1} & {2} \\\\ \\hline ", lista[i].beginingTemperature, lista[i].iterations, lista[i].bestSolution) + Environment.NewLine);
-            }
+             File.AppendAllText(@"d:\" + fileName, @"\begin{tabularx}{\textwidth}{ | >{\rownum}c|X|X|X|} 
+               \hline
+               & \textbf{ T0}
+               & \textbf{ Iteracje}
+               &\textbf{ Rozwiązanie}\\ \hline");
+             for (int i = 0; i < lista.Count; i++)
+             {
+                 File.AppendAllText(@"d:\" + fileName,
+                     String.Format("& {0} & {1} & {2} \\\\ \\hline ", lista[i].beginingTemperature, lista[i].iterations, lista[i].bestSolution) + Environment.NewLine);
+             }
 
-            File.AppendAllText(@"d:\" + fileName, @"\end{tabularx}");//*/
-               ;//*/
+             File.AppendAllText(@"d:\" + fileName, @"\end{tabularx}");//*/
+            ;//*/
 
 
-            SimulatedAnnealingAlgorithm simulatedAnnealing;
+            /*SimulatedAnnealingAlgorithm simulatedAnnealing;
             simulatedAnnealing = new SimulatedAnnealingAlgorithm(new CircleFunction(), CircleFunction.AmountOfArguments, 0.5, 0.01, 1, 0.99, 0.01);
             //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RastriginFunction(), RastriginFunction.AmountOfArguments, 4, 0.01, 600, 0.99, 0.01);
             //simulatedAnnealing = new SimulatedAnnealingAlgorithm(new RosenbrockFunction(), RosenbrockFunction.AmountOfArguments, 6, 0.01, 500, 0.99, 0.01);
@@ -71,7 +72,7 @@ namespace HeuristicAlgorithms
             simulatedAnnealing = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction0, 3, 20, 0.01, 35000, 0.99, 0.001);//*/
             //SimulatedAnnealingAlgorithm simulatedAnnealinga0 = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction0, 3, 20, 0.001, 35000, 0.99, 0.001);
            // simulatedAnnealing.Solve();
-            List<double> lists = new List<double>();
+            /*List<double> lists = new List<double>();
 
             for (int i = 0; i < 100; i++)
             {

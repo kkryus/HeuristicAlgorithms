@@ -124,11 +124,29 @@ namespace HeuristicAlgorithms.Utilities {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Satisfaction solution Value must be less than 10000000000000..
+        /// </summary>
+        internal static string TooHighSatisfactionSolutionValue {
+            get {
+                return ResourceManager.GetString("TooHighSatisfactionSolutionValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cooling must be higher than zero..
         /// </summary>
         internal static string TooLowCooling {
             get {
                 return ResourceManager.GetString("TooLowCooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Satisfaction solution Value must be higher than -10000000000000..
+        /// </summary>
+        internal static string TooLowSatisfactionSolutionValue {
+            get {
+                return ResourceManager.GetString("TooLowSatisfactionSolutionValue", resourceCulture);
             }
         }
         
