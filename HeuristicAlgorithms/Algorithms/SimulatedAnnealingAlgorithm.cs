@@ -7,7 +7,7 @@ using HeuristicAlgorithms.Functions;
 using HeuristicAlgorithms.Utilities;
 using System.IO;
 using HeuristicAlgorithms.Models;
-using HeuristicAlgorithms.Functions;
+using HeuristicAlgorithms.Models.CustomControlUtilitiesClasses;
 
 namespace HeuristicAlgorithms
 {
@@ -33,6 +33,19 @@ namespace HeuristicAlgorithms
             Iterations = iterations;
             Cooling = cooling;
             SatisfactionSolutionValue = satisfactionSolutionValue;
+        }
+
+        public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments, SASolverParametersModel parameters)
+        {
+            Function = function;
+            AmountOfArguments = amountOfArguments;
+            Arguments = new double[amountOfArguments];
+            Arguments2 = new double[amountOfArguments];
+            BeginingTemperature = parameters.BeginingTemperature;
+            EndingTemperature = parameters.EndingTemperature;
+            Iterations = parameters.Iterations;
+            Cooling = parameters.Cooling;
+            SatisfactionSolutionValue = parameters.SatisfactionSolution;
         }
         #endregion
 
@@ -201,6 +214,16 @@ namespace HeuristicAlgorithms
             //return bestSolution;
         }
 
+        public string GetCurrentProblemGUISolution()
+        {
+            string result = "";
+            for(int i = 0; i < AmountOfArguments; i++)
+            {
+                result += "x" + i + "= " + Arguments[i] + Environment.NewLine;
+            }
+            return result;
+        }
+
         #endregion
 
         #region Private Methods
@@ -227,7 +250,8 @@ namespace HeuristicAlgorithms
             double leftPercent = leftTemperatureCoolingTimes / maxCounter;
 
             double domainValue = (Function.RightBound - Function.LeftBound);
-            double value = (0.8 * domainValue) * (leftPercent);
+            double partOfTheDomain = 0.8;
+            double value = (partOfTheDomain * domainValue) * (leftPercent);
             for (int i = 0; i < AmountOfArguments; i++)
             {
                 double newValue = Arguments[i] + RandomGenerator.Instance.GetRandomDoubleInDomain(-value, value);
@@ -292,13 +316,6 @@ namespace HeuristicAlgorithms
 
         #endregion
 
-
-        // 3 scenariusze:
-        //1. niska temp(100-500, co 100 -> 5), niska ilosc iteracji(100-500, -> 5) -> slaby wynik -> 5*5 = 25
-        //2. wieksza ilosc temp (1k-10k, co 2k -> 5), wieksza ilosc iteracji (1k-10k, co 2k) -> 5*5 = 25, wieksza temp nie daje az takich efektow, dlatego iteracje mocno zwiekszam
-        //3. najlepsiejsza temp zostaje, iteracje 10k - 100k
-
-
         #region Utilities Methods
         //500-5000?
         //drop = 500?
@@ -356,8 +373,8 @@ namespace HeuristicAlgorithms
         //7
         public int[] GetIterationsArray()
         {
-            int arraySize = 5;
-            int beginingValue = 50000;
+            int arraySize = 10;
+            int beginingValue = 10000;
             int riseValue = 10000;
             int[] iterationsArray = new int[arraySize];
             for (int i = 0; i < arraySize; i++)

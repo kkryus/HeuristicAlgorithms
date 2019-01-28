@@ -23,19 +23,18 @@ namespace HeuristicAlgorithms.Functions
             this.tau = T / nt;
         }
 
-        public Func<double, double> f { get; set; }//warunki/ f wys w w brzegowych
+        public Func<double, double> f { get; set; }
         public Func<double, double> g { get; set; }
         public Func<double, double> h { get; set; }
         public double a { get; set; }
 
-        public double T { get; set; }//czas koncowy
+        public double T { get; set; }
         public int nx { get; set; }
         public int nt { get; set; }
         public double c { get; set; }
         public double rho { get; set; }
         public double lambda { get; set; }
         public double tau { get; private set; }
-        //wsp?
         
 
         public double[][] Solve()
