@@ -18,10 +18,6 @@ namespace HeuristicAlgorithms.Functions
 
         public override double Solve(params double[] values)
 		{
-			//if (!ValidateDomain(values))
-			//{
-			//	throw new ValueOutOfDomainException(Resources.ValueOutOfDomainMessage);
-			//}
 			return (values[0] * values[0]) + (values[1] * values[1]);
 		}
 

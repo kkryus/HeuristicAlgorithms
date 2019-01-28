@@ -58,7 +58,7 @@
             this.SaAlgorithmParameters.Location = new System.Drawing.Point(12, 12);
             this.SaAlgorithmParameters.Name = "SaAlgorithmParameters";
             this.SaAlgorithmParameters.SatisfactionSolutionValue = "";
-            this.SaAlgorithmParameters.Size = new System.Drawing.Size(383, 210);
+            this.SaAlgorithmParameters.Size = new System.Drawing.Size(403, 210);
             this.SaAlgorithmParameters.TabIndex = 0;
             // 
             // MainView
@@ -67,7 +67,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(411, 583);
+            this.ClientSize = new System.Drawing.Size(416, 583);
             this.Controls.Add(this.ProcessHandler);
             this.Controls.Add(this.ProblemControl);
             this.Controls.Add(this.SaAlgorithmParameters);

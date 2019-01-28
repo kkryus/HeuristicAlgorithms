@@ -43,7 +43,7 @@ namespace HeuristicAlgorithms.Views.CustomControls
             {
                 ErrorController.SetError(DimensionsInputTextBox, Resources.TooFewDimensions);
             }
-            else if(dimensions >= 20)
+            else if(dimensions >= 299)
             {
                 ErrorController.SetError(DimensionsInputTextBox, Resources.TooManyDimensions);
             }

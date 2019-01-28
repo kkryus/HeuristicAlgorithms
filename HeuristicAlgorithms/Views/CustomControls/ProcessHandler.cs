@@ -14,7 +14,6 @@ namespace HeuristicAlgorithms.Views.CustomControls
         public event Action<bool> FireToggleButtons;
         public event Action<string> tmpEvent;
         private CancellationTokenSource cts;
-        public bool a = false;
         public ProcessHandler()
         {
             InitializeComponent();
@@ -42,8 +41,8 @@ namespace HeuristicAlgorithms.Views.CustomControls
                         break;
                     case "IHCP":
                         UtilitiesMethods utilitiesMethods = new UtilitiesMethods();
-                        DirectProblem faisnd = new DirectProblem(utilitiesMethods.f, utilitiesMethods.g, utilitiesMethods.h, 1, 1, 15, 480, 1, 1, 1);
-                        InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction = new InverseHeatConductionProblemFunction(faisnd, 0);
+                        DirectProblem directProblem = new DirectProblem(utilitiesMethods.f, utilitiesMethods.g, utilitiesMethods.h, 1, 1, 15, 480, 1, 1, 1);
+                        InverseHeatConductionProblemFunction inverseHeatConductionProblemFunction = new InverseHeatConductionProblemFunction(directProblem, 0);
                         simulatedAnnealing = new SimulatedAnnealingAlgorithm(inverseHeatConductionProblemFunction, 3, problemToSolve.Parameters);
                         break;
                     default:
@@ -78,7 +77,6 @@ namespace HeuristicAlgorithms.Views.CustomControls
                    catch (Exception exc)
                    {
                        MessageBox.Show(exc.Message, "Information");
-                       //this.ResultTextBox.Text = "kuniec";
                    }
                    double solutionValue = 0;
                    if (simulatedAnnealing != null)
@@ -96,7 +94,7 @@ namespace HeuristicAlgorithms.Views.CustomControls
             }
             catch (Exception ex)
             {
-                //this.ResultTextBox.Text = "kuniec";
+                MessageBox.Show(ex.Message, "Information");
             }
         }
 
