@@ -9,7 +9,7 @@ namespace HeuristicAlgorithms.Functions
 {
     class InverseHeatConductionProblemFunction : TestingFunction
     {
-        public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent)
+        /*public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent)
         {
             DirectProblem = directProblem;
             Temperature = DirectProblem.Solve();
@@ -20,7 +20,6 @@ namespace HeuristicAlgorithms.Functions
             {
                 Utilities.UtilitiesMethods.WorsenTemperature(percent, ref tmp);
             }
-           // File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt", 
 
             for (int i = 0; i < Measurements.Length; i++)
             {
@@ -28,28 +27,27 @@ namespace HeuristicAlgorithms.Functions
                     String.Format("{0}", Measurements[i] + Environment.NewLine));
             }
 
-            //File.AppendAllText(@"d:\firstTable.txt", @"\end{tabularx}");
-
             InverseProblem = new DirectProblem(directProblem.f, directProblem.g, GetSecondThing2, directProblem.a, directProblem.T, directProblem.nx, directProblem.nt, directProblem.c, directProblem.rho, directProblem.lambda);
-        }
+        }*/
 
-        public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent, double[] temperatures)
+        /*public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent, double[] temperatures)
         {
             DirectProblem = directProblem;
             Temperature = DirectProblem.Solve();
             Measurements = temperatures;
             Percent = percent;
             GetDirectProblemTemperatureMeasurements(everyXMeasurement);
-            // File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt", 
 
-            /*for (int i = 0; i < Measurements.Length; i++)
-            {
-                File.AppendAllText(@"d:\temperaturesPercent" + percent + ".txt",
-                    String.Format("{0}", Measurements[i] + Environment.NewLine));
-            }*/
+            InverseProblem = new DirectProblem(directProblem.f, directProblem.g, GetSecondThing2, directProblem.a, directProblem.T, directProblem.nx, directProblem.nt, directProblem.c, directProblem.rho, directProblem.lambda);
+        }*/
 
-            //File.AppendAllText(@"d:\firstTable.txt", @"\end{tabularx}");
-
+        public InverseHeatConductionProblemFunction(DirectProblem directProblem, int percent)
+        {
+            DirectProblem = directProblem;
+            Temperature = DirectProblem.Solve();
+            Measurements = GetDirectProblemTemperatureMeasurements(everyXMeasurement);
+            Percent = percent;
+            GetDirectProblemTemperatureMeasurements(everyXMeasurement);
             InverseProblem = new DirectProblem(directProblem.f, directProblem.g, GetSecondThing2, directProblem.a, directProblem.T, directProblem.nx, directProblem.nt, directProblem.c, directProblem.rho, directProblem.lambda);
         }
 
@@ -100,7 +98,6 @@ namespace HeuristicAlgorithms.Functions
 
         private double GetSecondThing(int iterator, params double[] values)
         {
-            //p,q,s
             if (values.Length < 3)
             {
                 throw new Exception();

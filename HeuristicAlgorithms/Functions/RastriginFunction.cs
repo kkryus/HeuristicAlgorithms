@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HeuristicAlgorithms.Utilities;
 
 namespace HeuristicAlgorithms.Functions
 {
@@ -16,11 +11,6 @@ namespace HeuristicAlgorithms.Functions
         public static new int AmountOfArguments => 3;
 
         public override double Solution => 0;
-
-        /*public RastriginFunction(int dimensions)
-        {
-            AmountOfArguments = dimensions;
-        }*/
 
 		public override double Solve(params double[] values)
 		{

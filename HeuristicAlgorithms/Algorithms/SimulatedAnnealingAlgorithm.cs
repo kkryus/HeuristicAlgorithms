@@ -58,7 +58,6 @@ namespace HeuristicAlgorithms
 
         #region Properties
         #region Parameters
-        //https://pdfs.semanticscholar.org/b145/faf936fbb2c1c6f8530a20dbe3c8538aedbf.pdf
         /// <summary>
         /// Algorithm will start with that degree of iterations
         /// </summary>
@@ -144,9 +143,6 @@ namespace HeuristicAlgorithms
                         CopyValues();
                         if (SatisfactionSolutionValue != null && bestSolution < SatisfactionSolutionValue)
                         {
-                           // File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
-                            //   String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
-                           //     ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
                             return bestSolution;
                         }
                     }
@@ -154,64 +150,7 @@ namespace HeuristicAlgorithms
                 temperature *= Cooling;
                 counter++;
             }
-           // File.AppendAllText(@"d:\resultPercent" + ((InverseHeatConductionProblemFunction)Function).Percent + ".txt",
-           //                     String.Format("Error: {0} | P: {1} | Q: {2} | S: {3}", bestSolution, ((InverseHeatConductionProblemFunction)Function).p,
-            //                    ((InverseHeatConductionProblemFunction)Function).q, ((InverseHeatConductionProblemFunction)Function).s + Environment.NewLine));
             return bestSolution;
-        }
-
-        /// <summary>
-        /// Method searches global minimum using Simulated Annealing algorithm, used for testing
-        /// </summary>
-        /// <param name="beginingTemperature">Algorithm will start with that degree of iterations</param>
-        /// <param name="endingTemperature">Iterations ending condition</param>
-        /// <param name="iterations">Every temperature algorithm will work this times</param>
-        /// <param name="cooling">Temperature will be multiplied by this factor, should be less than 1</param>
-        /// <returns></returns>
-        public AnnealingTestingModel Solve2(double beginingTemperature, double endingTemperature, int iterations, double cooling)
-        {
-            double best2Solution = 0;
-            int repetitions = 10;
-            //double tmp2Solution = 0;
-            for (int k = 0; k < repetitions; k++)
-            {
-                SetTmpMaxCounter(beginingTemperature, endingTemperature, cooling);
-                int counter = 0;
-
-                DrawArguments();
-                double bestSolution = Function.Solve(Arguments);
-                double tmpSolution = Function.Solve(Arguments);
-
-                double temperature = beginingTemperature;
-                while (temperature > endingTemperature)
-                {
-                    for (int i = 0; i < iterations; i++)
-                    {
-                        Move(counter);
-                        tmpSolution = Function.Solve(Arguments2);
-
-                        if (tmpSolution < bestSolution || ShouldChangeAnyway(bestSolution - tmpSolution, temperature))
-                        {
-                            bestSolution = tmpSolution;
-                            CopyValues();
-                        }
-                    }
-                    temperature *= cooling;
-                    counter++;
-                }
-                best2Solution += bestSolution;
-            }
-            return new AnnealingTestingModel()
-            {
-                beginingTemperature = beginingTemperature,
-                endingTemperature = endingTemperature,
-                iterations = iterations,
-                cooling = cooling,
-                bestSolution = best2Solution / repetitions,// / repetitions,
-                //tmpBestSolution = bestSolution,// / repetitions,
-                //tmpSolution = tmpSolution,// / repetitions
-            };
-            //return bestSolution;
         }
 
         public string GetCurrentProblemGUISolution()
@@ -303,24 +242,11 @@ namespace HeuristicAlgorithms
                 maxCounter++;
             }
         }
-        private void SetTmpMaxCounter(double beginingTemperature, double endingTemperature, double cooling)
-        {
-            maxCounter = 0;
-            double tmpTemperature = beginingTemperature;
-            while (tmpTemperature > endingTemperature)
-            {
-                tmpTemperature *= cooling;
-                maxCounter++;
-            }
-        }
 
         #endregion
 
         #region Utilities Methods
-        //500-5000?
-        //drop = 500?
-        // ->20?
-        //1k - 4k -> 4
+
         public double[] GetBeginingTemperatureArray()
         {
             int arraySize = 5;
@@ -334,9 +260,7 @@ namespace HeuristicAlgorithms
             }
             return beginingTemperatureArray;
         }
-        //0.1 - 0.001 min
-        // 0.01?
-        // - > 11x?
+
         public double[] GetEndingTemperatureArray()
         {
             int arraySize = 11;
@@ -350,9 +274,7 @@ namespace HeuristicAlgorithms
             }
             return endingTemperatureArray;
         }
-        //0.91 - 0.99
-        //every 2nd
-        // -> 10
+
         public double[] GetCoolingArray()
         {
             int arraySize = 5;
@@ -366,11 +288,7 @@ namespace HeuristicAlgorithms
             }
             return coolingArray;
         }
-        //1000 - 10000
-        //every 250?
-        // -> 15?
-        //1k - 60k
-        //7
+
         public int[] GetIterationsArray()
         {
             int arraySize = 10;

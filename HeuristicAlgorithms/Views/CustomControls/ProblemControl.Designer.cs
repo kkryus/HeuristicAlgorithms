@@ -73,7 +73,7 @@
             this.DimensionsInputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DimensionsInputTextBox.Location = new System.Drawing.Point(309, 3);
             this.DimensionsInputTextBox.Maximum = new decimal(new int[] {
-            19,
+            300,
             0,
             0,
             0});
@@ -96,14 +96,14 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // RegularProblemControl
+            // ProblemControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.DimensionsInputTextBox);
             this.Controls.Add(this.DimensionsLabel);
             this.Controls.Add(this.ProblemDropDownList);
             this.Controls.Add(this.ProblemLabel);
-            this.Name = "RegularProblemControl";
+            this.Name = "ProblemControl";
             this.Size = new System.Drawing.Size(375, 37);
             ((System.ComponentModel.ISupportInitialize)(this.DimensionsInputTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
