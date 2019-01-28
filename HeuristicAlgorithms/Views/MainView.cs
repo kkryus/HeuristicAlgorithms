@@ -11,6 +11,7 @@ namespace HeuristicAlgorithms
             InitializeComponent();
             this.ProblemControl.ProblemChanged += this.ProblemReceiver;
             this.ProcessHandler.TaskGetter += GetProblemToSolve;
+
         }
    
         private void MainView_Resize(object sender, EventArgs e)

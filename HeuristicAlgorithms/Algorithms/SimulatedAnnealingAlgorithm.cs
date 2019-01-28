@@ -7,6 +7,7 @@ using HeuristicAlgorithms.Functions;
 using HeuristicAlgorithms.Utilities;
 using System.IO;
 using HeuristicAlgorithms.Models;
+using HeuristicAlgorithms.Models.CustomControlUtilitiesClasses;
 
 namespace HeuristicAlgorithms
 {
@@ -32,6 +33,19 @@ namespace HeuristicAlgorithms
             Iterations = iterations;
             Cooling = cooling;
             SatisfactionSolutionValue = satisfactionSolutionValue;
+        }
+
+        public SimulatedAnnealingAlgorithm(TestingFunction function, int amountOfArguments, SASolverParametersModel parameters)
+        {
+            Function = function;
+            AmountOfArguments = amountOfArguments;
+            Arguments = new double[amountOfArguments];
+            Arguments2 = new double[amountOfArguments];
+            BeginingTemperature = parameters.BeginingTemperature;
+            EndingTemperature = parameters.EndingTemperature;
+            Iterations = parameters.Iterations;
+            Cooling = parameters.Cooling;
+            SatisfactionSolutionValue = parameters.SatisfactionSolution;
         }
         #endregion
 
@@ -198,6 +212,16 @@ namespace HeuristicAlgorithms
                 //tmpSolution = tmpSolution,// / repetitions
             };
             //return bestSolution;
+        }
+
+        public string GetCurrentProblemGUISolution()
+        {
+            string result = "";
+            for(int i = 0; i < AmountOfArguments; i++)
+            {
+                result += "x" + i + "= " + Arguments[i] + Environment.NewLine;
+            }
+            return result;
         }
 
         #endregion

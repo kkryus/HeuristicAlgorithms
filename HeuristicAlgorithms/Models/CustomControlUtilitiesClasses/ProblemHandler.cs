@@ -59,7 +59,7 @@ namespace HeuristicAlgorithms.Models.CustomControlUtilitiesClasses
             ProblemParameters.Add("Quadratic", new Dictionary<int, SASolverParametersModel>() { { 2, quadratic } });
             ProblemParameters.Add("Rastrigin", new Dictionary<int, SASolverParametersModel>() { { 3, rastrigin3 }, { 5, rastrigin5 } });
             ProblemParameters.Add("Rosenbrock", new Dictionary<int, SASolverParametersModel>() { { 3, rosenbrock } });         
-            ProblemParameters.Add("IHCP", new Dictionary<int, SASolverParametersModel>() { { 2, ihcp } });
+            ProblemParameters.Add("IHCP", new Dictionary<int, SASolverParametersModel>() { { 3, ihcp } });
             #endregion
             #region GUI Problems Representation
             Problems = new List<Problem>
@@ -67,7 +67,7 @@ namespace HeuristicAlgorithms.Models.CustomControlUtilitiesClasses
                 new Problem("Quadratic", false, 2, quadratic),
                 new Problem("Rastrigin", true, 3, rastrigin3),
                 new Problem("Rosenbrock", true, 3, rosenbrock),               
-                new Problem("IHCP", false, 2, ihcp)
+                new Problem("IHCP", false, 3, ihcp)
             };
             #endregion
         }

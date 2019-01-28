@@ -14,6 +14,8 @@ namespace HeuristicAlgorithms.Functions
 
         public static new int AmountOfArguments => 3;// RandomGenerator.Instance.GetRandomIntInDomain(0, 10);
 
+        public override double Solution => 0;
+
         public override double Solve(params double[] values)
         {
             double result = 0;

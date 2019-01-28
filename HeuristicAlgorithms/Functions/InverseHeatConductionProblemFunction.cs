@@ -71,12 +71,11 @@ namespace HeuristicAlgorithms.Functions
 
         public double p, q, s;
 
-        private int everyXMeasurement = 48;
+        private readonly int everyXMeasurement = 48;
 
-        /// <summary>
-        /// p, q, s
-        /// </summary>
         public static new int AmountOfArguments => 3;
+
+        public override double Solution => 0;
 
         public override double Solve(params double[] values)
         {

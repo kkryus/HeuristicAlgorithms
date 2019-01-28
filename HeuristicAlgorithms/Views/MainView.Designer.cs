@@ -28,10 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SaAlgorithmParameters = new HeuristicAlgorithms.Views.SAAlgorithmParameters();
-            this.ProblemControl = new HeuristicAlgorithms.Views.CustomControls.ProblemControl();
             this.ProcessHandler = new HeuristicAlgorithms.Views.CustomControls.ProcessHandler();
+            this.ProblemControl = new HeuristicAlgorithms.Views.CustomControls.ProblemControl();
+            this.SaAlgorithmParameters = new HeuristicAlgorithms.Views.SAAlgorithmParameters();
             this.SuspendLayout();
+            // 
+            // ProcessHandler
+            // 
+            this.ProcessHandler.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ProcessHandler.Location = new System.Drawing.Point(16, 275);
+            this.ProcessHandler.Margin = new System.Windows.Forms.Padding(7);
+            this.ProcessHandler.Name = "ProcessHandler";
+            this.ProcessHandler.Size = new System.Drawing.Size(379, 301);
+            this.ProcessHandler.TabIndex = 2;
+            // 
+            // ProblemControl
+            // 
+            this.ProblemControl.Location = new System.Drawing.Point(12, 228);
+            this.ProblemControl.Name = "ProblemControl";
+            this.ProblemControl.Size = new System.Drawing.Size(383, 37);
+            this.ProblemControl.TabIndex = 1;
             // 
             // SaAlgorithmParameters
             // 
@@ -44,22 +60,6 @@
             this.SaAlgorithmParameters.SatisfactionSolutionValue = "";
             this.SaAlgorithmParameters.Size = new System.Drawing.Size(383, 210);
             this.SaAlgorithmParameters.TabIndex = 0;
-            // 
-            // ProblemControl
-            // 
-            this.ProblemControl.Location = new System.Drawing.Point(12, 228);
-            this.ProblemControl.Name = "ProblemControl";
-            this.ProblemControl.Size = new System.Drawing.Size(383, 37);
-            this.ProblemControl.TabIndex = 1;
-            // 
-            // ProcessHandler
-            // 
-            this.ProcessHandler.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ProcessHandler.Location = new System.Drawing.Point(16, 275);
-            this.ProcessHandler.Margin = new System.Windows.Forms.Padding(7);
-            this.ProcessHandler.Name = "ProcessHandler";
-            this.ProcessHandler.Size = new System.Drawing.Size(379, 301);
-            this.ProcessHandler.TabIndex = 2;
             // 
             // MainView
             // 
@@ -76,7 +76,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(250, 140);
             this.Name = "MainView";
-            this.Text = "MainView";
+            this.Text = "Simulated Annealing Program";
             this.Resize += new System.EventHandler(this.MainView_Resize);
             this.ResumeLayout(false);
 

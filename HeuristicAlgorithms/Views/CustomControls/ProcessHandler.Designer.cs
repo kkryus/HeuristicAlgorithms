@@ -53,6 +53,7 @@
             // 
             this.StopButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.StopButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.StopButton.Enabled = false;
             this.StopButton.FlatAppearance.BorderColor = System.Drawing.Color.Green;
             this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StopButton.Font = new System.Drawing.Font("Calibri Light", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -67,8 +68,11 @@
             // 
             // ResultTextBox
             // 
+            this.ResultTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ResultTextBox.Location = new System.Drawing.Point(3, 72);
             this.ResultTextBox.Name = "ResultTextBox";
+            this.ResultTextBox.ReadOnly = true;
+            this.ResultTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.ResultTextBox.Size = new System.Drawing.Size(373, 213);
             this.ResultTextBox.TabIndex = 3;
             this.ResultTextBox.Text = "";
